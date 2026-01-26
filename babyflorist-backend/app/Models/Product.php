@@ -9,19 +9,22 @@ class Product extends Model
     protected $fillable = [
         'sku',
         'name',
+        'thumbnail',
         'slug',
         'description',
         'category_id',
         'price',
         'sale_price',
+        'discount_percent',
         'stock',
         'label',
-        'status',
+        'is_active',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'sale_price' => 'decimal:2',
+        'is_active' => 'boolean',
     ];
 
     public function category()

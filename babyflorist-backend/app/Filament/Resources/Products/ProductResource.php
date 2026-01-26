@@ -23,6 +23,8 @@ class ProductResource extends Resource
     protected static string | \UnitEnum | null $navigationGroup = 'Shop';
 
     protected static ?int $navigationGroupSort = 1;
+    
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationLabel = 'Sản phẩm';
 

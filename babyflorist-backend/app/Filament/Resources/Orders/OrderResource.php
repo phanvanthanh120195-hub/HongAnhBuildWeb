@@ -24,6 +24,8 @@ class OrderResource extends Resource
 
     protected static ?int $navigationGroupSort = 1;
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationLabel = 'Đơn hàng';
 
     protected static ?string $modelLabel = 'Đơn hàng';

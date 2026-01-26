@@ -15,4 +15,12 @@ class CreateProduct extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function getCancelFormAction(): \Filament\Actions\Action
+    {
+        return \Filament\Actions\Action::make('cancel')
+            ->label('Hủy bỏ')
+            ->url($this->getResource()::getUrl('index'))
+            ->color('gray');
+    }
 }

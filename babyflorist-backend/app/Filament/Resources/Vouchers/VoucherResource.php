@@ -24,6 +24,8 @@ class VoucherResource extends Resource
 
     protected static ?int $navigationGroupSort = 1;
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationLabel = 'Mã giảm giá';
 
     protected static ?string $modelLabel = 'Mã giảm giá';
@@ -32,7 +34,7 @@ class VoucherResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return VoucherForm::configure($schema);
+        return VoucherForm::configure($schema)->columns(1);
     }
 
     public static function table(Table $table): Table

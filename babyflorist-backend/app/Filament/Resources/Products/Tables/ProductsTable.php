@@ -45,6 +45,11 @@ class ProductsTable
                     ->numeric(decimalPlaces: 0)
                     ->suffix(' ₫')
                     ->sortable(),
+                TextColumn::make('discount_percent')
+                    ->label('Giảm giá (%)')
+                    ->numeric(decimalPlaces: 0)
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('stock')
                     ->label('Tồn kho')
                     ->numeric()
@@ -58,20 +63,8 @@ class ProductsTable
                         'new' => 'success',
                         default => 'gray',
                     }),
-                ToggleColumn::make('status')
-                    ->label('Trạng thái')
-                     ->afterStateUpdated(function ($record, $state) {
-                        // Ensure state is saved as 'active'/'inactive'
-                        // ToggleColumn passes boolean state here
-                        $record->update(['status' => $state ? 'active' : 'inactive']);
-                    })
-                    ->updateStateUsing(function ($record, $state) {
-                        // This handles the immediate update action
-                        $newState = $state ? 'active' : 'inactive';
-                        $record->update(['status' => $newState]);
-                        return $newState;
-                    })
-                    ->getStateUsing(fn ($record) => $record->status === 'active'),
+                 ToggleColumn::make('is_active')
+                    ->label('Hiển thị'),
                 TextColumn::make('created_at')
                     ->label('Ngày tạo')
                     ->dateTime('d/m/Y H:i')

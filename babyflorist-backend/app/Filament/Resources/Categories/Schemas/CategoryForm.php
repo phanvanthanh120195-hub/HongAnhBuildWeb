@@ -33,6 +33,7 @@ class CategoryForm
                                     TextInput::make('name')
                                         ->label('Tên danh mục')
                                         ->required()
+                                        ->unique(ignoreRecord: true)
                                         ->live(onBlur: true)
                                         ->afterStateUpdated(
                                             fn (string $operation, $state, \Filament\Schemas\Components\Utilities\Set $set) =>

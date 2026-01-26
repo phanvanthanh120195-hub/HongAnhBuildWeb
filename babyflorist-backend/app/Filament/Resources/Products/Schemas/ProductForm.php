@@ -33,6 +33,7 @@ class ProductForm
                                     TextInput::make('name')
                                         ->label('Tên sản phẩm')
                                         ->required()
+                                        ->unique(ignoreRecord: true)
                                         ->live(onBlur: true)
                                         ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                                             // Auto-generate Slug
@@ -54,8 +55,7 @@ class ProductForm
                                     TextInput::make('slug')
                                         ->label('Đường dẫn (Slug)')
                                         ->disabled()
-                                        ->dehydrated()
-                                        ->unique(ignoreRecord: true),
+                                        ->dehydrated(),
 
                                     Grid::make(2)->schema([
                                         Select::make('category_id')
@@ -105,15 +105,12 @@ class ProductForm
                         ->schema([
                             Section::make('Trạng thái')
                                 ->schema([
-                                    Toggle::make('status')
-                                        ->label('Trạng thái')
-                                        ->afterStateHydrated(function (Toggle $component, $state) {
-                                            $component->state($state === 'active');
-                                        })
-                                        ->dehydrateStateUsing(fn ($state) => $state ? 'active' : 'inactive')
-                                        ->default('active')
-                                        ->inline(false)
-                                        ->helperText('Bật để hiển thị sản phẩm'),
+                                    Toggle::make('is_active')
+                                    ->label('Hiển thị')
+                                    ->helperText('Danh mục này sẽ hiển thị trên website')
+                                    ->default(true)
+                                    ->inline(false)
+                                    ->helperText('Bật để hiển thị sản phẩm'),
                                 ]),
 
                             Section::make('Giá & Kho')
@@ -147,7 +144,6 @@ class ProductForm
                                         ->numeric()
                                         ->minValue(0)
                                         ->maxValue(100)
-                                        ->dehydrated(false)
                                         ->formatStateUsing(function (Get $get) {
                                             $price = $get('price');
                                             $salePrice = $get('sale_price');
