@@ -14,44 +14,72 @@ class CoursesTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Tên khóa học')
+                    ->searchable()
+                    ->wrap(),
                 TextColumn::make('slug')
-                    ->searchable(),
+                    ->label('Đường dẫn (Slug)')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                \Filament\Tables\Columns\ImageColumn::make('thumbnail')
+                    ->label('Hình ảnh')
+                    ->disk('public')
+                    ->defaultImageUrl(url('/images/placeholder.png')),
                 TextColumn::make('price')
-                    ->money()
+                    ->label('Giá gốc')
+                    ->numeric(decimalPlaces: 0)
+                    ->suffix(' ₫')
                     ->sortable(),
                 TextColumn::make('sale_price')
-                    ->money()
-                    ->sortable(),
-                TextColumn::make('thumbnail')
-                    ->searchable(),
+                    ->label('Giá khuyến mãi')
+                    ->numeric(decimalPlaces: 0)
+                    ->suffix(' ₫')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('discount_percent')
+                    ->label('Giảm giá (%)')
+                    ->numeric(decimalPlaces: 0)
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('instructor')
-                    ->searchable(),
+                    ->label('Giảng viên')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('lesson_count')
+                    ->label('Số bài học')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('student_count')
+                    ->label('Số học viên')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('status')
-                    ->badge(),
+                \Filament\Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Trạng thái'),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Ngày tạo')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Ngày cập nhật')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
-            ->recordActions([
-                EditAction::make(),
+            ->actions([
+                EditAction::make()
+                    ->iconButton(),
+                \Filament\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

@@ -4,20 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class BlogCategory extends Model
 {
     protected $fillable = [
         'name',
         'slug',
-        'type',
         'description',
-        'price',
-        'sale_price',
-        'discount_percent',
-        'thumbnail',
-        'instructor',
-        'lesson_count',
-        'student_count',
         'is_active',
     ];
 

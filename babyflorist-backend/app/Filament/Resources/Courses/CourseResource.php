@@ -32,7 +32,7 @@ class CourseResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return CourseForm::configure($schema);
+        return CourseForm::configure($schema)->columns(1);
     }
 
     public static function table(Table $table): Table

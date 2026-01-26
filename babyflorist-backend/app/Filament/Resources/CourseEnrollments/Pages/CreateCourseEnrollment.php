@@ -8,4 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCourseEnrollment extends CreateRecord
 {
     protected static string $resource = CourseEnrollmentResource::class;
+
+    protected static bool $canCreateAnother = false;
 }

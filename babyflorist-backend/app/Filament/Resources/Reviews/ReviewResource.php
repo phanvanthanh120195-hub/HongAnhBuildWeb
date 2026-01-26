@@ -22,7 +22,7 @@ class ReviewResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'Content';
 
-    protected static ?int $navigationGroupSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationLabel = 'Đánh giá';
 

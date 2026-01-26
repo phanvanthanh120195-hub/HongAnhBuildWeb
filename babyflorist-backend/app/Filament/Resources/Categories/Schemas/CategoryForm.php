@@ -50,8 +50,6 @@ class CategoryForm
                                         ->label('Đường dẫn (Slug)')
                                         ->disabled()
                                         ->dehydrated()
-                                        ->required()
-                                        ->unique(ignoreRecord: true)
                                         ->columnSpan([
                                             'default' => 12,
                                             'lg' => 6,

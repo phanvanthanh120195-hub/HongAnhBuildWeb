@@ -8,4 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateQrCode extends CreateRecord
 {
     protected static string $resource = QrCodeResource::class;
+
+    protected static bool $canCreateAnother = false;
 }

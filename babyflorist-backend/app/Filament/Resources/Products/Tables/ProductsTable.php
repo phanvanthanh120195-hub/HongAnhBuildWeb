@@ -63,7 +63,7 @@ class ProductsTable
                         'new' => 'success',
                         default => 'gray',
                     }),
-                 ToggleColumn::make('is_active')
+                ToggleColumn::make('is_active')
                     ->label('Hiển thị'),
                 TextColumn::make('created_at')
                     ->label('Ngày tạo')

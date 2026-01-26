@@ -22,7 +22,7 @@ class BlogPostResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'Content';
 
-    protected static ?int $navigationGroupSort = 3;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationLabel = 'Bài viết';
 
