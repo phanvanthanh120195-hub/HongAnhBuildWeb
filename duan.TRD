@@ -1,0 +1,664 @@
+# Technical Requirements Document (TRD)
+## babyflorist Flowers E-commerce & Learning Platform
+
+**Version:** 1.0  
+**Date:** January 26, 2026  
+**Project Duration:** 2 weeks (Phase 1 - MVP)
+
+---
+
+## 1. Executive Summary
+
+babyflorist Flowers là nền tảng kết hợp thương mại điện tử bán hoa và cổng thông tin giáo dục về thiết kế hoa. Mục tiêu chính là phục vụ học viên muốn học thiết kế hoa, đồng thời cung cấp sản phẩm hoa và phụ kiện liên quan.
+
+**Thị trường mục tiêu:** Việt Nam  
+**Đối tượng khách hàng:** Mọi đối tượng quan tâm đến thiết kế hoa và mua sản phẩm hoa
+
+---
+
+## 2. Technology Stack
+
+### 2.1 Frontend
+- **Framework:** Vue.js
+- **Languages:** Vietnamese (VN) + English (EN)
+- **Design:** Có sẵn giao diện frontend (chưa có backend)
+- **Responsive:** Desktop, Tablet, Mobile
+
+### 2.2 Backend
+- **Framework:** PHP (Laravel)
+- **Database:** MySQL
+- **Server:** Đã có hosting/server sẵn
+
+### 2.3 Third-party Integration (Phase 1)
+- **Payment:** VietQR (tạo QR code tự động, xác nhận thủ công)
+- **Authentication:** Email + Password, Phone Number, Google Login, Facebook Login
+- **Not Required in Phase 1:**
+  - Tích hợp thanh toán tự động
+  - Tích hợp vận chuyển (GHN, GHTK, etc.)
+  - Email Marketing
+  - Google Analytics / Facebook Pixel
+
+---
+
+## 3. Phase 1 (MVP) - Functional Requirements
+
+### 3.1 Homepage
+
+#### 3.1.1 Header
+- **Global Navigation:**
+  - Trang chủ (Home)
+  - Sản phẩm (Products)
+  - Khóa học (Courses)
+  - Blog
+  - Về chúng tôi (About Us)
+- **Top Bar:** Hiển thị số điện thoại và email liên hệ
+- **User Actions:**
+  - Thanh tìm kiếm
+  - Đăng nhập/Đăng ký (Login/Register)
+  - Biểu tượng giỏ hàng với số lượng sản phẩm
+  - Chuyển đổi ngôn ngữ (VN/EN)
+
+#### 3.1.2 Hero Section
+- Slider/Carousel với hình ảnh chất lượng cao
+- Call-to-Action buttons (Shop Now, Explore Courses)
+
+#### 3.1.3 About Section
+- Giới thiệu ngắn gọn về babyflorist Flowers
+- Thông tin về người sáng lập/đội ngũ
+
+#### 3.1.4 Course Listing Section
+- Hiển thị danh sách khóa học nổi bật
+- Thông tin mỗi khóa học:
+  - Tên khóa học
+  - Giá (giá gốc và giá giảm nếu có)
+  - Số bài học
+  - Hình ảnh đại diện
+- Link đến trang danh sách khóa học đầy đủ
+
+#### 3.1.5 Product Grid Section
+- Hiển thị sản phẩm hoa nổi bật
+- Mỗi sản phẩm bao gồm:
+  - Hình ảnh
+  - Tên sản phẩm
+  - Giá
+  - Label (Sale/Hot/New) - Admin tự set
+  - Nút thêm vào giỏ hàng nhanh
+- Hover effects
+
+#### 3.1.6 Promotion Section
+- Banner khuyến mãi lớn
+- Countdown timer (Admin có thể set thời gian)
+- Format: Days, Hours, Minutes, Seconds
+
+#### 3.1.7 Blog Section
+- Hiển thị 3-6 bài blog mới nhất
+- Thông tin mỗi bài:
+  - Tiêu đề
+  - Ngày đăng
+  - Category
+  - Hình ảnh thumbnail
+
+#### 3.1.8 Footer
+- **Information Links:** About Us, News & Stories, Shop
+- **Customer Service:** 
+  - Contact Us
+  - Login/Register
+  - FAQs
+- **Newsletter Subscription:** Form đăng ký email
+- **Social Media Links**
+
+---
+
+### 3.2 Product Management (Sản Phẩm)
+
+#### 3.2.1 Product Listing Page
+- Grid/List view của tất cả sản phẩm
+- Pagination/Infinite scroll
+- **Tìm kiếm và Lọc:**
+  - Tìm theo tên sản phẩm
+  - Lọc theo danh mục
+  - Lọc theo khoảng giá
+  - Sắp xếp: Giá cao→thấp, Giá thấp→cao, Mới nhất, Bán chạy nhất
+
+#### 3.2.2 Product Detail Page
+- **Hình ảnh:**
+  - 1 ảnh chính
+  - Nhiều ảnh phụ (gallery)
+  - Không cần crop/resize tự động
+- **Thông tin sản phẩm:**
+  - Tên sản phẩm
+  - Giá
+  - SKU/Mã sản phẩm
+  - Mô tả chi tiết
+  - Số lượng tồn kho (nếu hết hàng hiển thị "Hết hàng")
+  - Label (Sale/Hot/New)
+- **Tùy chọn:**
+  - Chọn size (Nhỏ/Vừa/Lớn) nếu có
+  - Số lượng
+- **Actions:**
+  - Thêm vào giỏ hàng
+  - ~~Thêm vào danh sách yêu thích~~ (Phase 2)
+
+#### 3.2.3 Product Categories
+- Danh mục sản phẩm bao gồm:
+  - Hoa tươi
+  - Hoa khô
+  - Hoa vải
+  - Lọ/bình hoa
+  - Dụng cụ cắt tỉa
+  - Băng keo hoa
+  - Xốp cắm hoa
+  - Sách hướng dẫn
+  - Combo/Gói quà (hoa + chocolate, gấu bông, thiệp)
+- Admin tự thêm danh mục trong Backend
+
+#### 3.2.4 Inventory Management
+- Khi khách đặt hàng → Hệ thống tự động trừ tồn kho
+- Nếu số lượng = 0 → Hiển thị "Hết hàng" và không cho phép đặt hàng
+
+---
+
+### 3.3 Course Management (Khóa Học)
+
+#### 3.3.1 Course Listing Page (Phase 1)
+- Hiển thị danh sách tất cả khóa học
+- **Thông tin mỗi khóa học:**
+  - Tên khóa học
+  - Giá (giá gốc và giá giảm nếu có)
+  - Số bài học
+  - Số lượng người đã học (để lọc)
+  - Hình ảnh đại diện
+- **Tìm kiếm và Lọc:**
+  - Tìm theo tên khóa học
+  - Lọc theo khoảng giá
+  - Lọc theo số lượng người học (Nhiều người học nhất)
+  - Sắp xếp: Giá, Mới nhất
+
+#### 3.3.2 Course Detail Page (Phase 1)
+- **Thông tin khóa học:**
+  - Tên khóa học
+  - Giá
+  - Mô tả chi tiết
+  - Số bài học
+  - Nội dung khóa học (mô tả các module)
+  - Giảng viên/Người hướng dẫn
+- **Actions:**
+  - Nút "Đăng ký khóa học" (Thêm vào giỏ hàng)
+- **Reviews/Đánh giá:**
+  - Hiển thị danh sách review đã được duyệt
+  - Form review: Rating (1-5 sao) + Nội dung text
+  - Người dùng đăng nhập có thể review (không cần mua khóa học)
+  - Review cần admin duyệt mới hiển thị
+
+#### 3.3.3 Course Content (Phase 2 - NOT in Phase 1)
+- Upload video khóa học
+- Học viên mở khóa học và xem video
+- Tracking tiến độ học
+- Tài liệu PDF đính kèm
+
+#### 3.3.4 Course Data Entry
+- Admin tự nhập:
+  - Cấu trúc khóa học (số bài, tên bài)
+  - Nội dung khóa học
+  - Giá khóa học
+
+---
+
+### 3.4 Shopping Cart & Checkout
+
+#### 3.4.1 Shopping Cart
+- Hiển thị tất cả sản phẩm và khóa học trong giỏ hàng
+- **Thông tin mỗi item:**
+  - Hình ảnh
+  - Tên
+  - Giá
+  - Số lượng (cho sản phẩm, khóa học = 1)
+  - Size (nếu có)
+  - Tổng tiền từng item
+- **Actions:**
+  - Thay đổi số lượng
+  - Xóa khỏi giỏ hàng
+- **Voucher/Mã giảm giá:**
+  - Input nhập mã voucher
+  - Áp dụng riêng:
+    - Nếu mã voucher cho sản phẩm → Giảm giá cho tổng sản phẩm
+    - Nếu mã voucher cho khóa học → Giảm giá cho tổng khóa học
+- **Tổng tiền:** Hiển thị tổng cộng sau khi áp dụng voucher
+
+#### 3.4.2 Checkout Flow
+1. **Thông tin giao hàng:**
+   - Tên người nhận
+   - Số điện thoại
+   - Địa chỉ (chi tiết)
+   - Email (tự động nếu đã đăng nhập)
+   - **Không cần:** Chọn khung giờ giao hàng
+
+2. **Xác nhận đơn hàng:**
+   - Review lại thông tin sản phẩm/khóa học
+   - Review thông tin giao hàng
+   - Tổng tiền
+
+3. **Thanh toán (Phase 1):**
+   - Hệ thống tự động tạo **QR Code VietQR** với:
+     - Số tiền chính xác
+     - Nội dung chuyển khoản: `babyflorist_[Mã đơn hàng]_[Khóa học/Sản phẩm]`
+   - Hiển thị QR code để khách quét và thanh toán
+   - Khách hàng chuyển khoản
+   - **Admin xác nhận thanh toán thủ công** trong admin panel
+
+4. **Sau thanh toán:**
+   - Hiển thị trạng thái đơn hàng trên website
+   - Khách có thể xem lịch sử đơn hàng trong trang cá nhân
+
+#### 3.4.3 Payment Integration (Phase 2)
+- Tích hợp API Banking để xác nhận thanh toán tự động
+- Gửi email xác nhận tự động
+
+---
+
+### 3.5 User Authentication & Account
+
+#### 3.5.1 Registration/Login
+- **Phương thức đăng ký:**
+  - Email + Password
+  - Số điện thoại + Password
+  - Google Login
+  - Facebook Login
+- **Xác thực email/số điện thoại:** Email verification (optional, recommend Phase 2)
+
+#### 3.5.2 User Profile Page
+- **Thông tin cá nhân:**
+  - Tên
+  - Email
+  - Số điện thoại
+  - Địa chỉ
+  - Avatar
+- **Khóa học đã mua:**
+  - Danh sách khóa học đã thanh toán
+  - **Phase 1:** Chỉ hiển thị danh sách, chưa có nút "Học ngay"
+  - **Phase 2:** Link đến trang học với video
+- **Lịch sử đơn hàng:**
+  - Danh sách tất cả đơn hàng (sản phẩm + khóa học)
+  - Trạng thái đơn hàng
+  - Chi tiết đơn hàng
+- **~~Danh sách yêu thích:~~** Phase 2
+
+#### 3.5.3 User Roles
+- **Khách hàng (Customer):** Mua sản phẩm, đăng ký khóa học, comment, review
+- **Admin:** Quản lý toàn bộ hệ thống (xem section 3.6)
+- **Staff:** Upload sản phẩm, xem report (hạn chế quyền)
+
+---
+
+### 3.6 Admin Panel
+
+#### 3.6.1 Dashboard
+- **Thống kê tổng quan:**
+  - Doanh thu (theo ngày, tháng, năm)
+  - Số đơn hàng (theo trạng thái)
+  - Số khóa học đã bán
+  - Số học viên mới
+  - Sản phẩm bán chạy nhất
+  - Top khóa học phổ biến
+- **Biểu đồ:**
+  - Doanh thu theo thời gian (line chart)
+  - Tỷ lệ sản phẩm/khóa học (pie chart)
+- **Xuất báo cáo:** Excel/PDF
+
+#### 3.6.2 Product Management
+- **Danh sách sản phẩm:**
+  - Bảng hiển thị tất cả sản phẩm
+  - Tìm kiếm, lọc, sắp xếp
+  - Actions: Edit, Delete, Duplicate
+- **Thêm/Sửa sản phẩm:**
+  - Tên sản phẩm
+  - SKU/Mã sản phẩm
+  - Giá gốc
+  - Giá giảm (nếu có)
+  - Mô tả (Editor đơn giản)
+  - Danh mục
+  - Số lượng tồn kho
+  - **Upload ảnh:** 1 ảnh chính + nhiều ảnh phụ (không auto crop)
+  - **Label:** Chọn Sale/Hot/New (checkbox hoặc dropdown)
+  - **Size options:** Thêm các size nếu có
+  - Trạng thái: Active/Inactive
+
+#### 3.6.3 Course Management
+- **Danh sách khóa học:**
+  - Bảng hiển thị tất cả khóa học
+  - Tìm kiếm, lọc
+  - Actions: Edit, Delete
+- **Thêm/Sửa khóa học (Phase 1 - Chỉ thông tin):**
+  - Tên khóa học
+  - Giá gốc
+  - Giá giảm (nếu có)
+  - Mô tả (Editor đơn giản)
+  - Số bài học
+  - Nội dung khóa học (mô tả các module/bài học)
+  - Hình ảnh đại diện
+  - Giảng viên
+  - Trạng thái: Active/Inactive
+- **Phase 2 - Upload Video:**
+  - Upload video lên server
+  - Quản lý bài học (thêm/sửa/xóa)
+  - Upload tài liệu PDF (lưu trên server)
+  - Bảo mật video: Chống download, chống share link
+  - Theo dõi học viên đã đăng ký
+  - Tracking tiến độ học
+
+#### 3.6.4 Order Management
+- **Danh sách đơn hàng:**
+  - Tất cả đơn hàng (sản phẩm + khóa học)
+  - Filter theo trạng thái, ngày, loại (sản phẩm/khóa học)
+- **Chi tiết đơn hàng:**
+  - Mã đơn hàng
+  - Thông tin khách hàng
+  - Danh sách sản phẩm/khóa học
+  - Tổng tiền
+  - Voucher đã áp dụng
+  - Trạng thái thanh toán
+  - Thông tin giao hàng
+  - Lịch sử thay đổi trạng thái
+- **Quản lý trạng thái:**
+  - **Trạng thái đơn hàng:**
+    1. Chờ xác nhận (Pending)
+    2. Đã xác nhận thanh toán (Paid)
+    3. Đang chuẩn bị (Preparing)
+    4. Đang giao hàng (Shipping)
+    5. Hoàn thành (Completed)
+    6. Đã hủy (Cancelled)
+  - Admin có thể thay đổi trạng thái thủ công
+  - Admin có thể **xác nhận thanh toán** sau khi kiểm tra chuyển khoản
+  - Admin có quyền **từ chối/hủy đơn hàng**
+- **Customer cancellation:**
+  - Khách hàng có thể hủy đơn khi ở trạng thái "Chờ xác nhận" hoặc "Đã xác nhận thanh toán"
+
+#### 3.6.5 QR Code Management
+- **Danh sách mã QR:**
+  - Hiển thị tất cả mã QR đã thêm
+  - Actions: Edit, Delete
+- **Thêm/Sửa mã QR:**
+  - Tên/Mô tả (VD: "QR Techcombank", "QR Vietcombank")
+  - Số tài khoản
+  - Tên chủ tài khoản
+  - Ngân hàng
+  - Template nội dung chuyển khoản
+  - Trạng thái: Active/Inactive
+- **Tạo QR động khi checkout:**
+  - Chọn mã QR nào sẽ được dùng (nếu có nhiều)
+  - Tự động sinh QR với số tiền + nội dung
+
+#### 3.6.6 Voucher Management
+- **Danh sách voucher:**
+  - Bảng hiển thị tất cả mã giảm giá
+  - Filter: Active/Expired/Used
+- **Thêm/Sửa voucher:**
+  - Mã voucher (text, VD: "SUMMER2026")
+  - % giảm giá
+  - **Áp dụng cho:** 
+    - Sản phẩm
+    - Khóa học
+    - (Riêng biệt, không chung)
+  - Số lượng sử dụng (giới hạn)
+  - Thời gian có hiệu lực (từ ngày - đến ngày)
+  - **Không có:** Giá trị đơn hàng tối thiểu
+  - Trạng thái: Active/Inactive
+- **Tracking:** Số lần đã sử dụng
+
+#### 3.6.7 Blog Management
+- **Danh sách bài viết:**
+  - Bảng hiển thị tất cả blog posts
+  - Filter: Published/Draft
+- **Thêm/Sửa bài viết:**
+  - Tiêu đề
+  - Nội dung (Editor đơn giản - Rich text editor)
+  - Hình ảnh thumbnail
+  - Category/Tags
+  - Ngày xuất bản
+  - Trạng thái: Published/Draft
+- **Comment Management:**
+  - Danh sách tất cả comments (pending/approved)
+  - Admin duyệt/xóa/sửa comment
+  - Xem thông tin người comment:
+    - Nếu đăng nhập: Tên, Avatar, Email
+    - Nếu ẩn danh: "Ẩn danh", Avatar mặc định
+
+#### 3.6.8 Review Management (Khóa học)
+- **Danh sách reviews:**
+  - Tất cả review của các khóa học
+  - Filter: Pending/Approved/Rejected
+- **Duyệt/Từ chối review:**
+  - Xem nội dung review
+  - Rating (số sao)
+  - Người review (tên, email)
+  - Approve/Reject
+  - Xóa review
+
+#### 3.6.9 User Management
+- **Danh sách người dùng:**
+  - Tất cả tài khoản khách hàng
+  - Filter: Active/Inactive
+- **Xem thông tin người dùng:**
+  - Thông tin cá nhân
+  - Lịch sử đơn hàng
+  - Khóa học đã mua
+  - Hoạt động (comments, reviews)
+- **Actions:**
+  - Block/Unblock user
+  - Reset password (send email)
+
+#### 3.6.10 Admin User & Permissions
+- **Loại tài khoản:**
+  1. **Super Admin:** Full quyền (quản lý tất cả)
+  2. **Staff/Editor:** 
+     - Upload sản phẩm (thêm/sửa/xóa)
+     - Xem report/dashboard
+     - **Không được:**
+       - Quản lý đơn hàng
+       - Quản lý khóa học
+       - Quản lý voucher
+       - Quản lý QR code
+       - Quản lý admin users
+     - **Phase 2:** Có thể mở rộng thêm quyền
+
+#### 3.6.11 Settings
+- **General Settings:**
+  - Tên website
+  - Logo
+  - Favicon
+  - Thông tin liên hệ (Phone, Email, Address)
+  - Social media links
+- **Countdown Timer Settings:**
+  - Bật/Tắt countdown
+  - Set thời gian kết thúc (date & time)
+  - Tiêu đề khuyến mãi
+- **Language Settings:**
+  - Quản lý bản dịch UI (VN/EN)
+  - Import/Export translation files
+
+---
+
+### 3.7 Blog
+
+#### 3.7.1 Blog Listing Page
+- Danh sách tất cả bài viết (published)
+- Filter theo category
+- Search theo tiêu đề
+- Pagination
+
+#### 3.7.2 Blog Detail Page
+- Tiêu đề
+- Ngày đăng
+- Category/Tags
+- Nội dung đầy đủ
+- Hình ảnh
+- **Comment Section:**
+  - Hiển thị comments đã được duyệt
+  - Form comment:
+    - **Nếu đã đăng nhập:** Tự động điền tên, email, avatar
+    - **Nếu chưa đăng nhập:** Vẫn comment được, hiển thị "Ẩn danh", avatar mặc định
+  - Comment cần admin duyệt mới hiển thị
+  - Thông tin hiển thị: Tên/Ẩn danh, Avatar, Nội dung, Thời gian
+
+---
+
+### 3.8 Multi-language Support
+
+#### 3.8.1 Languages
+- **Supported:** Tiếng Việt (VN), English (EN)
+- **Language Switcher:** Header (đã có trong giao diện)
+
+#### 3.8.2 Translation Scope
+- **Phase 1:**
+  - Toàn bộ UI (buttons, labels, messages, navigation)
+  - Static content (footer, about section)
+- **Not translated in Phase 1:**
+  - Nội dung sản phẩm (tên, mô tả)
+  - Nội dung khóa học
+  - Nội dung blog
+- **Phase 2 (Optional):**
+  - Admin có thể nhập nội dung đa ngôn ngữ cho sản phẩm/khóa học/blog
+
+---
+
+### 3.9 Notifications (Phase 1)
+
+#### 3.9.1 User Notifications
+- **Hiển thị trên website:**
+  - Thông báo đơn hàng đã được tạo
+  - Thông báo thay đổi trạng thái đơn hàng
+  - Thông báo thanh toán thành công (sau khi admin xác nhận)
+- **Không có trong Phase 1:**
+  - Email notifications
+  - SMS notifications
+
+#### 3.9.2 Admin Notifications
+- **Phase 1:** Không có thông báo tự động
+- **Phase 2:** 
+  - Email khi có đơn hàng mới
+  - Email khi có học viên đăng ký khóa học
+  - Email khi có review/comment cần duyệt
+
+---
+
+## 4. Non-Functional Requirements
+
+### 4.1 Performance
+- Page load time: < 3 seconds
+- Database query optimization
+- Image lazy loading
+- Minify CSS/JS
+
+### 4.2 Security
+- **Authentication:**
+  - Bcrypt/Hash passwords
+  - JWT tokens cho session management
+  - OAuth 2.0 cho Google/Facebook login
+- **Authorization:**
+  - Role-based access control (RBAC)
+  - Middleware kiểm tra quyền admin/staff
+- **Video Protection (Phase 2):**
+  - Chống download video
+  - Chống share link video
+  - Watermark (optional)
+- **Payment Security:**
+  - HTTPS required
+  - Validate QR code generation
+  - Prevent SQL injection, XSS attacks
+
+### 4.3 SEO
+- **Phase 1:**
+  - Clean URLs (slug-based)
+  - Meta tags (title, description) cho tất cả pages
+  - Open Graph tags cho social sharing
+  - Sitemap.xml (optional)
+- **Phase 2:**
+  - Structured data (Schema.org)
+  - Rich snippets
+
+### 4.4 Scalability
+- Database indexing cho queries thường dùng
+- Caching (Redis/Memcached - Phase 2)
+- CDN cho static assets (Phase 2)
+
+### 4.5 Responsive Design
+- Mobile-first approach
+- Breakpoints: Mobile (< 768px), Tablet (768px-1024px), Desktop (> 1024px)
+- Đã có giao diện frontend sẵn
+
+---
+
+## 5. Data Models (Database Schema)
+
+### 5.1 Users Table
+```
+id, name, email, phone, password, avatar, address, role (customer/admin/staff), 
+oauth_provider (google/facebook/null), oauth_id, email_verified_at, 
+created_at, updated_at
+```
+
+### 5.2 Products Table
+```
+id, sku, name, slug, description, category_id, price, sale_price, stock, 
+label (sale/hot/new/null), status (active/inactive), created_at, updated_at
+```
+
+### 5.3 Product Images Table
+```
+id, product_id, image_url, is_primary (boolean), sort_order, created_at
+```
+
+### 5.4 Product Sizes Table
+```
+id, product_id, size_name (small/medium/large), price_modifier, created_at
+```
+
+### 5.5 Categories Table
+```
+id, name, slug, parent_id (for nested categories), sort_order, created_at, updated_at
+```
+
+### 5.6 Courses Table
+```
+id, name, slug, description, price, sale_price, thumbnail, instructor, 
+lesson_count, student_count, status (active/inactive), created_at, updated_at
+```
+
+### 5.7 Course Lessons Table (Phase 2)
+```
+id, course_id, title, description, video_url, video_duration, pdf_url, 
+sort_order, created_at, updated_at
+```
+
+### 5.8 Course Enrollments Table
+```
+id, user_id, course_id, purchased_at, progress (0-100%), last_accessed_at, 
+created_at, updated_at
+```
+
+### 5.9 Orders Table
+```
+id, order_number, user_id, total_amount, discount_amount, final_amount, 
+voucher_code, payment_status (pending/paid/failed), payment_method (qr_code), 
+order_status (pending/paid/preparing/shipping/completed/cancelled), 
+shipping_name, shipping_phone, shipping_address, notes, 
+created_at, updated_at
+```
+
+### 5.10 Order Items Table
+```
+id, order_id, item_type (product/course), item_id (product_id or course_id), 
+item_name, item_price, quantity, size (if product), subtotal, created_at
+```
+
+### 5.11 QR Codes Table
+```
+id, name, description, account_number, account_name, bank_name, 
+template_content, status (active/inactive), created_at, updated_at
+```
+
+### 5.12 Vouchers Table
+```
+id, code, discount_percentage, apply_to (product/course), usage_limit, 
+used_count, valid_from, valid_to, status (active/inactive), 
+created_at, updated_
