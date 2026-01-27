@@ -22,7 +22,7 @@ class EditProduct extends EditRecord
     protected function getCancelFormAction(): \Filament\Actions\Action
     {
         return \Filament\Actions\Action::make('cancel')
-            ->label('Hủy bỏ')
+            ->label('Hủy thao tác')
             ->url($this->getResource()::getUrl('index'))
             ->color('gray');
     }

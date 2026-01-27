@@ -1,0 +1,43 @@
+/* Fix Curator Media Card Layout */
+
+/* 1. Card Container - Relative for positioning children */
+.fi-ta-record {
+    position: relative;
+    overflow: hidden;
+    /* contain image */
+    border-radius: 0.75rem;
+}
+
+/* 2. Checkbox - Absolute Position to overlay image */
+.fi-ta-record .fi-ta-record-checkbox {
+    position: absolute;
+    top: -10px;
+    left: -8px;
+    /* Ensure on top of image */
+    padding: 12px;
+    width: auto;
+    background-color: #000000;
+    /* prevent taking full width */
+    height: auto;
+    opacity: 0.8;
+}
+
+/* 3. Image - Cover fit */
+.curator-grid-column img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    min-height: 250px;
+    max-height: 250px;
+    margin-bottom: 15px;
+}
+
+.curator-column {
+    margin: 0 auto;
+}
+
+/* 4. Fix column images if needed */
+.curator-column img {
+    min-height: 40px;
+    max-height: 40px;
+}

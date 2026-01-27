@@ -3,9 +3,11 @@
 namespace App\Filament\Resources\Reviews\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class ReviewsTable
@@ -14,23 +16,39 @@ class ReviewsTable
     {
         return $table
             ->columns([
-                TextColumn::make('course_id')
-                    ->numeric()
+                TextColumn::make('id')
+                    ->label('ID')
                     ->sortable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('course.name')
+                    ->label('Khóa học')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('author')
+                    ->label('Người đánh giá')
+                    ->getStateUsing(fn ($record) => $record->user ? $record->user->name : $record->reviewer_name)
+                    ->searchable(query: fn ($query, $search) => $query->whereHas('user', fn ($q) => $q->where('name', 'like', "%{$search}%"))->orWhere('reviewer_name', 'like', "%{$search}%")),
                 TextColumn::make('rating')
-                    ->numeric()
+                    ->label('Đánh giá')
+                    ->formatStateUsing(fn (string $state): string => str_repeat('⭐', (int) $state))
                     ->sortable(),
-                TextColumn::make('status')
-                    ->badge(),
+                TextColumn::make('content')
+                    ->label('Nội dung')
+                    ->limit(50)
+                    ->tooltip(function (TextColumn $column): ?string {
+                        return $column->getState();
+                    })
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                ToggleColumn::make('is_active')
+                    ->label('Hiển thị'),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Ngày tạo')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Ngày cập nhật')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -38,7 +56,10 @@ class ReviewsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->iconButton(),
+                DeleteAction::make()
+                    ->iconButton(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

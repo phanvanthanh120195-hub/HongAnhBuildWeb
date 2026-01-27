@@ -34,7 +34,7 @@ class BlogTagResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return BlogTagForm::configure($schema);
+        return BlogTagForm::configure($schema)->columns(1);
     }
 
     public static function table(Table $table): Table

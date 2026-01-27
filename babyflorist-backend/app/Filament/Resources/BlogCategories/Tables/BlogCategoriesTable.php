@@ -26,6 +26,9 @@ class BlogCategoriesTable
                 TextColumn::make('slug')
                     ->label('Slug')
                     ->searchable(),
+                TextColumn::make('description')
+                    ->label('Mô tả')
+                    ->searchable(),
                 ToggleColumn::make('is_active')
                     ->label('Hiển thị'),
                 TextColumn::make('created_at')

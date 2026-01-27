@@ -6,6 +6,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
@@ -52,7 +53,7 @@ class BlogPostForm
                                         )
                                         ->columnSpan([
                                             'default' => 12,
-                                            'lg' => 6,
+                                            'lg' => 12,
                                         ]),
 
                                     TextInput::make('slug')
@@ -63,7 +64,7 @@ class BlogPostForm
                                         ->unique(ignoreRecord: true)
                                         ->columnSpan([
                                             'default' => 12,
-                                            'lg' => 6,
+                                            'lg' => 12,
                                         ]),
                                 ]),
 
@@ -72,7 +73,7 @@ class BlogPostForm
                                     ->required()
                                     ->columnSpanFull()
                                     ->extraInputAttributes([
-                                        'style' => 'min-height: 420px;',
+                                        'style' => 'min-height: 300px;',
                                     ]),
                             ]),
 
@@ -95,16 +96,11 @@ class BlogPostForm
                 Group::make()
                     ->schema([
 
-                        Section::make('Trạng thái')
+                        Section::make('Xuất bản')
                             ->schema([
-                                Select::make('status')
-                                    ->label('Trạng thái')
-                                    ->options([
-                                        'published' => 'Đã xuất bản',
-                                        'draft' => 'Bản nháp',
-                                    ])
-                                    ->default('draft')
-                                    ->required(),
+                                Toggle::make('is_active')
+                                    ->label('Hiển thị')
+                                    ->default(true),
 
                                 DatePicker::make('published_at')
                                     ->label('Ngày xuất bản')
@@ -113,11 +109,19 @@ class BlogPostForm
 
                         Section::make('Phân loại')
                             ->schema([
-                                TextInput::make('category')
-                                    ->label('Danh mục'),
+                                Select::make('blog_category_id')
+                                    ->label('Danh mục')
+                                    ->relationship('category', 'name')
+                                    ->searchable()
+                                    ->preload()
+                                    ->required(),
 
-                                TextInput::make('tags')
-                                    ->label('Thẻ (Tags)'),
+                                Select::make('tags')
+                                    ->label('Thẻ (Tags)')
+                                    ->relationship('tags', 'name')
+                                    ->multiple()
+                                    ->preload()
+                                    ->searchable(),
                             ]),
                     ])
                     ->columnSpan([

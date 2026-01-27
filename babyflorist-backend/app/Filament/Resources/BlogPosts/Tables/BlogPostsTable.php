@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class BlogPostsTable
@@ -16,6 +17,9 @@ class BlogPostsTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
                 TextColumn::make('title')
                     ->label('Tiêu đề')
                     ->searchable(),
@@ -24,19 +28,22 @@ class BlogPostsTable
                     ->searchable(),
                 ImageColumn::make('thumbnail')
                     ->label('Hình ảnh'),
-                TextColumn::make('category')
+                TextColumn::make('category.name')
                     ->label('Danh mục')
-                    ->searchable(),
-                TextColumn::make('tags')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('tags.name')
                     ->label('Tags')
-                    ->searchable(),
+                    ->badge()
+                    ->separator(',')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('published_at')
                     ->label('Ngày đăng')
                     ->date('d/m/Y')
                     ->sortable(),
-                TextColumn::make('status')
-                    ->label('Trạng thái')
-                    ->badge(),
+                ToggleColumn::make('is_active')
+                    ->label('Hiển thị'),
                 TextColumn::make('created_at')
                     ->label('Ngày tạo')
                     ->dateTime('d/m/Y H:i')

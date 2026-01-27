@@ -79,7 +79,8 @@ class ProductForm
                                         ->label('Mã sản phẩm (SKU)')
                                         ->placeholder('Tự động tạo nếu để trống')
                                         ->dehydrated()
-                                        ->unique(ignoreRecord: true),
+                                        ->unique(ignoreRecord: true)
+                                        ->helperText('Để trống sẽ tự động tạo mã sản phẩm'),
 
                                     FileUpload::make('thumbnail')
                                         ->label('Hình ảnh sản phẩm')

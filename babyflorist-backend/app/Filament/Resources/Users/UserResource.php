@@ -22,7 +22,7 @@ class UserResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'System';
 
-    protected static ?int $navigationGroupSort = 4;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationLabel = 'Người dùng';
 
@@ -32,7 +32,7 @@ class UserResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return UserForm::configure($schema);
+        return UserForm::configure($schema)->columns(1);
     }
 
     public static function table(Table $table): Table

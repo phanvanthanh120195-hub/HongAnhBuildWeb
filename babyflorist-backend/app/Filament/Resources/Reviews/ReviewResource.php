@@ -32,7 +32,8 @@ class ReviewResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return ReviewForm::configure($schema);
+        return ReviewForm::configure($schema)
+            ->columns(1);
     }
 
     public static function table(Table $table): Table

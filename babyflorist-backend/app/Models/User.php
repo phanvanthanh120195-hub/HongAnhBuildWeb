@@ -23,6 +23,7 @@ class User extends Authenticatable implements HasAvatar
         'email',
         'avatar_url',
         'password',
+        'is_active',
     ];
 
     /**
@@ -45,6 +46,7 @@ class User extends Authenticatable implements HasAvatar
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
     }
 

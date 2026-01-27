@@ -32,7 +32,7 @@ class QrCodeResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return QrCodeForm::configure($schema);
+        return QrCodeForm::configure($schema)->columns(1);
     }
 
     public static function table(Table $table): Table

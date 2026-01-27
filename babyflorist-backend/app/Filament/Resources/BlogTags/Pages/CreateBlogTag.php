@@ -10,4 +10,9 @@ class CreateBlogTag extends CreateRecord
     protected static string $resource = BlogTagResource::class;
 
     protected static bool $canCreateAnother = false;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
