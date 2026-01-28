@@ -19,6 +19,75 @@
         }
     ],
     "paths": {
+        "/api/about-us": {
+            "get": {
+                "tags": [
+                    "About Us"
+                ],
+                "summary": "Lấy thông tin Về chúng tôi",
+                "description": "Trả về thông tin giới thiệu, hình ảnh, và các liên kết mạng xã hội",
+                "operationId": "getAboutUs",
+                "responses": {
+                    "200": {
+                        "description": "Thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Hồng Anh"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "about-us/image.jpg"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "<p>Mô tả...</p>"
+                                                },
+                                                "facebook": {
+                                                    "type": "string",
+                                                    "example": "https://facebook.com/..."
+                                                },
+                                                "instagram": {
+                                                    "type": "string",
+                                                    "example": "https://instagram.com/..."
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "0123456789"
+                                                },
+                                                "zalo": {
+                                                    "type": "string",
+                                                    "example": "0123456789"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "contact@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/categories": {
             "get": {
                 "tags": [
@@ -136,6 +205,10 @@
         }
     },
     "tags": [
+        {
+            "name": "About Us",
+            "description": "About Us"
+        },
         {
             "name": "Danh mục sản phẩm",
             "description": "Danh mục sản phẩm"

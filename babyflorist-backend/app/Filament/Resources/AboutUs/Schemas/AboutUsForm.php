@@ -34,11 +34,15 @@ class AboutUsForm
                                 ]),
                             Section::make('Thông tin giới thiệu')
                                 ->schema([
+                                    TextInput::make('name')
+                                        ->label('Tiêu đề / Tên')
+                                        ->maxLength(255)
+                                        ->columnSpanFull(),
                                     RichEditor::make('description')
                                         ->label('Mô tả về chúng tôi')
                                         ->columnSpanFull()
                                         ->extraInputAttributes([
-                                            'style' => 'min-height: 250px;',
+                                            'style' => 'min-height: 200px;',
                                         ]),
                                 ]),
                             ])

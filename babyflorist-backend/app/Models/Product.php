@@ -18,6 +18,7 @@ class Product extends Model
         'discount_percent',
         'stock',
         'label',
+        'is_featured',
         'is_active',
     ];
 
@@ -25,6 +26,7 @@ class Product extends Model
         'price' => 'decimal:2',
         'sale_price' => 'decimal:2',
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     public function category()

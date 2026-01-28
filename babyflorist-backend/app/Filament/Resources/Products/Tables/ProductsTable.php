@@ -10,19 +10,24 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
+use App\Models\Product;
 
 class ProductsTable
 {
     public static function configure(Table $table): Table
     {
+        $featuredCount = Product::where('is_featured', true)->count();
+
         return $table
+            ->description('Sản phẩm nổi bật: ' . $featuredCount . '/4')
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
                     ->sortable(),
                 TextColumn::make('sku')
                     ->label('MSP')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('name')
                     ->label('Tên sản phẩm')
                     ->searchable()
@@ -63,6 +68,10 @@ class ProductsTable
                         'new' => 'success',
                         default => 'gray',
                     }),
+                ToggleColumn::make('is_featured')
+                    ->label('Nổi bật')
+                    ->onColor('success')
+                    ->offColor('gray'),
                 ToggleColumn::make('is_active')
                     ->label('Hiển thị'),
                 TextColumn::make('created_at')

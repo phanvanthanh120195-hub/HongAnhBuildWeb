@@ -63,6 +63,7 @@ class ProductForm
                                             ->relationship('category', 'name')
                                             ->searchable()
                                             ->preload()
+                                            ->required()
                                             ->default(null),
 
                                         Select::make('label')
@@ -106,12 +107,18 @@ class ProductForm
                         ->schema([
                             Section::make('Trạng thái')
                                 ->schema([
+                                    Toggle::make('is_featured')
+                                        ->label('Sản phẩm nổi bật')
+                                        ->helperText('Sản phẩm sẽ được hiển thị ở mục nổi bật trang chủ')
+                                        ->default(false)
+                                        ->onColor('success')
+                                        ->offColor('gray'),
+
                                     Toggle::make('is_active')
-                                    ->label('Hiển thị')
-                                    ->helperText('Danh mục này sẽ hiển thị trên website')
-                                    ->default(true)
-                                    ->inline(false)
-                                    ->helperText('Bật để hiển thị sản phẩm'),
+                                        ->label('Hiển thị')
+                                        ->helperText('Bật để hiển thị sản phẩm')
+                                        ->default(true)
+                                        ->inline(false),
                                 ]),
 
                             Section::make('Giá & Kho')

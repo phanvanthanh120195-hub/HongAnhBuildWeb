@@ -22,6 +22,10 @@ class AboutUsTable
                 ImageColumn::make('image')
                     ->label('Ảnh')
                     ->square(),
+                TextColumn::make('name')
+                    ->label('Tên / Tiêu đề')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('phone')
                     ->label('Số điện thoại')
                     ->searchable(),

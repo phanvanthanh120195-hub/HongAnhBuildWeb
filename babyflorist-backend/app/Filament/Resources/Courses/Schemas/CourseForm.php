@@ -33,8 +33,8 @@ class CourseForm
                                             Select::make('type')
                                                 ->label('Loại khóa học')
                                                 ->options([
-                                                    'online' => 'Online',
                                                     'offline' => 'Offline',
+                                                    'online' => 'Online',
                                                 ])
                                                 ->default('offline')
                                                 ->required()

@@ -13,4 +13,10 @@ Route::get('/products', [ProductController::class, 'index']);
 
 // Danh mục sản phẩm
 Route::get('/categories', [CategoryController::class, 'index']);
+// About Us
+Route::get('/about-us', [App\Http\Controllers\Api\AboutUsController::class, 'index']);
+
+// Khóa học
+Route::get('/courses', [App\Http\Controllers\Api\CourseController::class, 'index']);
+
 Route::get('/categories/{id}', [CategoryController::class, 'show']);

@@ -9,6 +9,7 @@ class AboutUs extends Model
     protected $table = 'about_us';
 
     protected $fillable = [
+        'name',
         'image',
         'description',
         'instagram',
