@@ -1609,6 +1609,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 
 .wedding {
     position: relative;
+    height: 863px;
 }
 
 .wedding .img-wedding {
@@ -1764,7 +1765,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .holiday {
-    padding-top: 250px;
+    height: 1576px;
 }
 
 .holiday .product-holiday .product-title-holiday {

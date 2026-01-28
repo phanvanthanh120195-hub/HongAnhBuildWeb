@@ -75,3 +75,8 @@ export const orderService = {
     getAll: () => api.get('/orders'),
     getById: (id) => api.get(`/orders/${id}`)
 }
+
+export const reviewService = {
+    getAll: (params = {}) => api.get('/reviews', { params })
+}
+
