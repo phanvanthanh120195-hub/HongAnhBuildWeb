@@ -1798,6 +1798,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
     position: absolute;
     top: -110px;
     z-index: -1;
+    width: 100%;
 }
 
 .counter .img-counter img {
