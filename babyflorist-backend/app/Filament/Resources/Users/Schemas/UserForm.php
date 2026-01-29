@@ -39,9 +39,16 @@ class UserForm
                                                 ->email()
                                                 ->required(),
 
+                                            TextInput::make('phone')
+                                                ->label('Số điện thoại')
+                                                ->tel()
+                                                ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                                                ->placeholder('Nhập số điện thoại'),
+
                                             TextInput::make('password')
                                                     ->label('Mật khẩu')
                                                     ->password()
+                                                    ->revealable()
                                                     ->dehydrated(fn ($state) => filled($state))
                                                     ->confirmed()
                                                     ->required(fn (string $operation): bool => $operation === 'create'),
@@ -49,6 +56,7 @@ class UserForm
                                             TextInput::make('password_confirmation')
                                                 ->label('Xác nhận mật khẩu')
                                                 ->password()
+                                                ->revealable()
                                                 ->dehydrated(false)
                                                 ->required(fn (string $operation): bool => $operation === 'create'),
                                         ]),

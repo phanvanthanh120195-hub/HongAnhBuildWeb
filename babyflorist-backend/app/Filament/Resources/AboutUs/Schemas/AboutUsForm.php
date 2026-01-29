@@ -54,6 +54,12 @@ class AboutUsForm
                     // RIGHT COLUMN (Image)
                     Group::make()
                         ->schema([
+                                Section::make('Trạng thái')
+                                    ->schema([
+                                        \Filament\Forms\Components\Toggle::make('is_active')
+                                            ->label('Hiển thị')
+                                            ->default(true),
+                                    ]),
                                 Section::make('Liên hệ mạng xã hội')
                                 ->schema([
                                     Grid::make([

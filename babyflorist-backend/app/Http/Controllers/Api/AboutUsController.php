@@ -44,7 +44,7 @@ class AboutUsController extends Controller
     )]
     public function index()
     {
-        $aboutUs = \App\Models\AboutUs::first();
+        $aboutUs = \App\Models\AboutUs::where('is_active', true)->first();
         return response()->json([
             'status' => true,
             'data' => $aboutUs

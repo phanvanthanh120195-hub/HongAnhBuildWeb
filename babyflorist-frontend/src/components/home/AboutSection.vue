@@ -7,7 +7,8 @@
         <h1 class="h2">Tôi là ai?</h1>
         
         <div v-if="aboutData.description" v-html="aboutData.description" class="description-container"></div>
-        <p v-else>
+        <div v-else>
+          <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has<br class="hidden-md hidden-sm hidden-xs">
           been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
           galley of type<br class="hidden-md hidden-sm hidden-xs"> and scrambled it to make a type
@@ -15,7 +16,8 @@
           unchanged. It was popularised in the 1960s with the release of <br class="hidden-md hidden-sm hidden-xs">
           Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing <br class="hidden-md hidden-sm hidden-xs">
           software like Aldus PageMaker including versions of Lorem Ipsum
-        </p>
+          </p>
+        </div>
 
         <div class="media">
           <div class="media-left">

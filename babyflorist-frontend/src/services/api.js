@@ -56,10 +56,14 @@ export const blogService = {
 }
 
 export const authService = {
-    login: (credentials) => api.post('/auth/login', credentials),
-    register: (data) => api.post('/auth/register', data),
-    logout: () => api.post('/auth/logout'),
-    getProfile: () => api.get('/user')
+    login: (credentials) => api.post('/customer/login', credentials),
+    register: (data) => api.post('/customer/register', data),
+    logout: () => api.post('/customer/logout'),
+    getProfile: () => api.get('/customer/profile'),
+    updateProfile: (data) => api.post('/customer/profile', data, {
+        headers: data instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {}
+    }),
+    changePassword: (data) => api.post('/customer/change-password', data)
 }
 
 export const cartService = {

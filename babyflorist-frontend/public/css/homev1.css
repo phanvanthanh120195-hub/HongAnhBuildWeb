@@ -659,6 +659,7 @@ footer {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     text-decoration: none;
+    color: #fff;
 }
 
 .btn-facebook {
@@ -689,6 +690,10 @@ footer {
     color: #8b5e34;
     /* Brownish color for arrow as seen in image */
     border: 1px solid #f0f0f0;
+}
+
+.btn-back-to-top:hover {
+    color: #8b5e34;
 }
 
 .zalo-text {

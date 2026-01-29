@@ -5,45 +5,21 @@
         <div class="img-counter"><img src="/images/counter3.png" alt="img-counter"></div>
         <div class="container counter-content">
           <div class="row">
-            <!-- <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 product-counter">
-              <div class="package-card" id="KH-3" style="width: 400px;">
-                <div class="default-view">
-                  <div class="card-image card-blue">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" alt="Course">
-                    <div class="card-badge">🎓</div>
-                  </div>
-                  <div class="card-content">
-                    <div class="courses-count">3 Courses Included</div>
-                    <h3 class="card-title">Master Your Mindset: Unleashing the Power Within</h3>
-                    <div class="card-pricing">
-                      <span class="original-price">$4060</span>
-                      <span class="current-price">$2003</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="hover-view">
-                  <div class="hover-header">
-                    <span class="level-tag">Advanced</span>
-                    <span class="hover-price">$45 <small>pw</small></span>
-                  </div>
-                  <h3 class="hover-title">Master Your Mindset: Unleashing the Power Within</h3>
-                  <div class="card-stats">
-                    <span class="stat-item"><i class="fas fa-user-graduate"></i> 15 Students</span>
-                    <span class="stat-item"><i class="fas fa-file-alt"></i> 12 Lessons</span>
-                  </div>
-                  <p class="hover-desc">Dive deep into advanced cognitive strategies to unlock your full potential. This course covers...</p>
-                  <button class="view-detail-btn">View Detail</button>
-                </div>
+            <!-- Left Column: Course Card OR Default Image -->
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6" :class="{ 'product-counter': featuredCourse }">
+              <CourseCard v-if="featuredCourse" :course="featuredCourse" style="width: 400px; max-width: 100%;" />
+              
+              <div v-else class="default-image-container">
+                <img src="/images/anhhoa1.png" alt="Flowers" style="width: 100%; height: auto;">
               </div>
-            </div> -->
-
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6">
-              <img src="/images/anhhoa1.png" alt="anhhoa">
             </div>
 
+            <!-- Right Column: Countdown -->
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6">
               <div class="title-count">
-                <h1>Sale up to 40%</h1>
+                <h1 v-if="featuredCourse">Sale up to {{ featuredCourse.discount }}%</h1>
+                <h1 v-else>Sale up to 40%</h1>
+                
                 <p>It is a long established fact that a reader will be distracted by the<br> readable content of a page when looking at its layout</p>
                 <div id="countdown">
                   <div id="tiles">
@@ -71,10 +47,11 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import axios from 'axios'
+import CourseCard from '@/components/CourseCard.vue'
 
+const featuredCourse = ref(null)
 const targetDate = ref(new Date())
-targetDate.value.setDate(targetDate.value.getDate() + 30) // 30 days from now
-
 const now = ref(new Date())
 let timer = null
 
@@ -95,10 +72,55 @@ const hours = computed(() => String(timeLeft.value.hours).padStart(2, '0'))
 const minutes = computed(() => String(timeLeft.value.minutes).padStart(2, '0'))
 const seconds = computed(() => String(timeLeft.value.seconds).padStart(2, '0'))
 
+const fetchFlashDeal = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/courses/flash-deal')
+    if (response.data.success && response.data.data) {
+      const course = response.data.data
+      featuredCourse.value = {
+        id: course.id,
+        title: course.name,
+        image: 'http://127.0.0.1:8000/storage/' + course.thumbnail,
+        badge: '🎓',
+        lessons: course.lesson_count || 0,
+        price: course.sale_price || course.price,
+        originalPrice: course.sale_price ? course.price : null,
+        students: course.student_count || 0,
+        description: course.description || '',
+        level: course.type === 'offline' ? 'Offline' : 'Online',
+        discount: course.real_discount_percent ? Math.round(course.real_discount_percent) : 0
+      }
+
+      // Set countdown to sale_end
+      if (course.sale_end) {
+        targetDate.value = new Date(course.sale_end)
+      } else {
+         // If active deal but no specific end date, maybe set to tomorrow or similar?
+         // User didn't specify, but for now let's keep it running for 24h or so if undefined.
+         // Or just +30 days as default fallback.
+         targetDate.value = new Date()
+         targetDate.value.setDate(targetDate.value.getDate() + 30)
+      }
+    } else {
+      // No deal found -> Default behavior
+      featuredCourse.value = null
+      targetDate.value = new Date()
+      targetDate.value.setDate(targetDate.value.getDate() + 30)
+    }
+  } catch (error) {
+    console.error('Error fetching flash deal:', error)
+    // Fallback
+    featuredCourse.value = null
+    targetDate.value = new Date()
+    targetDate.value.setDate(targetDate.value.getDate() + 30)
+  }
+}
+
 onMounted(() => {
   timer = setInterval(() => {
     now.value = new Date()
   }, 1000)
+  fetchFlashDeal()
 })
 
 onUnmounted(() => {
@@ -138,12 +160,14 @@ onUnmounted(() => {
 
 .tile {
   background: rgba(255, 255, 255, 0.95);
-  padding: 20px 25px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 32px;
   font-weight: bold;
   border-radius: 8px;
-  min-width: 80px;
-  text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   font-family: 'Inter', sans-serif;
 }
@@ -151,7 +175,7 @@ onUnmounted(() => {
 .labels {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 15px;
   list-style: none;
   padding: 0;
   margin: 0 0 30px 0;
@@ -160,7 +184,7 @@ onUnmounted(() => {
 .labels li {
   font-size: 14px;
   color: #666;
-  min-width: 80px;
+  width: 80px;
   text-align: center;
   font-family: 'Inter', sans-serif;
 }

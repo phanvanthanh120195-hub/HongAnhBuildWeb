@@ -44,7 +44,7 @@
               <router-link to="/about">Về chúng tôi</router-link>
               <figure id="wedding-1" class="hidden-sm hidden-xs"></figure>
             </li>
-            <li class="hidden-lg hidden-md"><router-link to="/profile"><i class="far fa-user"></i> Tài khoản</router-link></li>
+            <li class="hidden-lg hidden-md"><a href="#" @click.prevent="handleUserClick"><i class="far fa-user"></i> Tài khoản</a></li>
             <li class="hidden-lg hidden-md hidden-sm phone-mobile"><strong>P:</strong>800 123 654 78</li>
             <li class="hidden-lg hidden-md hidden-sm phone-mobile"><strong>E:</strong>contact@babyflorist.com</li>
           </ul>
@@ -53,12 +53,25 @@
           <li><router-link to="/"><img src="https://landing.engotheme.com/html/jenstore/demo/img/logo.png" class="img-responsive" alt="BabyFlorist"></router-link></li>
         </ul>
         <ul class="nav navbar-nav navbar-right icon-menu col-lg-4 col-md-4 col-sm-5 col-xs-5">
-          <li class="icon-user hidden-sm hidden-xs"><router-link to="/profile"><i class="far fa-user"></i></router-link></li>
+          <li class="icon-user hidden-sm hidden-xs" style="position: relative;">
+              <a href="#" @click.prevent="handleUserClick"><i class="far fa-user"></i></a>
+              <div v-if="isUserMenuOpen && authStore.isAuthenticated" class="user-dropdown">
+                  <div class="user-info-header">
+                      <strong>{{ authStore.user?.name || 'Customer' }}</strong>
+                  </div>
+                  <router-link to="/profile" class="user-dropdown-item" @click="isUserMenuOpen = false">
+                      <i class="far fa-user"></i> Thông tin cá nhân
+                  </router-link>
+                  <a href="#" class="user-dropdown-item" @click.prevent="handleLogout">
+                      <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                  </a>
+              </div>
+          </li>
           <li class="dropdown cart-menu">
-            <router-link to="/cart">
+            <a href="#" @click.prevent="toggleCartDrawer">
               <img src="https://landing.engotheme.com/html/jenstore/demo/img/cart.png" id="img-cart" alt="cart">
               <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
-            </router-link>
+            </a>
           </li>
           <li id="input-search" class="hidden-sm hidden-xs">
             <a href="#" @click.prevent="toggleSearch"><img src="https://landing.engotheme.com/html/jenstore/demo/img/Search.png" alt="search"></a>
@@ -79,18 +92,115 @@
       </div>
     </div>
   </header>
+
+  <AuthModal 
+    :is-open="isAuthModalOpen" 
+    :initial-mode="authMode"
+    @close="isAuthModalOpen = false"
+  />
+
+  <CartDrawer 
+    :is-open="isCartDrawerOpen"
+    @close="isCartDrawerOpen = false"
+  />
 </template>
+
+<style scoped>
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 220px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 9999;
+    border: 1px solid #eee;
+}
+
+.user-info-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+    text-align: left;
+}
+
+.user-dropdown-item:hover {
+    background: #f9f9f9;
+    color: #ff4d4d;
+    text-decoration: none;
+}
+
+.user-dropdown-item:hover i {
+    color: #ff4d4d;
+}
+
+.user-dropdown-item i {
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+    font-size: 16px;
+    padding-right: 0;
+}
+</style>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
+import { useAuthStore } from '@/stores/auth'
+import AuthModal from '@/components/auth/AuthModal.vue'
+import CartDrawer from '@/components/cart/CartDrawer.vue'
+import { useRouter } from 'vue-router'
 
 const cartStore = useCartStore()
+const authStore = useAuthStore()
+const router = useRouter()
+
 const cartCount = computed(() => cartStore.itemCount)
 const showSearch = ref(false)
 const searchQuery = ref('')
 
+// Auth State
+const isAuthModalOpen = ref(false)
+const isUserMenuOpen = ref(false)
+const isCartDrawerOpen = ref(false)
+const authMode = ref('login')
+
+function toggleCartDrawer() {
+  isCartDrawerOpen.value = !isCartDrawerOpen.value
+}
+
 function toggleSearch() {
   showSearch.value = !showSearch.value
+}
+
+function handleUserClick() {
+  if (authStore.isAuthenticated) {
+    isUserMenuOpen.value = !isUserMenuOpen.value
+  } else {
+    authMode.value = 'login'
+    isAuthModalOpen.value = true
+  }
+}
+
+function handleLogout() {
+  authStore.logout()
+  isUserMenuOpen.value = false
+  router.push('/')
 }
 </script>

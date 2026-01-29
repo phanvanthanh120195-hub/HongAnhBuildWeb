@@ -65,7 +65,10 @@ class CourseForm
                                             Textarea::make('description')
                                                 ->label('Mô tả')
                                                 ->rows(4)
-                                                ->columnSpanFull(),
+                                                ->columnSpanFull()
+                                                ->extraInputAttributes([
+                                                    'style' => 'min-height: 250px;',
+                                                ]),
                                         ]),
                                 ])
                                 ->columnSpan([
@@ -136,6 +139,13 @@ class CourseForm
                                                 ->required()
                                                 ->numeric()
                                                 ->default(0),
+
+                                            \Filament\Forms\Components\DateTimePicker::make('sale_start')
+                                                ->label('Hiệu lực từ'),
+
+                                            \Filament\Forms\Components\DateTimePicker::make('sale_end')
+                                                ->label('Hiệu lực đến')
+                                                ->afterOrEqual('sale_start'),
                                         ]),
                                 ])
                                 ->columnSpan([

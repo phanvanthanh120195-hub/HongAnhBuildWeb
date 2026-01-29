@@ -4,18 +4,25 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <div class="auth-box">
-             <h1 class="auth-title">Login</h1>
-             <p class="auth-subtitle">Welcome back! Please login to your account.</p>
+             <h1 class="auth-title">Đăng nhập</h1>
+             <p class="auth-subtitle">Chào mừng quay lại! Vui lòng đăng nhập vào tài khoản của bạn.</p>
+
+             <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
 
              <form @submit.prevent="handleLogin">
                 <div class="form-group">
-                   <label for="email">Email Address <span class="required">*</span></label>
-                   <input type="email" id="email" v-model="email" class="form-control" required placeholder="example@gmail.com">
+                   <label for="identifier">Email hoặc Số điện thoại <span class="required">*</span></label>
+                   <input type="text" id="identifier" v-model="identifier" class="form-control" required placeholder="example@gmail.com hoặc 0901234567">
                 </div>
 
                 <div class="form-group">
                    <label for="password">Password <span class="required">*</span></label>
-                   <input type="password" id="password" v-model="password" class="form-control" required placeholder="********">
+                   <div class="password-input-wrapper">
+                      <input :type="showPassword ? 'text' : 'password'" id="password" v-model="password" class="form-control" required placeholder="********">
+                      <span class="toggle-password" @click="showPassword = !showPassword">
+                         {{ showPassword ? '🙈' : '👁️' }}
+                      </span>
+                   </div>
                 </div>
 
                 <div class="form-actions">
@@ -33,7 +40,7 @@
              </form>
 
              <div class="auth-footer">
-                <p>Don't have an account? <router-link to="/register">Register now</router-link></p>
+                <p>Chưa có tài khoản? <router-link to="/register">Đăng ký ngay</router-link></p>
              </div>
           </div>
         </div>
@@ -45,23 +52,32 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
-const email = ref('')
+const authStore = useAuthStore()
+const identifier = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const isLoading = ref(false)
+const errorMessage = ref('')
+const showPassword = ref(false)
 
-function handleLogin() {
+async function handleLogin() {
   isLoading.value = true
+  errorMessage.value = ''
   
-  // Mock login api call
-  setTimeout(() => {
-     console.log('Login with:', email.value, password.value)
-     alert('Login Successful!')
-     isLoading.value = false
-     router.push('/')
-  }, 1000)
+  try {
+    await authStore.login({
+      identifier: identifier.value,
+      password: password.value
+    })
+    router.push('/')
+  } catch (error) {
+    errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng thử lại.'
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -118,6 +134,29 @@ function handleLogin() {
 .form-control:focus {
   border-color: black;
   outline: none;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .form-actions {

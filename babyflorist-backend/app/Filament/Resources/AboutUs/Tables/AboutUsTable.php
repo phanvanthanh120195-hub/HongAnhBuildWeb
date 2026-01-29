@@ -43,6 +43,8 @@ class AboutUsTable
                 TextColumn::make('zalo')
                     ->label('Zalo')
                     ->searchable(),
+                \Filament\Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Hiển thị'),
                 TextColumn::make('updated_at')
                     ->label('Cập nhật')
                     ->dateTime('d/m/Y H:i')

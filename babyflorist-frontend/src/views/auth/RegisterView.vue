@@ -4,41 +4,58 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <div class="auth-box">
-             <h1 class="auth-title">Register</h1>
-             <p class="auth-subtitle">Create new account today to reap the benefits of a personalized shopping experience.</p>
+             <h1 class="auth-title">Đăng ký</h1>
+             <p class="auth-subtitle">Tạo tài khoản mới để trải nghiệm mua sắm cá nhân hóa.</p>
+
+             <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
 
              <form @submit.prevent="handleRegister">
                 <div class="form-group">
-                   <label for="name">Full Name <span class="required">*</span></label>
-                   <input type="text" id="name" v-model="name" class="form-control" required placeholder="John Doe">
+                   <label for="name">Họ và tên <span class="required">*</span></label>
+                   <input type="text" id="name" v-model="name" class="form-control" required placeholder="Nguyễn Văn A">
                 </div>
 
                 <div class="form-group">
-                   <label for="email">Email Address <span class="required">*</span></label>
+                   <label for="email">Địa chỉ Email <span class="required">*</span></label>
                    <input type="email" id="email" v-model="email" class="form-control" required placeholder="example@gmail.com">
                 </div>
 
                 <div class="form-group">
-                   <label for="password">Password <span class="required">*</span></label>
-                   <input type="password" id="password" v-model="password" class="form-control" required placeholder="********">
+                   <label for="phone">Số điện thoại <span class="required">*</span></label>
+                   <input type="tel" id="phone" v-model="phone" class="form-control" required placeholder="0901234567">
+                </div>
+
+                <div class="form-group">
+                   <label for="password">Mật khẩu <span class="required">*</span></label>
+                   <div class="password-input-wrapper">
+                      <input :type="showPassword ? 'text' : 'password'" id="password" v-model="password" class="form-control" required placeholder="********">
+                      <span class="toggle-password" @click="showPassword = !showPassword">
+                         {{ showPassword ? '🙈' : '👁️' }}
+                      </span>
+                   </div>
                 </div>
                 
                 <div class="form-group">
-                   <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
-                   <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control" required placeholder="********">
+                   <label for="confirmPassword">Xác nhận mật khẩu <span class="required">*</span></label>
+                   <div class="password-input-wrapper">
+                      <input :type="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" v-model="confirmPassword" class="form-control" required placeholder="********">
+                      <span class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
+                         {{ showConfirmPassword ? '🙈' : '👁️' }}
+                      </span>
+                   </div>
                 </div>
                 
                 <div class="privacy-policy">
-                   <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="#">privacy policy</a>.</p>
+                   <p>Dữ liệu cá nhân của bạn sẽ được sử dụng để hỗ trợ trải nghiệm trên website, quản lý tài khoản và các mục đích khác theo <a href="#">chính sách bảo mật</a>.</p>
                 </div>
 
                 <button type="submit" class="btn btn-register" :disabled="isLoading">
-                   {{ isLoading ? 'Creating Account...' : 'REGISTER' }}
+                   {{ isLoading ? 'Đang tạo tài khoản...' : 'ĐĂNG KÝ' }}
                 </button>
              </form>
 
              <div class="auth-footer">
-                <p>Already have an account? <router-link to="/login">Login here</router-link></p>
+                <p>Đã có tài khoản? <router-link to="/login">Đăng nhập</router-link></p>
              </div>
           </div>
         </div>
@@ -50,29 +67,48 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
+const authStore = useAuthStore()
 const name = ref('')
 const email = ref('')
+const phone = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const isLoading = ref(false)
+const errorMessage = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 
-function handleRegister() {
+async function handleRegister() {
   if (password.value !== confirmPassword.value) {
-     alert('Passwords do not match!')
-     return
+    errorMessage.value = 'Mật khẩu xác nhận không khớp!'
+    return
   }
   
   isLoading.value = true
+  errorMessage.value = ''
   
-  // Mock register api call
-  setTimeout(() => {
-     console.log('Register with:', name.value, email.value)
-     alert('Account Created Successfully!')
-     isLoading.value = false
-     router.push('/login')
-  }, 1000)
+  try {
+    await authStore.register({
+      name: name.value,
+      email: email.value,
+      phone: phone.value,
+      password: password.value,
+      password_confirmation: confirmPassword.value
+    })
+    router.push('/')
+  } catch (error) {
+    const errors = error.response?.data?.errors
+    if (errors) {
+      errorMessage.value = Object.values(errors).flat().join(' ')
+    } else {
+      errorMessage.value = error.response?.data?.message || 'Đăng ký thất bại. Vui lòng thử lại.'
+    }
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -130,6 +166,29 @@ function handleRegister() {
 .form-control:focus {
   border-color: black;
   outline: none;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
 }
 
 .privacy-policy {

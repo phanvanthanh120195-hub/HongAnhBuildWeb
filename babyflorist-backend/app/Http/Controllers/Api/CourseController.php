@@ -57,4 +57,47 @@ class CourseController extends Controller
             'data' => $courses
         ]);
     }
+    #[OA\Get(
+        path: '/api/courses/flash-deal',
+        operationId: 'getFlashDealCourse',
+        tags: ['Khóa học'],
+        summary: 'Lấy khóa học Flash Deal',
+        description: 'Lấy khóa học có giảm giá cao nhất và còn hạn',
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Thành công',
+                content: new OA\JsonContent(
+                    type: 'object',
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: true),
+                        new OA\Property(property: 'data', type: 'object'),
+                    ]
+                )
+            )
+        ]
+    )]
+    public function flashDeal()
+    {
+        $now = now();
+        // Priority: Highest Discount % -> Newest
+        // REQUIRE sale_end to be set for flash deal
+        $deal = \App\Models\Course::where('is_active', true)
+            ->whereNotNull('sale_price')
+            ->whereNotNull('sale_end') // Must have end date set
+            ->where('price', '>', 0)
+            ->whereRaw('sale_price < price')
+            ->where(function ($query) use ($now) {
+                $query->whereNull('sale_start')->orWhere('sale_start', '<=', $now);
+            })
+            ->where('sale_end', '>=', $now) // Must be still valid
+            ->orderByRaw('((price - sale_price) / price * 100) DESC')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'data' => $deal
+        ]);
+    }
 }

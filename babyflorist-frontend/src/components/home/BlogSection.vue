@@ -1,7 +1,7 @@
 <template>
   <div class="container blog">
     <h1>Bài viết mới nhất</h1>
-    <p>- Lorem Ipsum is<span class="hidden-xs"> simply dummy</span> text of the printing -</p>
+    <p>- Nơi chia sẻ những vấn đề về hoa -</p>
     
     <!-- Loading state -->
     <div v-if="loading" class="text-center">

@@ -17,6 +17,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/about-us', [App\Http\Controllers\Api\AboutUsController::class, 'index']);
 
 // Khóa học
+Route::get('/courses/flash-deal', [App\Http\Controllers\Api\CourseController::class, 'flashDeal']);
 Route::get('/courses', [App\Http\Controllers\Api\CourseController::class, 'index']);
 
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
@@ -28,3 +29,15 @@ Route::get('/blogs/{slug}', [App\Http\Controllers\Api\BlogPostController::class,
 // Reviews
 Route::get('/reviews', [App\Http\Controllers\Api\ReviewController::class, 'index']);
 
+// Customer Authentication
+Route::prefix('customer')->group(function () {
+    Route::post('/register', [App\Http\Controllers\Api\CustomerAuthController::class, 'register']);
+    Route::post('/login', [App\Http\Controllers\Api\CustomerAuthController::class, 'login']);
+    
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [App\Http\Controllers\Api\CustomerAuthController::class, 'logout']);
+        Route::get('/profile', [App\Http\Controllers\Api\CustomerAuthController::class, 'profile']);
+        Route::post('/profile', [App\Http\Controllers\Api\CustomerAuthController::class, 'updateProfile']);
+        Route::post('/change-password', [App\Http\Controllers\Api\CustomerAuthController::class, 'changePassword']);
+    });
+});

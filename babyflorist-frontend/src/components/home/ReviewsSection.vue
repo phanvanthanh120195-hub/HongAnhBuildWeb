@@ -1,7 +1,7 @@
 <template>
   <div class="container student-reviews" id="showcase-5">
-    <h4 class="text-center sub-title">STUDENTS SAY</h4>
-    <h1 class="text-center main-title">Satisfaction is always present</h1>
+    <h4 class="text-center sub-title">Mọi người nói gì về tôi</h4>
+    <h1 class="text-center main-title">Sự hài lòng luôn hiện hữu</h1>
 
     <!-- Loading state -->
     <div v-if="loading" class="text-center">

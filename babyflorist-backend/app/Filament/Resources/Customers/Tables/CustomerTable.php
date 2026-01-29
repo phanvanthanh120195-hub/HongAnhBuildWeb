@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Customers\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -11,39 +11,36 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
-class UsersTable
+class CustomerTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable(),
-                ImageColumn::make('avatar_url')
-                    ->label('Ảnh đại diện')
-                    ->disk('public')
-                    ->defaultImageUrl(url('/images/placeholder.png')),
+                ImageColumn::make('avatar')
+                    ->label('Avatar')
+                    ->circular()
+                    ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
+                
                 TextColumn::make('name')
-                    ->label('Tên người dùng')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable(),
-                TextColumn::make('phone')
-                    ->label('Số điện thoại')
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->label('Ngày tạo')
-                    ->dateTime()
+                    ->label('Họ tên')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('updated_at')
-                    ->label('Ngày cập nhật')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('email')
+                    ->searchable(),
+
+                TextColumn::make('phone')
+                    ->label('SĐT')
+                    ->searchable(),
+
                 ToggleColumn::make('is_active')
-                    ->label('Hiển thị'),
+                    ->label('Trạng thái'),
+
+                TextColumn::make('created_at')
+                    ->label('Ngày đăng ký')
+                    ->dateTime('d/m/Y H:i')
+                    ->sortable(),
             ])
             ->filters([
                 //
