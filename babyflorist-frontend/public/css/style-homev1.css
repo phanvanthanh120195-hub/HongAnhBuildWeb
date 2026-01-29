@@ -472,7 +472,7 @@ figure.bg-input::after {
 }
 
 body {
-    background-image: url("/HongAnhWeb/image/BG-home1.jpg");
+    background-image: url("/images/BG-home1.jpg");
     background-position: -515px 0;
     height: auto;
     background-repeat: no-repeat;
@@ -1358,12 +1358,14 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection,
+.counter,
 .wedding,
 .holiday {
     padding-bottom: 60px;
 }
 
 .collection h1,
+.counter h1,
 .wedding h1,
 .holiday h1 {
     font-family: Abril Fatface;
@@ -1376,6 +1378,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection h2,
+.counter h2,
 .wedding h2,
 .holiday h2 {
     font-family: "Inter", sans-serif;
@@ -1388,12 +1391,14 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .banner-collec img,
+.counter .banner-collec img,
 .wedding .banner-collec img,
 .holiday .banner-collec img {
     width: 100%;
 }
 
 .collection .banner-collec h1,
+.counter .banner-collec h1,
 .wedding .banner-collec h1,
 .holiday .banner-collec h1 {
     font-size: 100px;
@@ -1402,6 +1407,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .banner-collec h3,
+.counter .banner-collec h3,
 .wedding .banner-collec h3,
 .holiday .banner-collec h3 {
     font-family: "Inter", sans-serif;
@@ -1413,6 +1419,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .banner-collec a,
+.counter .banner-collec a,
 .wedding .banner-collec a,
 .holiday .banner-collec a {
     font-family: Abril Fatface;
@@ -1445,6 +1452,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .banner-collec a:hover,
+.counter .banner-collec a:hover,
 .wedding .banner-collec a:hover,
 .holiday .banner-collec a:hover {
     background-position: 100%;
@@ -1454,6 +1462,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-title-collec,
+.counter .product-collection .product-title-collec,
 .wedding .product-collection .product-title-collec,
 .holiday .product-collection .product-title-collec {
     text-align: center;
@@ -1461,12 +1470,14 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-title-collec h5,
+.counter .product-collection .product-title-collec h5,
 .wedding .product-collection .product-title-collec h5,
 .holiday .product-collection .product-title-collec h5 {
     margin-top: 20px;
 }
 
 .collection .product-collection .product-title-collec h5 a,
+.counter .product-collection .product-title-collec h5 a,
 .wedding .product-collection .product-title-collec h5 a,
 .holiday .product-collection .product-title-collec h5 a {
     font-family: "Inter", sans-serif;
@@ -1476,6 +1487,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-title-collec h5 a:hover,
+.counter .product-collection .product-title-collec h5 a:hover,
 .wedding .product-collection .product-title-collec h5 a:hover,
 .holiday .product-collection .product-title-collec h5 a:hover {
     text-decoration: none;
@@ -1483,18 +1495,21 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-title-collec .star,
+.counter .product-collection .product-title-collec .star,
 .wedding .product-collection .product-title-collec .star,
 .holiday .product-collection .product-title-collec .star {
     color: #e18787;
 }
 
 .collection .product-collection .product-title-collec .star i,
+.counter .product-collection .product-title-collec .star i,
 .wedding .product-collection .product-title-collec .star i,
 .holiday .product-collection .product-title-collec .star i {
     padding-right: 2px;
 }
 
 .collection .product-collection .product-title-collec .prince,
+.counter .product-collection .product-title-collec .prince,
 .wedding .product-collection .product-title-collec .prince,
 .holiday .product-collection .product-title-collec .prince {
     font-family: "Inter", sans-serif;
@@ -1505,6 +1520,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-title-collec .prince .strike,
+.counter .product-collection .product-title-collec .prince .strike,
 .wedding .product-collection .product-title-collec .prince .strike,
 .holiday .product-collection .product-title-collec .prince .strike {
     font-size: 14px;
@@ -1514,6 +1530,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec,
+.counter .product-collection .product-image-collec,
 .wedding .product-collection .product-image-collec,
 .holiday .product-collection .product-image-collec {
     position: relative;
@@ -1521,12 +1538,14 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec:hover,
+.counter .product-collection .product-image-collec:hover,
 .wedding .product-collection .product-image-collec:hover,
 .holiday .product-collection .product-image-collec:hover {
     box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .collection .product-collection .product-image-collec:hover .product-icon-collec,
+.counter .product-collection .product-image-collec:hover .product-icon-collec,
 .wedding .product-collection .product-image-collec:hover .product-icon-collec,
 .holiday .product-collection .product-image-collec:hover .product-icon-collec {
     opacity: 1;
@@ -1534,6 +1553,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec .product-icon-collec,
+.counter .product-collection .product-image-collec .product-icon-collec,
 .wedding .product-collection .product-image-collec .product-icon-collec,
 .holiday .product-collection .product-image-collec .product-icon-collec {
     position: absolute;
@@ -1548,6 +1568,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec .product-icon-collec i,
+.counter .product-collection .product-image-collec .product-icon-collec i,
 .wedding .product-collection .product-image-collec .product-icon-collec i,
 .holiday .product-collection .product-image-collec .product-icon-collec i {
     width: 55px;
@@ -1560,6 +1581,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec .product-icon-collec a,
+.counter .product-collection .product-image-collec .product-icon-collec a,
 .wedding .product-collection .product-image-collec .product-icon-collec a,
 .holiday .product-collection .product-image-collec .product-icon-collec a {
     transition: all .3s ease;
@@ -1567,12 +1589,14 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec .product-icon-collec a:hover,
+.counter .product-collection .product-image-collec .product-icon-collec a:hover,
 .wedding .product-collection .product-image-collec .product-icon-collec a:hover,
 .holiday .product-collection .product-image-collec .product-icon-collec a:hover {
     color: black;
 }
 
 .collection .product-collection .product-image-collec .hot::before,
+.counter .product-collection .product-image-collec .hot::before,
 .wedding .product-collection .product-image-collec .hot::before,
 .holiday .product-collection .product-image-collec .hot::before {
     font-family: "Inter", sans-serif;
@@ -1590,6 +1614,7 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .collection .product-collection .product-image-collec .sale::before,
+.counter .product-collection .product-image-collec .sale::before,
 .wedding .product-collection .product-image-collec .sale::before,
 .holiday .product-collection .product-image-collec .sale::before {
     font-family: "Inter", sans-serif;
@@ -1750,6 +1775,163 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .wedding .wedding-content .product-wedding .product-image-wedding .new::before,
+.holiday .product-holiday .product-image-holiday .new::before {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    position: absolute;
+    height: 25px;
+    content: "NEW";
+    background-color: #2ecc71;
+    color: white;
+    padding: 2px 6px;
+    right: 0;
+    letter-spacing: 1px;
+}
+
+.counter {
+    position: relative;
+    height: 863px;
+}
+
+.counter .img-counter {
+    position: absolute;
+    top: -110px;
+    z-index: -1;
+}
+
+.counter .img-counter img {
+    width: 100%;
+}
+
+.counter .counter-content {
+    padding-top: 70px;
+}
+
+.counter .counter-content .product-counter .product-title-counter {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.counter .counter-content .product-counter .product-title-counter h5 {
+    margin-top: 20px;
+}
+
+.counter .counter-content .product-counter .product-title-counter h5 a {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: black;
+}
+
+.counter .counter-content .product-counter .product-title-counter h5 a:hover {
+    text-decoration: none;
+    color: #ff1b43;
+}
+
+.counter .counter-content .product-counter .product-title-counter .star {
+    color: #e18787;
+}
+
+.counter .counter-content .product-counter .product-title-counter .star i {
+    padding-right: 2px;
+}
+
+.counter .counter-content .product-counter .product-title-counter .prince {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: black;
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.counter .counter-content .product-counter .product-title-counter .prince .strike {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(167, 167, 167);
+    padding-left: 10px;
+}
+
+.counter .counter-content .product-counter .product-image-counter {
+    position: relative;
+    transition: all .5s ease;
+}
+
+.counter .counter-content .product-counter .product-image-counter:hover {
+    box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    /* Zoom effect instead of lift to avoid gaps */
+}
+
+.counter .counter-content .product-counter .product-image-counter:hover .product-icon-counter {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.counter .counter-content .product-counter .product-image-counter .product-icon-counter {
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    top: 40%;
+    opacity: 0;
+    transform: scale(0);
+    transition: all .3s ease;
+    width: 100%;
+    width: 100%;
+}
+
+.counter .counter-content .product-counter .product-image-counter .product-icon-counter i {
+    width: 55px;
+    height: 55px;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 20px;
+    padding-top: 18px;
+    margin-right: 8px;
+}
+
+.counter .counter-content .product-counter .product-image-counter .product-icon-counter a {
+    transition: all .3s ease;
+    color: lightgrey;
+}
+
+.counter .counter-content .product-counter .product-image-counter .product-icon-counter a:hover {
+    color: black;
+}
+
+.counter .counter-content .product-counter .product-image-counter .hot::before {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+    position: absolute;
+    width: 45px;
+    height: 25px;
+    content: "HOT";
+    background-color: #ff1b43;
+    color: white;
+    padding: 2px 0 0 9px;
+    right: 0;
+}
+
+.counter .counter-content .product-counter .product-image-counter .sale::before {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+    position: absolute;
+    height: 25px;
+    content: "SALE";
+    background-color: #e18787;
+    color: white;
+    padding: 2px 6px;
+    right: 0;
+    letter-spacing: 1px;
+}
+
+.counter .counter-content .product-counter .product-image-counter .new::before,
 .holiday .product-holiday .product-image-holiday .new::before {
     font-family: "Inter", sans-serif;
     font-weight: 500;
@@ -2053,42 +2235,42 @@ nav ul.navbar-right .eng-language:hover #language-figure::before {
 }
 
 .brand .brand-1 {
-    background-image: url("/HongAnhWeb/image/brand.png");
+    background-image: url("/images/brand.png");
     background-position: 0 0;
     height: 112px;
     background-repeat: no-repeat;
 }
 
 .brand .brand-2 {
-    background-image: url("/HongAnhWeb/image/brand.png");
+    background-image: url("/images/brand.png");
     background-position: -228px 0;
     height: 112px;
     background-repeat: no-repeat;
 }
 
 .brand .brand-3 {
-    background-image: url("/HongAnhWeb/image/brand.png");
+    background-image: url("/images/brand.png");
     background-position: -490px 0;
     height: 112px;
     background-repeat: no-repeat;
 }
 
 .brand .brand-4 {
-    background-image: url("/HongAnhWeb/image/brand.png");
+    background-image: url("/images/brand.png");
     background-position: -740px 0;
     height: 112px;
     background-repeat: no-repeat;
 }
 
 .brand .brand-5 {
-    background-image: url("/HongAnhWeb/image/brand.png");
+    background-image: url("/images/brand.png");
     background-position: -925px 0;
     height: 112px;
     background-repeat: no-repeat;
 }
 
 .brand .brand-6 {
-    background-image: url("/HongAnhWeb/image/brand.png");
+    background-image: url("/images/brand.png");
     background-position: -1120px 0;
     height: 112px;
     background-repeat: no-repeat;

@@ -53,25 +53,37 @@ const error = ref(null)
 const defaultAvatar = 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop'
 
 const initSwiper = () => {
-  if (window.Swiper) {
-    new window.Swiper('.mySwiper', {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2
+  const tryInit = () => {
+    if (window.Swiper && swiperRef.value) {
+      new window.Swiper(swiperRef.value, {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: reviews.value.length > 3,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
         },
-        992: {
-          slidesPerView: 3
+        breakpoints: {
+          320: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+          },
+          768: {
+              slidesPerView: 2,
+              spaceBetween: 30,
+          },
+          1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+          },
         }
-      }
-    })
+      })
+    } else {
+      // Retry after 100ms if Swiper not loaded yet
+      setTimeout(tryInit, 100)
+    }
   }
+  tryInit()
 }
 
 const fetchReviews = async () => {
