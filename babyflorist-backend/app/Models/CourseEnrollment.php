@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CourseEnrollment extends Model
 {
     protected $fillable = [
-        'user_id',
+        'customer_id',
         'course_id',
         'order_id',
         'is_active',
@@ -27,9 +27,9 @@ class CourseEnrollment extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function course()
@@ -37,3 +37,4 @@ class CourseEnrollment extends Model
         return $this->belongsTo(Course::class);
     }
 }
+

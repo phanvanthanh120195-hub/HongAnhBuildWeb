@@ -35,7 +35,7 @@ class OrderController extends Controller
 
         try {
             DB::beginTransaction();
-             \Illuminate\Support\Facades\Log::info('Transaction Started');
+            \Illuminate\Support\Facades\Log::info('Transaction Started');
 
             $originalPrice = 0;
             $orderItemsData = [];
@@ -48,7 +48,7 @@ class OrderController extends Controller
                 $originalPrice = $course->sale_price ?? $course->price;
                 $notes = 'Đăng ký khóa học: ' . $course->name;
                 $orderType = 'course';
-                
+
                 $orderItemsData[] = [
                     'item_type' => 'course',
                     'item_id' => $course->id,
@@ -57,21 +57,22 @@ class OrderController extends Controller
                     'quantity' => 1,
                     'subtotal' => $originalPrice
                 ];
-            } 
+            }
             // CASE 2: Cart Checkout (Multiple Products)
             else if ($request->has('items') && is_array($request->items)) {
                 foreach ($request->items as $item) {
                     // Assuming item has { id, quantity }
                     // We need to fetch Product to get price for security
                     $product = \App\Models\Product::find($item['id']);
-                    if (!$product) continue;
+                    if (!$product)
+                        continue;
 
                     $price = $product->sale_price ?? $product->price;
                     $qty = $item['quantity'] ?? 1;
                     $subtotal = $price * $qty;
 
                     $originalPrice += $subtotal;
-                    
+
                     $orderItemsData[] = [
                         'item_type' => 'product',
                         'item_id' => $product->id,
@@ -83,9 +84,9 @@ class OrderController extends Controller
                 }
                 $notes = 'Đơn hàng mua sản phẩm (' . count($orderItemsData) . ' món)';
             } else {
-                 return response()->json(['success' => false, 'message' => 'No items provided'], 400);
+                return response()->json(['success' => false, 'message' => 'No items provided'], 400);
             }
-            
+
             $discountAmount = 0;
             $voucherCode = $request->voucher_code;
 
@@ -94,7 +95,7 @@ class OrderController extends Controller
                 $voucher = Voucher::where('code', $voucherCode)
                     ->where('is_active', true)
                     ->first();
-                
+
                 if ($voucher) {
                     $now = Carbon::now();
                     if (
@@ -110,37 +111,37 @@ class OrderController extends Controller
                 }
             }
 
-            // Determine User ID
-            $userId = auth('sanctum')->id();
-            
-            if (!$userId && $request->email) {
-                // Try to find user by email
-                $existingUser = \App\Models\User::where('email', $request->email)->first();
-                if ($existingUser) {
-                    $userId = $existingUser->id;
+            // Determine Customer ID
+            $customerId = auth('sanctum')->id();
+
+            if (!$customerId && $request->email) {
+                // Try to find customer by email
+                $existingCustomer = \App\Models\Customer::where('email', $request->email)->first();
+                if ($existingCustomer) {
+                    $customerId = $existingCustomer->id;
                 } else {
-                    // Create new user for Guest
-                    $newUser = \App\Models\User::create([
+                    // Create new customer for Guest
+                    $newCustomer = \App\Models\Customer::create([
                         'name' => $request->name,
                         'email' => $request->email,
                         'phone' => $request->phone,
                         'password' => bcrypt(Str::random(10)), // Random password
-                        'is_active' => true 
+                        'is_active' => true
                     ]);
-                    $userId = $newUser->id;
+                    $customerId = $newCustomer->id;
                 }
             }
 
-             \Illuminate\Support\Facades\Log::info('User ID Determined: ' . $userId);
+            \Illuminate\Support\Facades\Log::info('Customer ID Determined: ' . $customerId);
 
             $finalAmount = max(0, $originalPrice - $discountAmount);
 
             // Create Order
-             \Illuminate\Support\Facades\Log::info('Creating Order...');
+            \Illuminate\Support\Facades\Log::info('Creating Order...');
             $order = Order::create([
                 'order_number' => $this->generateOrderNumber(),
                 'order_type' => $orderType,
-                'user_id' => $userId,
+                'customer_id' => $customerId,
                 'total_amount' => $originalPrice,
                 'discount_amount' => $discountAmount,
                 'final_amount' => $finalAmount,
@@ -150,13 +151,13 @@ class OrderController extends Controller
                 'payment_method' => 'qr_code',
                 'shipping_name' => $request->name,
                 'shipping_phone' => $request->phone,
-                'shipping_address' => $request->address ?? 'N/A', 
+                'shipping_address' => $request->address ?? 'N/A',
                 'notes' => $notes
             ]);
-             \Illuminate\Support\Facades\Log::info('Order Created ID: ' . $order->id);
+            \Illuminate\Support\Facades\Log::info('Order Created ID: ' . $order->id);
 
             // Create Order Items
-             \Illuminate\Support\Facades\Log::info('Creating Order Items...');
+            \Illuminate\Support\Facades\Log::info('Creating Order Items...');
             foreach ($orderItemsData as $itemData) {
                 $itemData['order_id'] = $order->id;
                 OrderItem::create($itemData);
@@ -168,7 +169,7 @@ class OrderController extends Controller
             }
 
             DB::commit();
-             \Illuminate\Support\Facades\Log::info('Order Commit Success');
+            \Illuminate\Support\Facades\Log::info('Order Commit Success');
 
             return response()->json([
                 'success' => true,
@@ -182,8 +183,8 @@ class OrderController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-             \Illuminate\Support\Facades\Log::error('Order Error: ' . $e->getMessage());
-             \Illuminate\Support\Facades\Log::error($e->getTraceAsString());
+            \Illuminate\Support\Facades\Log::error('Order Error: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error($e->getTraceAsString());
             return response()->json([
                 'success' => false,
                 'message' => 'Lỗi tạo đơn hàng: ' . $e->getMessage()
@@ -204,7 +205,7 @@ class OrderController extends Controller
 
         // Check if already confirmed/paid to avoid spam
         if ($order->payment_status === 'paid') {
-             return response()->json(['success' => true, 'message' => 'Đơn hàng đã được thanh toán']);
+            return response()->json(['success' => true, 'message' => 'Đơn hàng đã được thanh toán']);
         }
 
         // Update status or note

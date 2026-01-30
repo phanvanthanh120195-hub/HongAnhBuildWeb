@@ -15,18 +15,21 @@ class OrdersTable
     {
         return $table
             ->columns([
+                TextColumn::make("id")
+                    ->label("ID")
+                    ->searchable(),
                 TextColumn::make('order_number')
                     ->label('Mã đơn hàng')
                     ->searchable(),
                 TextColumn::make('order_type')
                     ->label('Loại đơn hàng')
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'product' => 'Sản phẩm',
                         'course' => 'Khóa học',
                         default => $state,
                     })
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'product' => 'info',
                         'course' => 'warning',
                         default => 'gray',
@@ -55,14 +58,14 @@ class OrdersTable
                 TextColumn::make('payment_status')
                     ->label('Trạng thái thanh toán')
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'pending' => 'Chờ thanh toán',
                         'paid' => 'Đã thanh toán',
                         'failed' => 'Thất bại',
                         'refunded' => 'Hoàn tiền',
                         default => $state,
                     })
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
                         'paid' => 'success',
                         'failed' => 'danger',
@@ -72,7 +75,7 @@ class OrdersTable
                 TextColumn::make('payment_method')
                     ->label('Thanh toán qua')
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'qr_code' => 'Chuyển khoản QR',
                         'cod' => 'Tiền mặt (COD)',
                         'bank' => 'Chuyển khoản',

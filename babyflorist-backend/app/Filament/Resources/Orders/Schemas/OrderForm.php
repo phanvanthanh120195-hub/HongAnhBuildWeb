@@ -40,7 +40,7 @@ class OrderForm
                                     ->required()
                                     ->suffix('đ')
                                     ->live(onBlur: true)
-                                    ->formatStateUsing(fn ($state) => $state ? number_format($state, 0, ',', '.') : null)
+                                    ->formatStateUsing(fn($state) => $state ? number_format($state, 0, ',', '.') : null)
                                     ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                                         $discount = (float) str_replace('.', '', $get('discount_amount'));
                                         if ($state) {
@@ -49,7 +49,7 @@ class OrderForm
                                             $set('final_amount', number_format($total - $discount, 0, ',', '.'));
                                         }
                                     })
-                                    ->dehydrateStateUsing(fn ($state) => (float) str_replace('.', '', $state)),
+                                    ->dehydrateStateUsing(fn($state) => (float) str_replace('.', '', $state)),
 
                                 TextInput::make('discount_amount')
                                     ->label('Giảm giá')
@@ -57,15 +57,15 @@ class OrderForm
                                     ->default(0)
                                     ->suffix('đ')
                                     ->live(onBlur: true)
-                                    ->formatStateUsing(fn ($state) => $state ? number_format($state, 0, ',', '.') : '0')
+                                    ->formatStateUsing(fn($state) => $state ? number_format($state, 0, ',', '.') : '0')
                                     ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                                         $total = (float) str_replace('.', '', $get('total_amount'));
                                         $discount = $state ? (float) str_replace('.', '', $state) : 0;
-                                        
+
                                         $set('discount_amount', number_format($discount, 0, ',', '.'));
                                         $set('final_amount', number_format($total - $discount, 0, ',', '.'));
                                     })
-                                    ->dehydrateStateUsing(fn ($state) => (float) str_replace('.', '', $state)),
+                                    ->dehydrateStateUsing(fn($state) => (float) str_replace('.', '', $state)),
 
                                 TextInput::make('final_amount')
                                     ->label('Thành tiền')
@@ -73,8 +73,8 @@ class OrderForm
                                     ->disabled()
                                     ->dehydrated()
                                     ->suffix('đ')
-                                    ->formatStateUsing(fn ($state) => $state ? number_format($state, 0, ',', '.') : '0')
-                                    ->dehydrateStateUsing(fn ($state) => (float) str_replace('.', '', $state)),
+                                    ->formatStateUsing(fn($state) => $state ? number_format($state, 0, ',', '.') : '0')
+                                    ->dehydrateStateUsing(fn($state) => (float) str_replace('.', '', $state)),
                                 TextInput::make('voucher_code')
                                     ->label('Mã Voucher')
                                     ->default(null),
@@ -95,11 +95,11 @@ class OrderForm
                                         TextInput::make('item_price')
                                             ->label('Đơn giá')
                                             ->disabled()
-                                            ->formatStateUsing(fn ($state) => $state ? number_format($state, 0, ',', '.') . ' đ' : '0 đ'),
+                                            ->formatStateUsing(fn($state) => $state ? number_format($state, 0, ',', '.') . ' đ' : '0 đ'),
                                         TextInput::make('subtotal')
                                             ->label('Thành tiền')
                                             ->disabled()
-                                            ->formatStateUsing(fn ($state) => $state ? number_format($state, 0, ',', '.') . ' đ' : '0 đ'),
+                                            ->formatStateUsing(fn($state) => $state ? number_format($state, 0, ',', '.') . ' đ' : '0 đ'),
                                     ])
                                     ->columns(4)
                                     ->deletable(false)
@@ -107,7 +107,7 @@ class OrderForm
                                     ->reorderable(false)
                                     ->columnSpanFull(),
                             ])
-                            ->hidden(fn ($get) => $get('order_type') !== 'product')
+                            ->hidden(fn($get) => $get('order_type') !== 'product')
                             ->collapsible(),
 
                         Section::make('Thông tin giao hàng')
@@ -139,14 +139,13 @@ class OrderForm
                                     ->label('Trạng thái đơn hàng')
                                     ->options([
                                         'pending' => 'Chờ xử lý',
-                                        'paid' => 'Đã thanh toán',
                                         'preparing' => 'Đang chuẩn bị',
                                         'shipping' => 'Đang giao hàng',
                                         'completed' => 'Hoàn thành',
                                         'cancelled' => 'Đã hủy',
                                     ])
                                     ->default('pending')
-                                    ->hidden(fn ($get) => $get('order_type') === 'course')
+                                    ->hidden(fn($get) => $get('order_type') === 'course')
                                     ->required(),
                                 Select::make('payment_status')
                                     ->label('Trạng thái thanh toán')

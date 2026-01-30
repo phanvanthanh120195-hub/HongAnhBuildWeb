@@ -21,10 +21,10 @@ class CustomerTable
                     ->label('ID')
                     ->sortable(),
                 ImageColumn::make('avatar')
-                    ->label('Avatar')
+                    ->label('')
                     ->circular()
-                    ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
-                
+                    ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
+
                 TextColumn::make('name')
                     ->label('Họ tên')
                     ->searchable()

@@ -30,14 +30,19 @@ class OrderObserver
 
     protected function syncEnrollmentStatus(Order $order)
     {
-        // Skip if order has no user (guest checkout)
-        if (!$order->user_id) {
+        // Skip if order has no customer (guest checkout without email)
+        if (!$order->customer_id) {
+            return;
+        }
+
+        // Only process course orders
+        if ($order->order_type !== 'course') {
             return;
         }
 
         // Determine Target Enrollment Status (Is Active)
         $isActive = false;
-        
+
         if ($order->payment_status === 'paid' || $order->order_status === 'completed' || $order->order_status === 'shipping') {
             $isActive = true;
         }
@@ -50,7 +55,7 @@ class OrderObserver
         foreach ($items as $item) {
             CourseEnrollment::updateOrCreate(
                 [
-                    'user_id' => $order->user_id,
+                    'customer_id' => $order->customer_id,
                     'course_id' => $item->item_id,
                 ],
                 [
@@ -65,7 +70,7 @@ class OrderObserver
     protected function createPaymentRecord(Order $order)
     {
         $existingPayment = Payment::where('order_id', $order->id)->where('status', 'success')->exists();
-        
+
         if (!$existingPayment) {
             Payment::create([
                 'order_id' => $order->id,
@@ -77,3 +82,4 @@ class OrderObserver
         }
     }
 }
+

@@ -19,18 +19,18 @@ class CourseEnrollmentsTable
                 TextColumn::make('id')
                     ->label('ID')
                     ->sortable(),
-                TextColumn::make('user.name')
+                TextColumn::make('customer.name')
                     ->label('Học viên')
                     ->searchable()
                     ->sortable()
                     ->html()
-                    ->formatStateUsing(fn ($state, $record) => $record->is_active ? $state : "<del class='opacity-50'>{$state}</del>"),
+                    ->formatStateUsing(fn($state, $record) => $record->is_active ? $state : "<del class='opacity-50'>{$state}</del>"),
                 TextColumn::make('course.name')
                     ->label('Khóa học')
                     ->searchable()
                     ->sortable()
                     ->html()
-                    ->formatStateUsing(fn ($state, $record) => $record->is_active ? $state : "<del class='opacity-50'>{$state}</del>"),
+                    ->formatStateUsing(fn($state, $record) => $record->is_active ? $state : "<del class='opacity-50'>{$state}</del>"),
                 TextColumn::make('purchased_at')
                     ->label('Ngày đăng ký')
                     ->dateTime('d/m/Y H:i')

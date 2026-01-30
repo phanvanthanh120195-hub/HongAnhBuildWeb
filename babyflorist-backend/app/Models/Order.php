@@ -9,7 +9,7 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'order_type',
-        'user_id',
+        'customer_id',
         'total_amount',
         'discount_amount',
         'shipping_fee',
@@ -35,6 +35,11 @@ class Order extends Model
         'expired_at' => 'datetime',
     ];
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function items()
     {
         return $this->hasMany(OrderItem::class);
@@ -45,3 +50,4 @@ class Order extends Model
         return $this->hasMany(CourseEnrollment::class);
     }
 }
+
