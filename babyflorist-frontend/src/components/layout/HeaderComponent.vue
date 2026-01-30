@@ -94,9 +94,9 @@
   </header>
 
   <AuthModal 
-    :is-open="isAuthModalOpen" 
-    :initial-mode="authMode"
-    @close="isAuthModalOpen = false"
+    :is-open="authModalStore.isOpen" 
+    :initial-mode="authModalStore.mode"
+    @close="handleAuthModalClose"
   />
 
   <CartDrawer 
@@ -160,15 +160,17 @@
 </style>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import { useAuthStore } from '@/stores/auth'
+import { useAuthModalStore } from '@/stores/authModal'
 import AuthModal from '@/components/auth/AuthModal.vue'
 import CartDrawer from '@/components/cart/CartDrawer.vue'
 import { useRouter } from 'vue-router'
 
 const cartStore = useCartStore()
 const authStore = useAuthStore()
+const authModalStore = useAuthModalStore()
 const router = useRouter()
 
 const cartCount = computed(() => cartStore.itemCount)
@@ -176,10 +178,17 @@ const showSearch = ref(false)
 const searchQuery = ref('')
 
 // Auth State
-const isAuthModalOpen = ref(false)
 const isUserMenuOpen = ref(false)
 const isCartDrawerOpen = ref(false)
-const authMode = ref('login')
+
+// Watch for successful login and redirect
+watch(() => authStore.isAuthenticated, (isAuth) => {
+    if (isAuth && authModalStore.redirectAfterLogin) {
+        const redirect = authModalStore.redirectAfterLogin
+        authModalStore.close()
+        router.push(redirect)
+    }
+})
 
 function toggleCartDrawer() {
   isCartDrawerOpen.value = !isCartDrawerOpen.value
@@ -193,9 +202,12 @@ function handleUserClick() {
   if (authStore.isAuthenticated) {
     isUserMenuOpen.value = !isUserMenuOpen.value
   } else {
-    authMode.value = 'login'
-    isAuthModalOpen.value = true
+    authModalStore.openLogin()
   }
+}
+
+function handleAuthModalClose() {
+  authModalStore.close()
 }
 
 function handleLogout() {

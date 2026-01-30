@@ -28,6 +28,13 @@ class VouchersTable
                     ->sortable(),
                 TextColumn::make('apply_to')
                     ->label('Áp dụng cho')
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'product' => 'Sản phẩm',
+                        'course' => 'Khóa học',
+                        'category' => 'Danh mục',
+                        'all_orders' => 'Tất cả đơn hàng',
+                        default => $state,
+                    })
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'product' => 'info',

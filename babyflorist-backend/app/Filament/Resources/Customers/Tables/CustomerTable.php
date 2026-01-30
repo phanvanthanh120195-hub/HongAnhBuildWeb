@@ -17,6 +17,9 @@ class CustomerTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
                 ImageColumn::make('avatar')
                     ->label('Avatar')
                     ->circular()

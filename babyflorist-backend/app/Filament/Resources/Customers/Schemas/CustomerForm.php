@@ -39,6 +39,13 @@ class CustomerForm
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255)
                                     ->columnSpanFull(),
+                                TextInput::make('password')
+                                    ->label('Mật khẩu')
+                                    ->password()
+                                    ->revealable()
+                                    ->dehydrated(fn ($state) => filled($state))
+                                    ->required(fn (string $context): bool => $context === 'create')
+                                    ->columnSpanFull(),
                             ])->columns(2),
                         
                         Section::make('Địa chỉ nhận hàng')
@@ -66,7 +73,7 @@ class CustomerForm
 
                                  Textarea::make('address')
                                      ->label('Địa chỉ cụ thể')
-                                     ->rows(4)
+                                     ->rows(3)
                                      ->columnSpanFull(),
                              ])->columns(3),
                     ])->columnSpan(2),
@@ -80,15 +87,6 @@ class CustomerForm
                                     ->image()
                                     ->directory('customers')
                                     ->avatar(),
-                            ]),
-                        Section::make('Mật khẩu')
-                            ->schema([
-                                TextInput::make('password')
-                                    ->label('Mật khẩu')
-                                    ->password()
-                                    ->revealable()
-                                    ->dehydrated(fn ($state) => filled($state))
-                                    ->required(fn (string $context): bool => $context === 'create'),
                             ]),
                         Section::make('Trạng thái')
                             ->schema([

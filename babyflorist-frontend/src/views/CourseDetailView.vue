@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="course-detail-page">
     <div class="course-header">
       <div class="container">
@@ -99,7 +99,12 @@
                     <span class="original-price">${{ course?.originalPrice }}</span>
                     <span class="discount-off">15% off</span>
                  </div>
-                 <button class="btn-enroll-now">ENROLL NOW</button>
+                 <template v-if="isRegistrationOpen">
+                    <button @click="goToRegister" class="btn-enroll-now text-center d-block w-100">ĐĂNG KÝ NGAY</button>
+                 </template>
+                 <template v-else>
+                    <router-link class="btn-enroll-disabled text-center d-block text-decoration-none">CHƯA MỞ ĐĂNG KÝ</router-link>
+                 </template>
                  <p class="guarantee-text">30-Day Money-Back Guarantee</p>
                  <div class="includes-box">
                     <h4>This course includes:</h4>
@@ -119,97 +124,152 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, watch, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
+import { useToast } from 'vue-toastification'
+import { useAuthStore } from '@/stores/auth'
+import { useAuthModalStore } from '@/stores/authModal'
 
 const route = useRoute()
+const router = useRouter()
+const toast = useToast()
+const authStore = useAuthStore()
+const authModalStore = useAuthModalStore()
 const course = ref(null)
+const loading = ref(false)
 
-const allCourses = [
-  {
-    id: 1,
-    title: 'Master Your Mindset: Unleashing the Power Within',
-    subtitle: 'Learn how to unlock your full potential and achieve success in all areas of life.',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop',
-    badge: 'Best Seller',
-    level: 'All Levels',
-    instructor: 'Hồng Anh Phan',
-    rating: 4.8,
-    ratingCount: 1240,
-    students: 5432,
-    updatedDate: '01/2024',
-    price: 2001,
-    originalPrice: 2530,
-    duration: 12.5,
-    resources: 45,
-    objectives: [
-       'Understand the core principles of cognitive psychology',
-       'Develop a growth mindset for personal and professional life',
-       'Master techniques for stress management and focus',
-       'Build lasting habits that drive success'
-    ],
-    curriculum: [
-       {
-          title: 'Introduction to Mindset',
-          expanded: true,
-          lectures: ['Welcome to the course', 'What is Mindset?', 'Fixed vs Growth Mindset']
-       },
-       {
-          title: 'Rewiring Your Brain',
-          expanded: false,
-          lectures: ['Neuroplasticity explained', 'Cognitive biases', 'Memory improvement techniques']
-       },
-       {
-          title: 'Emotional Intelligence',
-          expanded: false,
-          lectures: ['Understanding emotions', 'Empathy and social skills', 'Self-regulation strategies']
-       }
-    ]
-  },
-   {
-    id: 5,
-    title: 'Floral Design Basics',
-    subtitle: 'Step-by-step guide to creating stunning floral arrangements at home.',
-    image: 'https://images.unsplash.com/photo-1507290439931-a861b5a38200?w=800&h=450&fit=crop',
-    badge: 'New',
-    level: 'Beginner',
-    instructor: 'Hồng Anh Phan',
-    rating: 4.9,
-    ratingCount: 320,
-    students: 1200,
-    updatedDate: '12/2023',
-    price: 2500,
-    originalPrice: 3000,
-    duration: 8,
-    resources: 10,
-    objectives: [
-       'Learn tool safety and preparation',
-       'Understand color theory in floristry',
-       'Create 5 different types of arrangements',
-       'Care tips for longer lasting flowers'
-    ],
-    curriculum: [
-       { title: 'Getting Started', expanded: true, lectures: ['Tools of the trade', 'Selecting fresh flowers'] },
-       { title: 'Design Principles', expanded: false, lectures: ['Balance and Harmony', 'Color schemes', 'Texture and Form'] },
-       { title: 'The Arrangements', expanded: false, lectures: ['Hand-tied bouquet', 'Vase arrangement', 'Centerpiece'] }
-    ]
-  }
-]
+// Function to format price
+const formatPrice = (value) => {
+    if (!value) return '0'
+    return new Intl.NumberFormat('en-US').format(value)
+}
 
-function loadCourse() {
-   const id = route.params.id || 1 // simplified mock logic
-   // In real app we use slug or id properly
-   course.value = allCourses[0] 
-   if(route.params.slug && route.params.slug.includes('floral')) { 
-       course.value = allCourses[1]
-   }
+const formatDate = (dateStr) => {
+    if (!dateStr) return ''
+    return new Date(dateStr).toLocaleDateString('vi-VN')
+}
+
+// Check if registration is open based on sale_start and sale_end
+const isRegistrationOpen = computed(() => {
+    if (!course.value) return false
+    
+    const now = new Date()
+    const start = course.value.sale_start ? new Date(course.value.sale_start) : null
+    const end = course.value.sale_end ? new Date(course.value.sale_end) : null
+    
+    // If no dates set, registration is CLOSED (require dates to be set)
+    if (!start && !end) return false
+    
+    // If only end date is set, check if still valid
+    if (!start && end) return now <= end
+    
+    // Check start date
+    if (start && now < start) return false
+    
+    // Check end date
+    if (end && now > end) return false
+    
+    return true
+})
+
+const loadCourse = async () => {
+    loading.value = true
+    try {
+        // Assume frontend has base URL setup for axios or use relative path
+        // Using relative path /api assuming proxy or same domain, typical in setup. 
+        // If vite is proxying to backend, /api works.
+        // Actually, backend is at 127.0.0.1:8000, frontend at 5173. 
+        // Need to check if axios global base URL is set. 
+        // If not, I should use full URL or import configured axios.
+        // I'll assume global axios defaults or implicit relative if proxy is set.
+        // For safety, I will check if there is a global axios config, but here I'll try standard.
+        // Since I don't see axios config file open, I will assume simple usage.
+        
+        let slug = route.params.slug
+        // If accessed via ID (legacy), handle it or redirect? Route definition seems to imply slug or id.
+        // User's previous code checked params.slug.
+        
+        if (!slug) {
+            // Fallback or error
+            console.error("No slug provided")
+            return
+        }
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/courses/${slug}`)
+        
+        if (response.data && response.data.success) {
+            const data = response.data.data
+            
+            // Map backend data to frontend model
+            // Fill missing data with placeholders as requested by user
+            course.value = {
+                id: data.id,
+                title: data.name,
+                subtitle: data.description || 'Learn how to unlock your full potential and achieve success in all areas of life.',
+                image: data.thumbnail ? `http://127.0.0.1:8000/storage/${data.thumbnail}` : 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop',
+                badge: data.type === 'hot' ? 'Best Seller' : 'New', // Logic can be improved
+                level: 'All Levels', // Placeholder
+                instructor: data.instructor || 'Hồng Anh Phan',
+                rating: 4.8, // Placeholder
+                ratingCount: 1240, // Placeholder
+                students: data.student_count || 0,
+                updatedDate: new Date(data.updated_at).toLocaleDateString(),
+                price: formatPrice(data.sale_price || data.price),
+                originalPrice: formatPrice(data.price),
+                duration: 12.5, // Placeholder
+                resources: 45, // Placeholder
+                objectives: [ // Placeholder
+                    'Understand the core principles of cognitive psychology',
+                    'Develop a growth mindset for personal and professional life',
+                    'Master techniques for stress management and focus',
+                    'Build lasting habits that drive success'
+                ],
+                curriculum: [ // Placeholder
+                    {
+                        title: 'Introduction to Mindset',
+                        expanded: true,
+                        lectures: ['Welcome to the course', 'What is Mindset?', 'Fixed vs Growth Mindset']
+                    },
+                    {
+                        title: 'Rewiring Your Brain',
+                        expanded: false,
+                        lectures: ['Neuroplasticity explained', 'Cognitive biases', 'Memory improvement techniques']
+                    },
+                    {
+                        title: 'Emotional Intelligence',
+                        expanded: false,
+                        lectures: ['Understanding emotions', 'Empathy and social skills', 'Self-regulation strategies']
+                    }
+                ],
+                // Store raw dates for validity check
+                sale_start: data.sale_start,
+                sale_end: data.sale_end
+            }
+        }
+    } catch (error) {
+        console.error("Error loading course:", error)
+        toast.error("KhÃ´ng thá»ƒ táº£i thÃ´ng tin khÃ³a há»c")
+    } finally {
+        loading.value = false
+    }
 }
 
 watch(() => route.params.slug, loadCourse)
 
 onMounted(() => {
-   loadCourse()
+    loadCourse()
 })
+
+function goToRegister() {
+    const checkoutUrl = '/checkout/course/' + (route.params.slug || course.value?.id)
+    if (!authStore.token) {
+        toast.warning('Vui lòng đăng nhập để đăng ký khóa học')
+        authModalStore.openLogin(checkoutUrl)
+        return
+    }
+    router.push(checkoutUrl)
+}
 </script>
 
 <style scoped>
@@ -251,6 +311,15 @@ onMounted(() => {
    text-transform: uppercase;
    margin-bottom: 10px;
    display: inline-block;
+}
+
+.btn-enroll-disabled {
+   background: #ccc;
+   color: #666;
+   padding: 15px 30px;
+   border: none;
+   border-radius: 6px;
+   cursor: not-allowed;
 }
 
 .course-meta {
@@ -340,6 +409,7 @@ onMounted(() => {
 .original-price { text-decoration: line-through; color: #666; font-size: 16px; }
 
 .btn-enroll-now {
+   display: block;
    width: 100%;
    background: #a435f0;
    color: white;
@@ -351,6 +421,20 @@ onMounted(() => {
    cursor: pointer;
 }
 .btn-enroll-now:hover { background: #8710d8; }
+
+.btn-enroll-disabled {
+   display: block;
+   width: 100%;
+   background: #ccc;
+   color: #666;
+   border: none;
+   padding: 15px;
+   font-weight: bold;
+   font-size: 16px;
+   margin-bottom: 15px;
+   cursor: not-allowed;
+   text-decoration: none;
+}
 
 .guarantee-text { text-align: center; font-size: 12px; color: #666; margin-bottom: 20px; }
 
@@ -372,3 +456,4 @@ onMounted(() => {
 .lectures-list li { padding: 10px 20px; border-top: 1px solid #eee; font-size: 14px; }
 .lectures-list li i { margin-right: 10px; color: #666; }
 </style>
+

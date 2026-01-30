@@ -24,11 +24,11 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationLabel = 'Người dùng';
+    protected static ?string $navigationLabel = 'Tài khoản';
 
-    protected static ?string $modelLabel = 'Người dùng';
+    protected static ?string $modelLabel = 'Tài khoản';
 
-    protected static ?string $pluralModelLabel = 'Người dùng';
+    protected static ?string $pluralModelLabel = 'Tài khoản';
 
     public static function form(Schema $schema): Schema
     {

@@ -27,9 +27,9 @@
             <h3>Store</h3>
             <ul>
               <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/products">Shop</router-link></li>
-              <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/category/wedding">Wedding</router-link></li>
-              <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/category/birthday">Birthday</router-link></li>
-              <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/category/womens-day">Women's day</router-link></li>
+              <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/categories/wedding">Wedding</router-link></li>
+              <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/categories/birthday">Birthday</router-link></li>
+              <li><i class="fas fa-long-arrow-alt-right"></i><router-link to="/categories/womens-day">Women's day</router-link></li>
             </ul>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -48,12 +48,6 @@
           <a href="#" id="link-fb"></a>
           <a href="#" id="link-tw"></a>
           <a href="#" id="link-sky"></a>
-          <h1>Newsletter</h1>
-          <h2>Sign up for our mailing list to get latest updates and offers</h2>
-          <form class="form-group" @submit.prevent="subscribe">
-            <input type="email" v-model="email" placeholder="Your mail here" class="input-lg" required>
-            <button type="submit"><img src="https://landing.engotheme.com/html/jenstore/demo/img/Send.png" alt="send"></button>
-          </form>
         </div>
       </div>
     </div>

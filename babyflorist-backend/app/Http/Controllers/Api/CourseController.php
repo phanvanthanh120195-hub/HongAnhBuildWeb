@@ -100,4 +100,62 @@ class CourseController extends Controller
             'data' => $deal
         ]);
     }
+
+    #[OA\Get(
+        path: '/api/courses/{slug}',
+        operationId: 'getCourseDetail',
+        tags: ['Khóa học'],
+        summary: 'Chi tiết khóa học',
+        description: 'Lấy thông tin chi tiết của một khóa học theo slug',
+        parameters: [
+            new OA\Parameter(
+                name: 'slug',
+                in: 'path',
+                required: true,
+                description: 'Slug của khóa học',
+                schema: new OA\Schema(type: 'string')
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Thành công',
+                content: new OA\JsonContent(
+                    type: 'object',
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: true),
+                        new OA\Property(property: 'data', type: 'object'),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 404,
+                description: 'Không tìm thấy khóa học'
+            )
+        ]
+    )]
+    public function show($slug)
+    {
+        $query = \App\Models\Course::where('is_active', true);
+
+        if (is_numeric($slug)) {
+            $query->where('id', $slug);
+        } else {
+            $query->where('slug', $slug);
+        }
+
+        $course = $query->first();
+
+        if (!$course) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Course not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $course
+        ]);
+    }
 }

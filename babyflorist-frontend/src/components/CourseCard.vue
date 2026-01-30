@@ -25,7 +25,7 @@
         <span class="stat-item"><i class="fas fa-file-alt"></i> {{ course.lessons }} Bài học</span>
       </div>
       <p class="hover-desc">{{ course.description }}</p>
-      <router-link :to="'/courses/' + course.id" class="view-detail-btn text-center">Xem chi tiết</router-link>
+      <router-link :to="'/courses/' + (course.slug || course.id)" class="view-detail-btn text-center">Xem chi tiết</router-link>
     </div>
   </div>
 </template>

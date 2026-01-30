@@ -178,15 +178,16 @@
 <script setup>
 import { ref, reactive, watch, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios'
 import SearchableSelect from '@/components/common/SearchableSelect.vue'
 import { useToast } from 'vue-toastification'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 const toast = useToast()
-const activeTab = ref('info')
+const activeTab = ref(route.query.tab || 'info')
 const fileInput = ref(null)
 const localAvatar = ref(null)
 const avatarFile = ref(null)

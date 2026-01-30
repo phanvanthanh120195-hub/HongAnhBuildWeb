@@ -50,7 +50,10 @@
 
 <script setup>
 import { useCartStore } from '@/stores/cart'
+import { useAuthStore } from '@/stores/auth'
+import { useAuthModalStore } from '@/stores/authModal'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 
 const props = defineProps({
   isOpen: Boolean
@@ -59,7 +62,10 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const cartStore = useCartStore()
+const authStore = useAuthStore()
+const authModalStore = useAuthModalStore()
 const router = useRouter()
+const toast = useToast()
 
 function formatCurrency(value) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
@@ -72,6 +78,11 @@ function viewCart() {
 
 function checkout() {
     emit('close')
+    if (!authStore.token) {
+        toast.warning('Vui lòng đăng nhập để thanh toán')
+        authModalStore.openLogin('/checkout')
+        return
+    }
     router.push('/checkout')
 }
 

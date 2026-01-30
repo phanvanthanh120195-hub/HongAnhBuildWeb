@@ -46,7 +46,7 @@
 
             <div class="product-meta">
               <p><strong>SKU:</strong> {{ product?.sku || 'N/A' }}</p>
-              <p><strong>Category:</strong> <router-link to="/category/wedding">{{ product?.category || 'Wedding' }}</router-link></p>
+              <p><strong>Category:</strong> <router-link to="/categories/wedding">{{ product?.category || 'Wedding' }}</router-link></p>
               <p><strong>Tags:</strong> Flower, Beauty, Gift</p>
             </div>
           </div>

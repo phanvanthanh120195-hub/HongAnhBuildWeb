@@ -5,7 +5,9 @@ namespace App\Filament\Resources\CourseEnrollments\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class CourseEnrollmentsTable
@@ -14,20 +16,27 @@ class CourseEnrollmentsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
+                TextColumn::make('id')
+                    ->label('ID')
                     ->sortable(),
-                TextColumn::make('course_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('user.name')
+                    ->label('Học viên')
+                    ->searchable()
+                    ->sortable()
+                    ->html()
+                    ->formatStateUsing(fn ($state, $record) => $record->is_active ? $state : "<del class='opacity-50'>{$state}</del>"),
+                TextColumn::make('course.name')
+                    ->label('Khóa học')
+                    ->searchable()
+                    ->sortable()
+                    ->html()
+                    ->formatStateUsing(fn ($state, $record) => $record->is_active ? $state : "<del class='opacity-50'>{$state}</del>"),
                 TextColumn::make('purchased_at')
-                    ->dateTime()
+                    ->label('Ngày đăng ký')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable(),
-                TextColumn::make('progress')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('last_accessed_at')
-                    ->dateTime()
+                ToggleColumn::make('is_active')
+                    ->label('Trạng thái')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -42,7 +51,10 @@ class CourseEnrollmentsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->iconButton(),
+                DeleteAction::make()
+                    ->iconButton(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

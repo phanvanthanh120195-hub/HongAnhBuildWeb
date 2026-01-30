@@ -2,7 +2,7 @@
   <div v-if="isOpen" class="auth-overlay" @click.self="close">
     <div class="auth-modal">
       <button class="close-btn" @click="close"><i class="far fa-times-circle"></i></button>
-      
+
       <!-- HEADER LOGO -->
       <div class="auth-header">
         <img src="https://landing.engotheme.com/html/jenstore/demo/img/logo.png" alt="BabyFlorist" class="auth-logo">
@@ -16,13 +16,15 @@
         <form @submit.prevent="handleLogin">
           <div class="form-group">
             <label>Số điện thoại / Email</label>
-            <input type="text" v-model="loginForm.identifier" class="form-control" placeholder="Nhập số điện thoại hoặc email" required>
+            <input type="text" v-model="loginForm.identifier" class="form-control"
+              placeholder="Nhập số điện thoại hoặc email" required>
           </div>
 
           <div class="form-group">
             <label>Mật khẩu</label>
             <div class="password-input-wrapper">
-              <input :type="showLoginPassword ? 'text' : 'password'" v-model="loginForm.password" class="form-control" placeholder="********" required>
+              <input :type="showLoginPassword ? 'text' : 'password'" v-model="loginForm.password" class="form-control"
+                placeholder="********" required>
               <span class="toggle-password" @click="showLoginPassword = !showLoginPassword">
                 {{ showLoginPassword ? '🙈' : '👁️' }}
               </span>
@@ -54,36 +56,28 @@
         <p class="auth-subtitle">Vui lòng nhập thông tin đăng ký</p>
 
         <form @submit.prevent="handleRegister">
-            <div class="form-group">
-                <label>Họ và tên</label>
-                <input type="text" v-model="registerForm.name" class="form-control" placeholder="Nhập họ tên" required>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" v-model="registerForm.email" class="form-control" placeholder="Nhập email" required>
-            </div>
-            <div class="form-group">
-                <label>Số điện thoại</label>
-                <input type="tel" v-model="registerForm.phone" class="form-control" placeholder="Nhập số điện thoại" required>
-            </div>
-
-            <div class="form-group">
-                <label>Mật khẩu</label>
-                <div class="password-input-wrapper">
-                <input :type="showRegisterPassword ? 'text' : 'password'" v-model="registerForm.password" class="form-control" placeholder="********" required>
-                <span class="toggle-password" @click="showRegisterPassword = !showRegisterPassword">
-                    {{ showRegisterPassword ? '🙈' : '👁️' }}
-                </span>
-                </div>
-            </div>
+          <div class="form-group">
+            <label>Họ và tên</label>
+            <input type="text" v-model="registerForm.name" class="form-control" placeholder="Nhập họ tên" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" v-model="registerForm.email" class="form-control" placeholder="Nhập email" required>
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="tel" v-model="registerForm.phone" class="form-control" placeholder="Nhập số điện thoại"
+              required>
+          </div>
 
           <div class="form-group">
-            <label>Xác nhận mật khẩu</label>
+            <label>Mật khẩu</label>
             <div class="password-input-wrapper">
-                <input :type="showConfirmPassword ? 'text' : 'password'" v-model="registerForm.password_confirmation" class="form-control" placeholder="********" required>
-                <span class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
-                  {{ showConfirmPassword ? '🙈' : '👁️' }}
-                </span>
+              <input :type="showRegisterPassword ? 'text' : 'password'" v-model="registerForm.password"
+                class="form-control" placeholder="********" required>
+              <span class="toggle-password" @click="showRegisterPassword = !showRegisterPassword">
+                {{ showRegisterPassword ? '🙈' : '👁️' }}
+              </span>
             </div>
           </div>
 
@@ -136,8 +130,7 @@ const registerForm = reactive({
   name: '',
   email: '',
   phone: '',
-  password: '',
-  password_confirmation: ''
+  password: ''
 })
 
 watch(() => props.initialMode, (newMode) => {
@@ -145,9 +138,9 @@ watch(() => props.initialMode, (newMode) => {
 })
 
 watch(() => props.isOpen, () => {
-    // Reset forms on open
-    errorMessage.value = ''
-    loginForm.password = ''
+  // Reset forms on open
+  errorMessage.value = ''
+  loginForm.password = ''
 })
 
 function close() {
@@ -178,11 +171,6 @@ async function handleLogin() {
 }
 
 async function handleRegister() {
-  if (registerForm.password !== registerForm.password_confirmation) {
-    errorMessage.value = 'Mật khẩu xác nhận không khớp!'
-    return
-  }
-
   isLoading.value = true
   errorMessage.value = ''
   try {
@@ -191,13 +179,13 @@ async function handleRegister() {
       email: registerForm.email,
       phone: registerForm.phone,
       password: registerForm.password,
-      password_confirmation: registerForm.password_confirmation
+      password_confirmation: registerForm.password
     })
     close()
     // Maybe show success toast or auto login?
     // AuthStore usually sets user on register if backend returns token
   } catch (error) {
-     const errors = error.response?.data?.errors
+    const errors = error.response?.data?.errors
     if (errors) {
       errorMessage.value = Object.values(errors).flat().join(' ')
     } else {
@@ -230,13 +218,20 @@ async function handleRegister() {
   width: 520px;
   max-width: 90%;
   position: relative;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   animation: slideDown 0.3s ease;
 }
 
 @keyframes slideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .close-btn {
@@ -339,7 +334,8 @@ async function handleRegister() {
 .btn-submit {
   width: 100%;
   padding: 12px;
-  background: #ff4d4d; /* Red/Orange brand color from image */
+  background: #ff4d4d;
+  /* Red/Orange brand color from image */
   color: white;
   border: none;
   border-radius: 6px;
@@ -380,13 +376,14 @@ async function handleRegister() {
 }
 
 .row {
-    margin-left: -10px;
-    margin-right: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
+
 .col-xs-6 {
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 50%;
-    float: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%;
+  float: left;
 }
 </style>

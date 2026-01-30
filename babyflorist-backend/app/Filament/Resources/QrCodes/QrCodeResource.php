@@ -24,11 +24,11 @@ class QrCodeResource extends Resource
 
     protected static ?int $navigationGroupSort = 4;
 
-    protected static ?string $navigationLabel = 'Mã QR';
+    protected static ?string $navigationLabel = 'Ngân hàng';
 
-    protected static ?string $modelLabel = 'Mã QR';
+    protected static ?string $modelLabel = 'Ngân hàng';
 
-    protected static ?string $pluralModelLabel = 'Mã QR';
+    protected static ?string $pluralModelLabel = 'Ngân hàng';
 
     public static function form(Schema $schema): Schema
     {

@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { useAuthModalStore } from '@/stores/authModal'
 
 const routes = [
     {
@@ -32,6 +34,12 @@ const routes = [
         component: () => import('../views/CourseDetailView.vue')
     },
     {
+        path: '/checkout/course/:slug',
+        name: 'CourseCheckout',
+        component: () => import('../views/CourseCheckoutView.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
         path: '/blog',
         name: 'Blog',
         component: () => import('../views/BlogView.vue')
@@ -49,22 +57,13 @@ const routes = [
     {
         path: '/checkout',
         name: 'Checkout',
-        component: () => import('../views/CheckoutView.vue')
+        component: () => import('../views/CartCheckoutView.vue'),
+        meta: { requiresAuth: true }
     },
     {
         path: '/about',
         name: 'About',
         component: () => import('../views/AboutView.vue')
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: () => import('../views/auth/LoginView.vue')
-    },
-    {
-        path: '/register',
-        name: 'Register',
-        component: () => import('../views/auth/RegisterView.vue')
     },
     {
         path: '/profile',
@@ -79,4 +78,24 @@ const router = createRouter({
     routes
 })
 
+// Navigation Guard
+router.beforeEach((to, from, next) => {
+    const authStore = useAuthStore()
+    const authModalStore = useAuthModalStore()
+
+    if (to.meta.requiresAuth && !authStore.token) {
+        // Open auth modal and redirect after login
+        authModalStore.openLogin(to.fullPath)
+        // Stay on current page or go to home
+        if (from.name) {
+            next(false)
+        } else {
+            next('/')
+        }
+    } else {
+        next()
+    }
+})
+
 export default router
+

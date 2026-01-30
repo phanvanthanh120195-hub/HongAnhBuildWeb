@@ -41,6 +41,7 @@ class AdminPanelProvider extends PanelProvider
                 'Shop',
                 'Education',
                 'Content',
+                'Khách hàng',
                 'System',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
