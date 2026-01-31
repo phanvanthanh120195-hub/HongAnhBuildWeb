@@ -27,7 +27,9 @@ class BlogPostsTable
                     ->label('Slug')
                     ->searchable(),
                 ImageColumn::make('thumbnail')
-                    ->label('Hình ảnh'),
+                    ->label('Hình ảnh')
+                    ->disk('public')
+                    ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->title) . '&color=FFFFFF&background=020617'),
                 TextColumn::make('category.name')
                     ->label('Danh mục')
                     ->searchable()

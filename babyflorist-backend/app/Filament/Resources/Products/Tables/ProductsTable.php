@@ -35,7 +35,7 @@ class ProductsTable
                 ImageColumn::make('thumbnail')
                     ->label('Hình ảnh')
                     ->disk('public')
-                    ->defaultImageUrl(url('/images/placeholder.png')),
+                    ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
                 TextColumn::make('category.name')
                     ->label('Danh mục')
                     ->sortable()

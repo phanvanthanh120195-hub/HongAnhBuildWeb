@@ -24,7 +24,6 @@ class OrderForm
                             ->schema([
                                 TextInput::make('order_number')
                                     ->label('Mã đơn hàng')
-                                    ->disabled()
                                     ->required(),
                                 Select::make('order_type')
                                     ->label('Loại đơn hàng')
@@ -110,7 +109,7 @@ class OrderForm
                             ->hidden(fn($get) => $get('order_type') !== 'product')
                             ->collapsible(),
 
-                        Section::make('Thông tin giao hàng')
+                        Section::make('Thông tin đăng ký')
                             ->schema([
                                 TextInput::make('shipping_name')
                                     ->label('Tên người nhận')
@@ -121,7 +120,8 @@ class OrderForm
                                     ->required(),
                                 Textarea::make('shipping_address')
                                     ->label('Địa chỉ giao hàng')
-                                    ->required()
+                                    ->required(fn ($get) => $get('order_type') !== 'course')
+                                    ->hidden(fn ($get) => $get('order_type') === 'course')
                                     ->columnSpanFull(),
                                 Textarea::make('notes')
                                     ->label('Ghi chú')
@@ -133,7 +133,7 @@ class OrderForm
 
                 Group::make()
                     ->schema([
-                        Section::make('Trạng thái')
+                        Section::make('Trạng thái đơn hàng')
                             ->schema([
                                 Select::make('order_status')
                                     ->label('Trạng thái đơn hàng')
@@ -147,6 +147,11 @@ class OrderForm
                                     ->default('pending')
                                     ->hidden(fn($get) => $get('order_type') === 'course')
                                     ->required(),
+                                
+                            ]),
+
+                        Section::make('Thanh toán thanh toán')
+                            ->schema([
                                 Select::make('payment_status')
                                     ->label('Trạng thái thanh toán')
                                     ->options([

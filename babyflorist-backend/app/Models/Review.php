@@ -8,7 +8,7 @@ class Review extends Model
 {
     protected $fillable = [
         'course_id',
-        'user_id',
+        'customer_id',
         'reviewer_name',
         'rating',
         'content',
@@ -19,9 +19,9 @@ class Review extends Model
         'is_active' => 'boolean',
     ];
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function course()

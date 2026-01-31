@@ -56,7 +56,10 @@ class BlogCategoryForm
                                                         Textarea::make('description')
                                                             ->label('Mô tả')
                                                             ->rows(3)
-                                                            ->columnSpanFull(),
+                                                            ->columnSpan([
+                                                                'default' => 12,
+                                                                'lg' => 12,
+                                                            ]),
                                                     ]),
                                         ]),
                                 ])

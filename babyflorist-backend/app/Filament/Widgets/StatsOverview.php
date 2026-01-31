@@ -10,18 +10,18 @@ class StatsOverview extends StatsOverviewWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Revenue', '$' . number_format(\App\Models\Order::where('payment_status', 'paid')->sum('final_amount'), 2))
-                ->description('32% increase')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
+            Stat::make('Doanh thu', number_format(\App\Models\Order::where('payment_status', 'paid')->sum('final_amount'), 0, ',', '.') . ' ₫')
+                ->description('Tổng doanh thu từ đơn hàng đã thanh toán')
+                ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
-            Stat::make('New customers', \App\Models\User::count())
-                ->description('3% decrease')
-                ->descriptionIcon('heroicon-m-arrow-trending-down')
-                ->color('danger'),
-            Stat::make('New orders', \App\Models\Order::count())
-                ->description('7% increase')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->color('success'),
+            Stat::make('Tổng đơn hàng', \App\Models\Order::count())
+                ->description('Tất cả đơn hàng')
+                ->descriptionIcon('heroicon-m-shopping-cart')
+                ->color('primary'),
+            Stat::make('Tổng học viên', \App\Models\Customer::count()) // Assuming Customers are Students
+                ->description('Số lượng học viên hệ thống')
+                ->descriptionIcon('heroicon-m-academic-cap')
+                ->color('info'),
         ];
     }
 }
