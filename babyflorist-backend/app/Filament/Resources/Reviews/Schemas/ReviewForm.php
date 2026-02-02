@@ -38,9 +38,9 @@ class ReviewForm
                                         'default' => 1,
                                         'lg' => 2,
                                     ])->schema([
-                                        Select::make('user_id')
-                                            ->label('Người dùng')
-                                            ->relationship('user', 'name')
+                                        Select::make('customer_id')
+                                            ->label('Khách hàng')
+                                            ->relationship('customer', 'name')
                                             ->searchable()
                                             ->preload()
                                             ->helperText('Để trống sẽ tự động tạo tên ẩn danh ID'),
@@ -53,11 +53,11 @@ class ReviewForm
                                     Radio::make('rating')
                                         ->label('Đánh giá')
                                         ->options([
-                                            1 => '⭐',
-                                            2 => '⭐⭐',
-                                            3 => '⭐⭐⭐',
-                                            4 => '⭐⭐⭐⭐',
-                                            5 => '⭐⭐⭐⭐⭐',
+                                            1 => '⭐ (1)',
+                                            2 => '⭐⭐ (2)',
+                                            3 => '⭐⭐⭐ (3)',
+                                            4 => '⭐⭐⭐⭐ (4)',
+                                            5 => '⭐⭐⭐⭐⭐ (5)',
                                         ])
                                         ->inline()
                                         ->required(),

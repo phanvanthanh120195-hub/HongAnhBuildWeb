@@ -1,0 +1,3 @@
+$res = DB::select("SHOW CREATE TABLE reviews");
+file_put_contents('create_table_output.txt', print_r($res, true));
+exit

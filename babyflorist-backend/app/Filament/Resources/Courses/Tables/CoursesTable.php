@@ -28,7 +28,7 @@ class CoursesTable
                 \Filament\Tables\Columns\ImageColumn::make('thumbnail')
                     ->label('Hình ảnh')
                     ->disk('public')
-                    ->defaultImageUrl(url('/images/placeholder.png')),
+                    ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
                 TextColumn::make('price')
                     ->label('Giá gốc')
                     ->numeric(decimalPlaces: 0)

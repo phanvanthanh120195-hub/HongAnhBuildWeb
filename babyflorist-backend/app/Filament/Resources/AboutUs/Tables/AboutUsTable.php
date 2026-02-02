@@ -21,7 +21,9 @@ class AboutUsTable
                     ->sortable(),
                 ImageColumn::make('image')
                     ->label('Ảnh')
-                    ->square(),
+                    ->disk('public')
+                    ->square()
+                    ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
                 TextColumn::make('name')
                     ->label('Tên / Tiêu đề')
                     ->searchable()

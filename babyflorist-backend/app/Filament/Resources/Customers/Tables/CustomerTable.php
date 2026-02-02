@@ -21,7 +21,7 @@ class CustomerTable
                     ->label('ID')
                     ->sortable(),
                 ImageColumn::make('avatar')
-                    ->label('')
+                    ->label('Ảnh đại diện')
                     ->circular()
                     ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
 

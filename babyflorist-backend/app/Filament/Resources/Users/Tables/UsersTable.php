@@ -23,7 +23,7 @@ class UsersTable
                 ImageColumn::make('avatar_url')
                     ->label('Ảnh đại diện')
                     ->disk('public')
-                    ->defaultImageUrl(url('/images/placeholder.png')),
+                    ->defaultImageUrl(fn($record) => 'https://ui-avatars.com/api/?name=' . urlencode($record->name) . '&color=FFFFFF&background=020617'),
                 TextColumn::make('name')
                     ->label('Tên người dùng')
                     ->searchable(),
