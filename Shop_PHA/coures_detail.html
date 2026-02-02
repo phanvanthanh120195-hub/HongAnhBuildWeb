@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Chi Tiết Khóa Học Cắm Hoa Tết Nghệ Thuật</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1313",
+                        "wine": "#722F37",
+                        "gold": "#FFD700",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-display text-[#181111] dark:text-white bg-[url('image/BG_home.jpg')] h-auto bg-no-repeat">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <header
+            class="border-b border-solid border-b-[#f4f0f0] dark:border-b-[#3a2828] bg-white dark:bg-[#1a0f0f] shadow-sm">
+            <div
+                class="sticky w-[1600px] m-auto top-0 z-50 flex items-center justify-between whitespace-nowrap px-10 py-3">
+                <div class="flex items-center gap-4 text-[#181111] dark:text-white">
+                    <div class="size-8 text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined text-3xl">local_florist</span>
+                    </div>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Babyflorist</h2>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <nav class="hidden md:flex items-center gap-9">
+                        <a class="text-sm font-medium leading-normal hover:text-primary transition-colors"
+                            href="#">Trang
+                            chủ</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Khóa
+                            học</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Sản
+                            phẩm</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary transition-colors"
+                            href="#">Blog</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Liên
+                            hệ</a>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <button
+                            class="flex items-center justify-center p-2 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                        </button>
+                        <button
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-red-700 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+                            <span class="truncate">Đăng nhập</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="layout-container flex h-full grow flex-col">
+            <div class="px-4 md:px-8 flex flex-1 justify-center py-8">
+                <div class="layout-content-container flex flex-col w-full max-w-[1400px]">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-24">
+                        <div class="flex flex-col gap-6 order-2 lg:order-1">
+                            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                                <span>Trang chủ</span>
+                                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                <span>Khóa học</span>
+                                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                <span class="text-primary font-bold">Nghệ Thuật Cắm Hoa Đào</span>
+                            </div>
+                            <div
+                                class="inline-flex self-start bg-wine/10 dark:bg-wine/30 px-3 py-1 rounded-full border border-wine/20">
+                                <span
+                                    class="text-wine dark:text-[#ff8a8a] text-xs font-bold uppercase tracking-wider">Khóa
+                                    học Best Seller</span>
+                            </div>
+                            <h1
+                                class="text-4xl lg:text-5xl xl:text-6xl font-black text-[#181111] dark:text-white leading-[1.15]">
+                                Nghệ Thuật <br />
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-wine to-primary">Cắm
+                                    Hoa Tết
+                                </span>
+                                <br>
+                                <span class="text-primary">
+                                    Chuyên Sâu
+                                </span>
+                            </h1>
+                            <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
+                                Làm chủ kỹ thuật cắm hoa truyền thống kết hợp hiện đại chỉ sau 3 buổi. Tự tay tạo nên
+                                những tác phẩm đẳng cấp, mang lại vượng khí và may mắn cho gia chủ trong dịp Tết Nguyên
+                                Đán.
+                            </p>
+                            <div class="flex flex-col gap-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                                    <span class="text-gray-700 dark:text-gray-200">Kỹ thuật chọn hoa đào, mai chuẩn nghệ
+                                        nhân</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                                    <span class="text-gray-700 dark:text-gray-200">Tư duy phối màu đỏ - vàng sang
+                                        trọng</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                                    <span class="text-gray-700 dark:text-gray-200">Thực hành cắm bình và bảo quản tươi
+                                        lâu</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-center gap-6 mt-4">
+                                <div class="flex items-end gap-2">
+                                    <span class="text-3xl font-bold text-wine dark:text-[#ff8a8a]">1.200.000đ</span>
+                                    <span class="text-lg text-gray-400 line-through mb-1">2.000.000đ</span>
+                                </div>
+                                <button
+                                    class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-wine to-[#961c1c] hover:from-[#5a1c22] hover:to-[#7a1212] text-white rounded-lg font-bold text-lg shadow-lg shadow-red-900/20 hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    Đăng Ký Ngay
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </button>
+                            </div>
+                            <p class="text-sm text-gray-500 italic">* Ưu đãi giảm 40% chỉ áp dụng cho 20 học viên đăng
+                                ký đầu tiên.</p>
+                        </div>
+                        <div class="relative order-1 lg:order-2">
+                            <div
+                                class="absolute inset-0 bg-gold rounded-2xl transform rotate-3 opacity-20 translate-x-4 translate-y-4">
+                            </div>
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] w-full group"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjQSlXA3jSdaISmv-8CVwU_Hyrv-TaHxxYuT_yOGlMf83XqdIpcy1Jc8uq8ejLR10oQ2qmkCx9NbXddS2e6diRAeiu6cSjvgZ_Swo-HqPc6fcmS3bk2_ZqNiwQf1hcU2a502jAS8KF01RSzDOkOMojU3ajO6w26cbFHRgV21ZTzmgQIDCa4XwxD34Esp2Qy4ZteJ1eT97Bzn-kzasYJIU0UegQ4EQB4bqTWdDjzmEn0sUbIg5I71nIGP--9-inhBkAMTwHj8M9wfE'); background-size: cover; background-position: center;">
+                                <div
+                                    class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-500">
+                                </div>
+                                <div
+                                    class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow-lg flex flex-col items-center">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Thời
+                                        lượng</span>
+                                    <span class="text-xl font-bold text-wine">03 Buổi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-[#1f1212] rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-100 dark:border-gray-800 mb-16 relative overflow-hidden">
+                        <div class="text-center mb-16 relative z-10">
+                            <span class="text-primary font-bold tracking-widest uppercase text-sm">Chương trình
+                                học</span>
+                            <h2 class="text-3xl lg:text-4xl font-black mt-2 text-[#181111] dark:text-white">Lộ Trình Đào
+                                Tạo</h2>
+                            <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Giáo trình được thiết kế tinh gọn, tập trung
+                                vào thực hành để bạn có thể tự tin sáng tạo ngay sau khóa học.</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class="absolute left-6 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gray-100 dark:bg-gray-800 hidden lg:block">
+                            </div>
+                            <div class="flex flex-col gap-8 lg:gap-12">
+                                <div
+                                    class="flex flex-col lg:flex-row gap-6 lg:gap-12 items-start lg:items-center justify-between w-full group">
+                                    <div class="w-full lg:w-[45%] lg:text-right order-2 lg:order-1">
+                                        <h3
+                                            class="text-xl font-bold text-wine dark:text-[#ff8a8a] group-hover:text-primary transition-colors">
+                                            Chương 1: Tổng Quan &amp; Chọn Hoa</h3>
+                                        <p class="text-gray-600 dark:text-gray-300 mt-2">Tìm hiểu ý nghĩa các loài hoa
+                                            Tết. Bí quyết chọn hoa đào, mai, ly gốc tươi, nhiều nụ và bền màu.</p>
+                                    </div>
+                                    <div
+                                        class="relative z-10 w-12 h-12 rounded-full bg-gold text-wine font-black flex items-center justify-center text-xl shadow-lg border-4 border-white dark:border-[#1f1212] order-1 lg:order-2 shrink-0 group-hover:scale-110 transition-transform">
+                                        1</div>
+                                    <div
+                                        class="w-full lg:w-[45%] order-3 bg-background-light dark:bg-[#2a1a1a] p-5 rounded-xl border-l-4 border-gold group-hover:bg-white dark:group-hover:bg-[#332222] transition-colors shadow-sm">
+                                        <ul class="space-y-3 text-sm">
+                                            <li class="flex items-center gap-2"><span
+                                                    class="material-symbols-outlined text-lg text-primary">local_florist</span>
+                                                Phân biệt đào phai, đào bích, đào rừng</li>
+                                            <li class="flex items-center gap-2"><span
+                                                    class="material-symbols-outlined text-lg text-primary">construction</span>
+                                                Dụng cụ cắm hoa chuyên nghiệp cần có</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col lg:flex-row gap-6 lg:gap-12 items-start lg:items-center justify-between w-full group">
+                                    <div
+                                        class="w-full lg:w-[45%] order-3 lg:order-1 bg-background-light dark:bg-[#2a1a1a] p-5 rounded-xl border-r-0 lg:border-r-4 border-l-4 lg:border-l-0 border-gold group-hover:bg-white dark:group-hover:bg-[#332222] transition-colors shadow-sm">
+                                        <ul class="space-y-3 text-sm lg:text-right">
+                                            <li class="flex items-center gap-2 lg:flex-row-reverse"><span
+                                                    class="material-symbols-outlined text-lg text-primary">category</span>
+                                                Quy tắc tam giác, tròn, tỏa tròn</li>
+                                            <li class="flex items-center gap-2 lg:flex-row-reverse"><span
+                                                    class="material-symbols-outlined text-lg text-primary">water_drop</span>
+                                                Kỹ thuật dưỡng hoa tươi 7-10 ngày</li>
+                                        </ul>
+                                    </div>
+                                    <div
+                                        class="relative z-10 w-12 h-12 rounded-full bg-gold text-wine font-black flex items-center justify-center text-xl shadow-lg border-4 border-white dark:border-[#1f1212] order-1 lg:order-2 shrink-0 group-hover:scale-110 transition-transform">
+                                        2</div>
+                                    <div class="w-full lg:w-[45%] lg:text-left order-2 lg:order-3">
+                                        <h3
+                                            class="text-xl font-bold text-wine dark:text-[#ff8a8a] group-hover:text-primary transition-colors">
+                                            Chương 2: Kỹ Thuật Cốt Lõi</h3>
+                                        <p class="text-gray-600 dark:text-gray-300 mt-2">Học cách xử lý cành, tạo dáng
+                                            thế cho bình hoa. Các quy tắc phối màu vàng kim, đỏ rượu mang lại sự sang
+                                            trọng.</p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col lg:flex-row gap-6 lg:gap-12 items-start lg:items-center justify-between w-full group">
+                                    <div class="w-full lg:w-[45%] lg:text-right order-2 lg:order-1">
+                                        <h3
+                                            class="text-xl font-bold text-wine dark:text-[#ff8a8a] group-hover:text-primary transition-colors">
+                                            Chương 3: Thực Hành &amp; Sáng Tạo</h3>
+                                        <p class="text-gray-600 dark:text-gray-300 mt-2">Trực tiếp thực hành cắm bình
+                                            hoa Tết dưới sự hướng dẫn 1-1. Chụp ảnh tác phẩm nghệ thuật để lưu giữ
+                                            khoảnh khắc.</p>
+                                    </div>
+                                    <div
+                                        class="relative z-10 w-12 h-12 rounded-full bg-gold text-wine font-black flex items-center justify-center text-xl shadow-lg border-4 border-white dark:border-[#1f1212] order-1 lg:order-2 shrink-0 group-hover:scale-110 transition-transform">
+                                        3</div>
+                                    <div
+                                        class="w-full lg:w-[45%] order-3 bg-background-light dark:bg-[#2a1a1a] p-5 rounded-xl border-l-4 border-gold group-hover:bg-white dark:group-hover:bg-[#332222] transition-colors shadow-sm">
+                                        <ul class="space-y-3 text-sm">
+                                            <li class="flex items-center gap-2"><span
+                                                    class="material-symbols-outlined text-lg text-primary">brush</span>
+                                                Thực hành cắm bình đào lớn</li>
+                                            <li class="flex items-center gap-2"><span
+                                                    class="material-symbols-outlined text-lg text-primary">photo_camera</span>
+                                                Decor phụ kiện &amp; chụp ảnh sản phẩm</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 lg:mb-24">
+                        <div class="lg:col-span-5">
+                            <div class="sticky top-24">
+                                <span class="text-primary font-bold tracking-widest uppercase text-sm">Hỗ trợ</span>
+                                <h2 class="text-3xl font-black text-[#181111] dark:text-white mb-4 mt-2">Câu Hỏi Thường
+                                    Gặp</h2>
+                                <p class="text-gray-600 dark:text-gray-300 mb-8">Bạn còn thắc mắc về khóa học? Đừng ngần
+                                    ngại liên hệ với chúng tôi để được tư vấn chi tiết hơn.</p>
+                                <div class="relative rounded-xl overflow-hidden shadow-lg aspect-[4/3] group"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDi6tu_PFakN_PMcVOPdSmhxAjsPDOLNhl5uWgTTXPDKNkJc-jJUWxQGTguI4wDmSW-RUWu6DsPM4Uz1YleOeWbxg9mvcmRpI8rAevEO_mVVUMCeI3SSs6nimydGbMi--7CDdL-Lv0oWsWs6JgdoCDRfHNk8DrQOM9zfIUnrXZU9WeH6lUwjYZq4sp5QWsr5pe9lt28bCb26rI5dvj9QAV2JVNHLkzt-ow5R2Gb5V4nTAp7yWMW34lF8e0EidXxeQHMfCqwlyAHOt8'); background-size: cover; background-position: center;">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                    <div class="absolute bottom-6 left-6 text-white">
+                                        <p class="font-bold text-white/80 uppercase text-xs tracking-wider mb-1">Hotline
+                                            tư vấn 24/7</p>
+                                        <p class="text-3xl font-black text-gold">1900 1234</p>
+                                        <button
+                                            class="mt-4 px-4 py-2 bg-white/20 backdrop-blur hover:bg-white/30 rounded-lg text-sm font-bold transition-colors">Gửi
+                                            tin nhắn ngay</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-7 flex flex-col gap-4 pt-4">
+                            <details
+                                class="group bg-white dark:bg-[#2a1a1a] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 open:ring-1 open:ring-primary/50 overflow-hidden transition-all duration-300">
+                                <summary
+                                    class="flex items-center justify-between p-6 cursor-pointer select-none bg-gray-50/50 dark:bg-[#332222] group-open:bg-white dark:group-open:bg-[#2a1a1a] hover:bg-gray-100 dark:hover:bg-[#3d2b2b] transition-colors">
+                                    <span class="font-bold text-lg text-[#181111] dark:text-white">Tôi chưa từng cắm hoa
+                                        thì có học được không?</span>
+                                    <span
+                                        class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary bg-primary/10 rounded-full p-1">expand_more</span>
+                                </summary>
+                                <div
+                                    class="p-6 pt-0 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-transparent group-open:border-gray-100 dark:group-open:border-gray-700 animate-[fadeIn_0.3s_ease-out]">
+                                    <p class="mt-4">Hoàn toàn được! Khóa học được thiết kế từ cơ bản đến nâng cao, phù
+                                        hợp cho người mới bắt đầu. Giảng viên sẽ hướng dẫn chi tiết cách sử dụng dụng cụ
+                                        và kỹ thuật cơ bản nhất trước khi đi vào thực hành chuyên sâu.</p>
+                                </div>
+                            </details>
+                            <details
+                                class="group bg-white dark:bg-[#2a1a1a] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 open:ring-1 open:ring-primary/50 overflow-hidden transition-all duration-300">
+                                <summary
+                                    class="flex items-center justify-between p-6 cursor-pointer select-none bg-gray-50/50 dark:bg-[#332222] group-open:bg-white dark:group-open:bg-[#2a1a1a] hover:bg-gray-100 dark:hover:bg-[#3d2b2b] transition-colors">
+                                    <span class="font-bold text-lg text-[#181111] dark:text-white">Học phí đã bao gồm
+                                        hoa và dụng cụ chưa?</span>
+                                    <span
+                                        class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary bg-primary/10 rounded-full p-1">expand_more</span>
+                                </summary>
+                                <div
+                                    class="p-6 pt-0 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-transparent group-open:border-gray-100 dark:group-open:border-gray-700 animate-[fadeIn_0.3s_ease-out]">
+                                    <p class="mt-4">Học phí <strong>1.200.000đ</strong> đã bao gồm toàn bộ hoa tươi cao
+                                        cấp (đào, mai, lan, ly...), bình hoa gốm sứ và các phụ kiện trang trí Tết thực
+                                        hành tại lớp. Bạn chỉ cần mang theo tâm hồn yêu cái đẹp!</p>
+                                </div>
+                            </details>
+                            <details
+                                class="group bg-white dark:bg-[#2a1a1a] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 open:ring-1 open:ring-primary/50 overflow-hidden transition-all duration-300">
+                                <summary
+                                    class="flex items-center justify-between p-6 cursor-pointer select-none bg-gray-50/50 dark:bg-[#332222] group-open:bg-white dark:group-open:bg-[#2a1a1a] hover:bg-gray-100 dark:hover:bg-[#3d2b2b] transition-colors">
+                                    <span class="font-bold text-lg text-[#181111] dark:text-white">Sau khóa học tôi có
+                                        được mang sản phẩm về không?</span>
+                                    <span
+                                        class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary bg-primary/10 rounded-full p-1">expand_more</span>
+                                </summary>
+                                <div
+                                    class="p-6 pt-0 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-transparent group-open:border-gray-100 dark:group-open:border-gray-700 animate-[fadeIn_0.3s_ease-out]">
+                                    <p class="mt-4">Chắc chắn rồi. Mỗi buổi học bạn sẽ hoàn thiện một tác phẩm và được
+                                        hỗ trợ đóng gói cẩn thận để mang về trưng bày tại nhà hoặc làm quà tặng người
+                                        thân, đối tác.</p>
+                                </div>
+                            </details>
+                            <details
+                                class="group bg-white dark:bg-[#2a1a1a] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 open:ring-1 open:ring-primary/50 overflow-hidden transition-all duration-300">
+                                <summary
+                                    class="flex items-center justify-between p-6 cursor-pointer select-none bg-gray-50/50 dark:bg-[#332222] group-open:bg-white dark:group-open:bg-[#2a1a1a] hover:bg-gray-100 dark:hover:bg-[#3d2b2b] transition-colors">
+                                    <span class="font-bold text-lg text-[#181111] dark:text-white">Lớp học có bao nhiêu
+                                        người?</span>
+                                    <span
+                                        class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-primary bg-primary/10 rounded-full p-1">expand_more</span>
+                                </summary>
+                                <div
+                                    class="p-6 pt-0 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-transparent group-open:border-gray-100 dark:group-open:border-gray-700 animate-[fadeIn_0.3s_ease-out]">
+                                    <p class="mt-4">Để đảm bảo chất lượng, mỗi lớp học chỉ nhận tối đa 10 học viên.
+                                        Giảng viên và trợ giảng sẽ theo sát từng học viên để hướng dẫn chi tiết.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-wine to-[#5a1c22] rounded-3xl p-8 lg:p-16 text-center text-white relative overflow-hidden mb-12 shadow-2xl">
+                        <div class="absolute top-0 left-0 w-48 h-48 bg-gold rounded-full blur-[100px] opacity-20"></div>
+                        <div
+                            class="absolute bottom-0 right-0 w-80 h-80 bg-red-600 rounded-full blur-[120px] opacity-30">
+                        </div>
+                        <div
+                            class="absolute top-10 right-10 text-white/5 text-9xl font-serif font-black select-none pointer-events-none">
+                            "</div>
+                        <h2 class="text-3xl lg:text-4xl font-black mb-12 relative z-10">Học Viên Nói Gì Về Khóa Học?
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                            <div
+                                class="bg-white text-gray-800 p-8 rounded-2xl shadow-xl flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
+                                <div class="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-primary to-gold mb-6">
+                                    <div class="w-full h-full rounded-full bg-gray-200 bg-cover bg-center border-2 border-white"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDif9M-DN1Mft_kteCwvvjkYas_bqQss9VOtis2oKj89Yh_9LXAtFxbz1hYxDLO2R29USaro2XSM-ELEQRuXdMpaiYu7A2HpilHxpD00xPXQ9rVVRDcTo_YVWUpY6uJzBpcQDI3fRG1RhOV8BBPUMwCLXVQGt8J2hVQnYbpEJ7zegfnoncW19Q74xtCnBDaHs1gBuYkPxQIfDOMk__wKrYjclBXS0jDBGasdaLxbyCO0HFWq4Al41-hX7HqotcNEE6tcGTajLg2MDs');">
+                                    </div>
+                                </div>
+                                <div class="flex gap-1 text-gold mb-4">
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                </div>
+                                <p class="italic text-gray-600 text-sm mb-6 leading-relaxed">"Chưa bao giờ nghĩ mình có
+                                    thể cắm được bình đào đẹp thế này. Cảm ơn cô giáo đã hướng dẫn rất tận tâm, từ cách
+                                    chọn cành đến tỉa dáng."</p>
+                                <div class="mt-auto">
+                                    <h4 class="font-bold text-lg text-wine">Chị Mai Lan</h4>
+                                    <span class="text-xs text-gray-500 uppercase tracking-wide">Học viên khóa K23</span>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-white text-gray-800 p-8 rounded-2xl shadow-xl flex flex-col items-center transform md:-translate-y-6 border-2 border-gold/50 relative hover:-translate-y-8 transition-transform duration-300">
+                                <div
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gold text-wine text-xs font-bold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
+                                    Học viên xuất sắc</div>
+                                <div class="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-primary to-gold mb-6">
+                                    <div class="w-full h-full rounded-full bg-gray-200 bg-cover bg-center border-2 border-white"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD7-aw76CtuzkstBzZY9aiEVTXjy8C5eFXf-NEw_AXz6cX5TR9EBv3L8-rGEv4pAmGcppMeipYiLhrIz8xLwC0geenji88Z-77UCMl0xprNBaOGl2MFNJ1KkD692Iho1Hls_SzZQGgxme0tVZFhOaUd2q0niAyv-_fRtiBv897_wFKrPkoawKMUOaHZr5cM3-u603j9Vo0wSiVSOHaby7UGI8ltv5UNfP987SwG0IFdLBZYAWK-O7AnGlKKkXQeFzhltX_Y6vvtQd4');">
+                                    </div>
+                                </div>
+                                <div class="flex gap-1 text-gold mb-4">
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                </div>
+                                <p class="italic text-gray-600 text-sm mb-6 leading-relaxed">"Không khí lớp học rất vui,
+                                    trà bánh ngon. Mình học được cách phối màu rất sang, áp dụng được ngay cho không
+                                    gian phòng khách nhà mình."</p>
+                                <div class="mt-auto">
+                                    <h4 class="font-bold text-lg text-wine">Anh Minh Anh</h4>
+                                    <span class="text-xs text-gray-500 uppercase tracking-wide">Học viên khóa K24</span>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-white text-gray-800 p-8 rounded-2xl shadow-xl flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
+                                <div class="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-primary to-gold mb-6">
+                                    <div class="w-full h-full rounded-full bg-gray-200 bg-cover bg-center border-2 border-white"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdOJBO-LjfgKUW6gg-3eZMMJsMQ1K4On6jVYUeOeVovKS_2e8EmbsQzTd7wr2ag35GFHGt5pVFrbtGrzWw7EONhColX37IWRDJPB5QCcdZb0-QBP7Go3F6v9QVxa1FMtBLwwM2idbuW91wMgbn46NE7laFtmBZ730hBeGbHr_hcwWWaph3jVZHPPyuzf1vHkGKCQ6g_scudKTTKILzio20RH7z44YC6BbAdc97iufhSW2e3FNufdP-L70El9OkQVgjG69HHrAEuW8');">
+                                    </div>
+                                </div>
+                                <div class="flex gap-1 text-gold mb-4">
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                    <span class="material-symbols-outlined text-xl">star</span>
+                                </div>
+                                <p class="italic text-gray-600 text-sm mb-6 leading-relaxed">"Khóa học rất đáng tiền.
+                                    Hoa tươi, dụng cụ xịn xò. Sau khóa học mình tự tin nhận đơn làm giỏ quà Tết cho công
+                                    ty luôn."</p>
+                                <div class="mt-auto">
+                                    <h4 class="font-bold text-lg text-wine">Chị Thu Hà</h4>
+                                    <span class="text-xs text-gray-500 uppercase tracking-wide">Học viên khóa K21</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="border-t border-[#f4f0f0] dark:border-[#3a2828] px-4 py-10 mt-auto bg-white dark:bg-[#1a0f0f]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 max-w-[1400px] mx-auto">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="size-6 text-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl">local_florist</span>
+                        </div>
+                        <h3 class="font-bold text-lg">Hoa Tết Workshop</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Lan tỏa vẻ đẹp hoa Việt, gìn giữ nét xuân truyền
+                        thống.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Về chúng tôi</h4>
+                    <ul class="flex flex-col gap-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Câu chuyện thương hiệu</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Đội ngũ nghệ nhân</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Hỗ trợ khách hàng</h4>
+                    <ul class="flex flex-col gap-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Chính sách đổi trả</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Phương thức thanh toán</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Đăng ký nhận tin</h4>
+                    <div class="flex gap-2">
+                        <input
+                            class="bg-gray-50 dark:bg-[#2a1a1a] border border-gray-200 dark:border-gray-700 rounded px-3 py-2 text-sm w-full focus:outline-none focus:ring-1 focus:ring-primary"
+                            placeholder="Email của bạn" type="email" />
+                        <button
+                            class="bg-primary text-white rounded px-3 py-2 text-sm font-bold hover:bg-red-700 transition-colors">Gửi</button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[#f4f0f0] dark:border-[#3a2828] text-sm text-gray-400 max-w-[1400px] mx-auto">
+                <p>© 2024 Hoa Tết Workshop. All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a class="hover:text-primary transition-colors" href="#"><span
+                            class="material-symbols-outlined">thumb_up</span></a>
+                    <a class="hover:text-primary transition-colors" href="#"><span
+                            class="material-symbols-outlined">photo_camera</span></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
