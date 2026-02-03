@@ -15,6 +15,29 @@
         @apply font-display text-[#181111];
     }
 
+    @font-face {
+        font-family: 'Material Icons Outlined';
+        font-style: normal;
+        font-weight: 400;
+        src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v110/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2) format('woff2');
+    }
+
+    .material-icons-outlined {
+        font-family: 'Material Icons Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
     .site-container {
         @apply max-w-[1400px] mx-auto w-full;
     }
@@ -39,5 +62,26 @@
     .mini-cart-dropdown,
     .user-dropdown {
         border: 1px solid var(--gold);
+    }
+
+    .order-card {
+        @apply bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-sm border border-stone-100 dark:border-stone-800 transition-all hover:shadow-md hover:border-gold/30;
+    }
+
+    .drawer-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .drawer-content::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .drawer-content::-webkit-scrollbar-thumb {
+        background-color: #e5e7eb;
+        border-radius: 20px;
+    }
+
+    .dark .drawer-content::-webkit-scrollbar-thumb {
+        background-color: #374151;
     }
 }

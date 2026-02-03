@@ -17,6 +17,7 @@ export default {
       colors: {
         "primary": "#ec1313",
         "gold": "#D4AF37",
+        "wine": "#722F37",
         "gold-light": "#FFD700",
         "background-light": "#f8f6f6",
         "background-dark": "#221010",

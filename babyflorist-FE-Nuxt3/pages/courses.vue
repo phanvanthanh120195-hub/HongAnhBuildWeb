@@ -41,7 +41,7 @@
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
 
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Cắm
@@ -49,7 +49,7 @@
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Bó
@@ -57,7 +57,7 @@
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Giỏ
@@ -72,7 +72,7 @@
                             <div class="space-y-3">
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Cơ
@@ -80,7 +80,7 @@
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Nâng
@@ -95,7 +95,7 @@
                             <div class="space-y-3">
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Dưới
@@ -103,7 +103,7 @@
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">500k
@@ -111,7 +111,7 @@
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
                                     <input
-                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-background-dark dark:bg-[#2a1a1a] dark:border-gray-600"
+                                        class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                                         type="checkbox" />
                                     <span
                                         class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">Trên
@@ -163,9 +163,10 @@
                                 <div
                                     class="mt-auto pt-4 border-t border-gray-50 dark:border-[#2a1a1a] flex items-center justify-between">
                                     <span class="text-lg font-bold text-primary">500.000đ</span>
-                                    <button
-                                        class="text-xs font-bold bg-[#181111] dark:bg-white text-white dark:text-[#181111] px-4 py-2.5 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all shadow-md hover:shadow-lg">Đăng
-                                        ký ngay</button>
+                                    <NuxtLink to="/course-detail"
+                                        class="text-xs font-bold bg-[#181111] dark:bg-white text-white dark:text-[#181111] px-4 py-2.5 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all shadow-md hover:shadow-lg">
+                                        Đăng
+                                        ký ngay</NuxtLink>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-1 flex flex-col items-center w-full min-h-[92vh]">
+    <div class="flex-1 flex flex-col items-center w-full min-h-[70vh]">
         <div class="max-w-[1400px] w-full px-6 lg:px-20 py-8">
             <nav class="flex flex-wrap gap-2 py-4 mb-8">
                 <NuxtLink to="/cart" class="text-[#9a4c52] dark:text-[#c08287] text-sm font-medium hover:underline">Giỏ
