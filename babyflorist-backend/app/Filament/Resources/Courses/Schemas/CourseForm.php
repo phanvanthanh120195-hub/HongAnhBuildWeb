@@ -31,12 +31,22 @@ class CourseForm
                                     Section::make('Thông tin khóa học')
                                         ->schema([
                                             Select::make('type')
-                                                ->label('Loại khóa học')
+                                                ->label('Hình thức học')
                                                 ->options([
-                                                    'offline' => 'Offline',
-                                                    'online' => 'Online',
+                                                    'offline' => 'Học offline',
+                                                    'online' => 'Học online',
                                                 ])
                                                 ->default('offline')
+                                                ->required()
+                                                ->native(false),
+
+                                            Select::make('format')
+                                                ->label('Loại nội dung')
+                                                ->options([
+                                                    'course' => 'Khóa học',
+                                                    'workshop' => 'Workshop',
+                                                ])
+                                                ->default('course')
                                                 ->required()
                                                 ->native(false),
 

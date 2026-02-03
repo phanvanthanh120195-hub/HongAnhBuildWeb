@@ -50,7 +50,7 @@ class ReviewController extends Controller
     public function index(Request $request)
     {
         $query = Review::where('is_active', true)
-            ->with(['user', 'course'])
+            ->with(['customer', 'course'])
             ->orderBy('created_at', 'desc');
 
         if ($request->has('course_id')) {
@@ -64,9 +64,9 @@ class ReviewController extends Controller
         $data = $reviews->map(function ($review) {
             return [
                 'id' => $review->id,
-                'name' => $review->reviewer_name ?? ($review->user ? $review->user->name : 'Anonymous'),
-                'avatar' => $review->user && $review->user->avatar
-                    ? asset('storage/' . $review->user->avatar)
+                'name' => $review->reviewer_name ?? ($review->customer ? $review->customer->name : 'Anonymous'),
+                'avatar' => $review->customer && $review->customer->avatar
+                    ? asset('storage/' . $review->customer->avatar)
                     : 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop',
                 'rating' => $review->rating,
                 'comment' => $review->content,
