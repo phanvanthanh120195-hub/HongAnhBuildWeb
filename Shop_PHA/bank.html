@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Popup Quét Mã QR Thanh Toán - Workshop Cắm Hoa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6B21A8", // Deep Purple from the screenshot's 'Thanh toán ngay' button
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .blur-bg {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+    <div class="max-w-6xl mx-auto p-8 opacity-40 pointer-events-none select-none">
+        <header class="flex justify-between items-center mb-12">
+            <div class="flex items-center space-x-8">
+                <span
+                    class="font-bold text-xl uppercase tracking-widest text-gray-800 dark:text-gray-100">Jenstore</span>
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <a href="#">Trang chủ</a>
+                    <a href="#">Sản phẩm</a>
+                    <a href="#">Khóa học</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Về chúng tôi</a>
+                </nav>
+            </div>
+            <div class="flex space-x-4">
+                <span class="material-icons-round">search</span>
+                <span class="material-icons-round">person_outline</span>
+                <span class="material-icons-round">shopping_bag</span>
+            </div>
+        </header>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 space-y-6">
+                <h1 class="text-2xl font-semibold mb-6">Thông tin thanh toán</h1>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                    </div>
+                    <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <h2 class="font-semibold mb-4">Đơn hàng của bạn</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between"><span>Tạm tính:</span><span>950.000 đ</span></div>
+                    <div class="flex justify-between font-bold text-lg border-t pt-4"><span>Tổng cộng:</span><span
+                            class="text-primary">950.000 đ</span></div>
+                    <button class="w-full py-4 bg-primary text-white rounded-lg font-bold">THANH TOÁN NGAY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 blur-bg bg-black/40">
+        <div
+            class="bg-white dark:bg-gray-900 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div class="relative p-6 border-b border-gray-100 dark:border-gray-800 text-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Quét mã để thanh toán</h3>
+                <button
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="p-6 md:p-8">
+                <p class="text-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+                    Vui lòng quét mã QR hoặc chuyển khoản theo thông tin bên dưới để hoàn tất đăng ký.
+                </p>
+                <div class="flex items-center justify-center space-x-2 text-red-500 font-medium mb-6">
+                    <span class="material-icons-round text-lg">schedule</span>
+                    <span>Thời gian còn lại: <span class="font-bold">02:56</span></span>
+                </div>
+                <div class="flex flex-col items-center mb-8">
+                    <div class="mb-4">
+                        <img alt="Mã QR Thanh Toán VietQR"
+                            class="w-48 h-48 border-4 border-white dark:border-gray-800 rounded-lg shadow-sm"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeNAVO2fNfa5Yd_0DKNjqCS-rarqWUsZHcWbuB0gTWeJ3fonh6hD46JHVSQdYAVB_7t-tOo8c5y9NVwF2dwTDZ_rs850uYDwvHbxC7MoGuv6hHG_C7Uq7fdxjswKb8BffxuGCeZNGPt56GPhco4Dz8_Ni49C0rwCx3a1Dbkf54HQgGMygtpL8hLGlBgy21zRCqNKUx7UrAy4Z7MmPzpWugZatV43RIj4LpMMHgDkIyv5k2469DjoWfwf1ewzCIxJ8m-2rBNwlEnDw" />
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <img alt="Logo Napas" class="h-6 grayscale opacity-70 dark:invert"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOQNTYvN2mzjwMjYqhRDPmniPGoe6vsxusMi2OoOC9mIQN02EeJqTcObvVuP8Y0Prd76PRhd9iZOYacLznEAFuOKCo7QtcU0i2xpz372xkSWUa1Gfo182ckVvT9DkEQnGIYiqKVXOqEx-cp0am53_SCPdKgxALabQ8iILnoRhSgyKQjeYwDmAvCnw6y3hBUdNQO10QgDByzb1P-XTZKd20Xhi0UJPqL_gXRlCT8jvlQu6vLwKBznt0dUKEJO7FWZ2Pz3mpNg-c2uU" />
+                        <div class="h-4 w-[1px] bg-gray-300 dark:bg-gray-700"></div>
+                        <img alt="VPBank Logo" class="h-5"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM9UFYRianP8vycuLzDyPrGf5Fk8LK0P6r3ja5x06Vu4sp1Eh6HiAQCojQkUq9Y5drfbedyM7oYOUvSIHS7YEAbwh67DXEu95haRuUt4HYhYTG9viQT-yV_3n_Bgn9waF_qNu2rxvvXW45ld_COB-kOPtLtBsQNSxnt963RxzearB16eOw0Lm45g_3Kh78XE69zuBsMq6GU4F8AIeRl5dbg1UF6NHHtNihUZOt2Vwv903PpFKeiglgXl-U7xIKViGJHKqKpQA1Jwg" />
+                    </div>
+                </div>
+                <div class="space-y-3 text-sm md:text-base mb-8">
+                    <div class="flex justify-between items-center py-1">
+                        <span class="text-gray-500 dark:text-gray-400">Ngân hàng:</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">VPBank</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1">
+                        <span class="text-gray-500 dark:text-gray-400">Số tài khoản:</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-gray-900 dark:text-white">232845376</span>
+                            <button
+                                class="text-primary hover:bg-purple-50 dark:hover:bg-purple-900/20 p-1 rounded transition-colors">
+                                <span class="material-icons-round text-base">content_copy</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-1">
+                        <span class="text-gray-500 dark:text-gray-400">Chủ tài khoản:</span>
+                        <span class="font-semibold text-gray-900 dark:text-white uppercase">Phan Văn Thành</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1">
+                        <span class="text-gray-500 dark:text-gray-400">Số tiền:</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">950.000 đ</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 px-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <span class="text-gray-500 dark:text-gray-400 text-xs">Nội dung CK:</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-mono font-bold text-gray-800 dark:text-gray-200">KH 0965324921
+                                XTNMU</span>
+                            <button
+                                class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 px-2 py-1 rounded text-xs flex items-center transition-colors">
+                                <span class="material-icons-round text-sm mr-1">content_copy</span> Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 p-4 rounded-xl mb-6">
+                    <div class="flex space-x-3">
+                        <span class="material-icons-round text-blue-500 text-xl">info</span>
+                        <p class="text-xs md:text-sm text-blue-800 dark:text-blue-300 leading-relaxed">
+                            Hệ thống sẽ tự động kích hoạt khóa học sau khi nhận được thanh toán (1-5 phút).
+                        </p>
+                    </div>
+                </div>
+                <button
+                    class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-200 dark:shadow-none uppercase tracking-wide">
+                    Tôi đã chuyển khoản
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="fixed bottom-6 right-6 flex flex-col space-y-3 z-40 opacity-50">
+        <div class="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center text-white shadow-lg"><span
+                class="material-icons-round">facebook</span></div>
+        <div
+            class="w-12 h-12 bg-[#0068FF] rounded-full flex items-center justify-center text-white shadow-lg font-bold">
+            Zalo</div>
+        <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-lg"><span
+                class="material-icons-round">call</span></div>
+        <div
+            class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 shadow-lg">
+            <span class="material-icons-round">arrow_upward</span>
+        </div>
+    </div>
+
+</body>
+
+</html>

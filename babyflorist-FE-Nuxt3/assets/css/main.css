@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --wine-red: #ec1313;
+        --gold: #D4AF37;
+        --gold-light: #FFD700;
+        --off-white: #FAF9F6;
+        --light-beige: #F2EBE3;
+    }
+
+    body {
+        @apply font-display text-[#181111];
+    }
+
+    .site-container {
+        @apply max-w-[1400px] mx-auto w-full;
+    }
+
+    .side-cart-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
+
+    .qty-control {
+        @apply flex items-center border border-gray-200 rounded overflow-hidden w-fit;
+    }
+
+    .qty-btn {
+        @apply px-2 py-1 hover:bg-gray-50 text-gray-500 transition-colors flex items-center justify-center;
+    }
+
+    .qty-val {
+        @apply px-3 py-1 text-sm font-bold text-[#181111] border-x border-gray-100 min-w-[32px] text-center;
+    }
+
+    .mini-cart-dropdown,
+    .user-dropdown {
+        border: 1px solid var(--gold);
+    }
+}

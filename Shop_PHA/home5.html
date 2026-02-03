@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trang Chủ - Trạng Thái Đã Đăng Nhập</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --wine-red: #722F37;
+            --gold: #D4AF37;
+            --gold-light: #FFD700;
+            --off-white: #FAF9F6;
+            --light-beige: #F2EBE3;
+        }
+        @layer base {
+            body { @apply font-display text-[#181111]; }
+        }
+        .mini-cart-dropdown, .user-dropdown {
+            border: 1px solid var(--gold);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#722F37",
+                        "gold": "#D4AF37",
+                        "background-light": "#f8f6f6",
+                        "off-white": "#FAF9F6",
+                        "light-beige": "#F2EBE3",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    maxWidth: {
+                        '1400': '1400px',
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-white">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f0f0] bg-white px-6 md:px-10 py-4 shadow-sm">
+            <div class="flex items-center gap-4 text-[#181111] max-w-[1400px] mx-auto w-full relative">
+                <div class="flex items-center gap-3">
+                    <div class="size-10 bg-primary text-white flex items-center justify-center rounded-lg">
+                        <span class="material-symbols-outlined text-3xl">local_florist</span>
+                    </div>
+                    <h2 class="text-xl font-black leading-tight tracking-tight text-primary uppercase">Hoa Tết <span
+                            class="text-gold">Workshop</span></h2>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <nav class="hidden lg:flex items-center gap-9">
+                        <a class="text-sm font-semibold leading-normal hover:text-gold transition-colors uppercase tracking-wider"
+                            href="#">Trang chủ</a>
+                        <a class="text-sm font-semibold leading-normal hover:text-gold transition-colors uppercase tracking-wider"
+                            href="#">Khóa học</a>
+                        <a class="text-sm font-semibold leading-normal hover:text-gold transition-colors uppercase tracking-wider"
+                            href="#">Sản phẩm</a>
+                        <a class="text-sm font-semibold leading-normal hover:text-gold transition-colors uppercase tracking-wider"
+                            href="#">Blog</a>
+                        <a class="text-sm font-semibold leading-normal hover:text-gold transition-colors uppercase tracking-wider"
+                            href="#">Liên hệ</a>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <div class="relative group">
+                            <button
+                                class="flex items-center justify-center p-2 hover:text-primary transition-colors relative">
+                                <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+                                <span
+                                    class="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-bold size-5 flex items-center justify-center rounded-full border-2 border-white">3</span>
+                            </button>
+                            <div
+                                class="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl mini-cart-dropdown opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] p-4">
+                                <h3
+                                    class="text-sm font-black text-primary uppercase tracking-widest mb-4 border-b pb-2">
+                                    Giỏ hàng của bạn</h3>
+                                <div class="flex flex-col gap-4 max-h-[300px] overflow-y-auto pr-1">
+                                    <div class="flex gap-3 items-center">
+                                        <div class="size-16 rounded-lg bg-gray-100 bg-center bg-cover shrink-0"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPoG5HpHCkiS4qn4QQq5Iw45BVlgXbiN0zEjoPYg5w9w1MBzOw_MI3MKhcgl-kzNR_szCvpsYV7u1mObMLzz0XIjXPsoHojeD8EcryyM-l7utn9S4-edgTuBlMjU7Qa7DLOAtbtA1WKtUBn4Bs3MKvxe90KyqMyiSmd8BgTpBX7fPN8G4bpKW3BqYRNTLf4xL7xkj3JhJGg66s48zcTvWR0qKqe49ABPsqtF7gtk1HowLjsC74HsR--z5IPxAsAbbzmiv2t9Hj6N4");'>
+                                        </div>
+                                        <div class="flex-1 overflow-hidden">
+                                            <p class="text-sm font-bold text-[#181111] truncate">Lan Hồ Điệp Phú Quý</p>
+                                            <p class="text-xs text-primary font-bold">2.500.000đ</p>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-red-500"><span
+                                                class="material-symbols-outlined text-sm">close</span></button>
+                                    </div>
+                                    <div class="flex gap-3 items-center">
+                                        <div class="size-16 rounded-lg bg-gray-100 bg-center bg-cover shrink-0"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4u5tc1L0BiB2BB-YeATKX1OLKAvTSS0erEk4NsEeM18hnTo-0q7dI1JvbHO6tppkfuE2IJ7fUdjU2moRtAIpbdtp61n0wkKlhVlQMdw98U_PbeqAZu0WW038y5Vgp2fI26WZ6su2A9qBjqPxeLTWGtuIHXy8iJZUZOeQWB3YyY5JeYYwthUIViCKpQb5CWTf7hI2-MVLkRp_r_PC1s8_ZA3L035Fy0ujgPTzOTLlIZGwkTsrHALC2CT0DicpW_ew34ztGUEJe-Ao");'>
+                                        </div>
+                                        <div class="flex-1 overflow-hidden">
+                                            <p class="text-sm font-bold text-[#181111] truncate">Mai Vàng Chấn Bảo</p>
+                                            <p class="text-xs text-primary font-bold">3.800.000đ</p>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-red-500"><span
+                                                class="material-symbols-outlined text-sm">close</span></button>
+                                    </div>
+                                    <div class="flex gap-3 items-center">
+                                        <div class="size-16 rounded-lg bg-gray-100 bg-center bg-cover shrink-0"
+                                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCzGPfBBlBvSEbjk6__NWoxbRvdqnOO6TyHuQ46sKl9RtIKuYEb0NpJK2kyyG0lIuz3eQIdPpnc1dCHpLpuK9lVIDghMKrEq8FOsMcWJfkeIi6-8m4gi0Opo4V-E6a3SRWivoDZjqlBKcfSNL2JPrAOWesGwoJTQ2y7dqiQX4jxq5vNLlPWqsRmSYTuR8ZXA7bBRjwNp14ib0TDXHp75q2OHLGsLLQSCAv6UYZlnfzoXg4GyMloGB-CjPeacEkacs6LFnwG5RkODIo");'>
+                                        </div>
+                                        <div class="flex-1 overflow-hidden">
+                                            <p class="text-sm font-bold text-[#181111] truncate">Giỏ Hoa Xuân An Khang
+                                            </p>
+                                            <p class="text-xs text-primary font-bold">1.200.000đ</p>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-red-500"><span
+                                                class="material-symbols-outlined text-sm">close</span></button>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="text-sm font-semibold text-gray-500">TỔNG CỘNG:</span>
+                                        <span class="text-lg font-black text-primary">7.500.000đ</span>
+                                    </div>
+                                    <button
+                                        class="w-full bg-primary hover:bg-[#5a252b] text-white font-bold py-3 rounded-lg text-xs tracking-widest uppercase transition-colors">
+                                        Tiếp tục thanh toán
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <button
+                                class="flex items-center justify-center size-11 rounded-full border-2 border-gold/30 p-0.5 hover:border-gold transition-all duration-300">
+                                <div class="w-full h-full rounded-full bg-cover bg-center"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDif9M-DN1Mft_kteCwvvjkYas_bqQss9VOtis2oKj89Yh_9LXAtFxbz1hYxDLO2R29USaro2XSM-ELEQRuXdMpaiYu7A2HpilHxpD00xPXQ9rVVRDcTo_YVWUpY6uJzBpcQDI3fRG1RhOV8BBPUMwCLXVQGt8J2hVQnYbpEJ7zegfnoncW19Q74xtCnBDaHs1gBuYkPxQIfDOMk__wKrYjclBXS0jDBGasdaLxbyCO0HFWq4Al41-hX7HqotcNEE6tcGTajLg2MDs");'>
+                                </div>
+                            </button>
+                            <div
+                                class="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl user-dropdown opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] overflow-hidden">
+                                <div class="bg-primary/5 p-4 border-b border-gray-100">
+                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-0.5">Xin
+                                        chào,</p>
+                                    <p class="text-sm font-black text-primary truncate">Mai Lan</p>
+                                </div>
+                                <div class="flex flex-col">
+                                    <a class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-light-beige hover:text-primary transition-colors"
+                                        href="#">
+                                        <span class="material-symbols-outlined text-xl text-gold">person</span>
+                                        Hồ sơ cá nhân
+                                    </a>
+                                    <a class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-light-beige hover:text-primary transition-colors"
+                                        href="#">
+                                        <span class="material-symbols-outlined text-xl text-gold">school</span>
+                                        Khóa học của tôi
+                                    </a>
+                                    <a class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-light-beige hover:text-primary transition-colors"
+                                        href="#">
+                                        <span class="material-symbols-outlined text-xl text-gold">receipt_long</span>
+                                        Lịch sử đơn hàng
+                                    </a>
+                                    <div class="h-px bg-gray-100 mx-4 my-1"></div>
+                                    <a class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors"
+                                        href="#">
+                                        <span class="material-symbols-outlined text-xl">logout</span>
+                                        Đăng xuất
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex flex-col">
+            <section class="bg-white py-12 md:py-20">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="flex flex-col lg:flex-row items-center gap-12">
+                        <div class="flex flex-col gap-6 lg:w-1/2">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-red-50 rounded-full w-fit">
+                                <span class="material-symbols-outlined text-primary text-sm">colors_spark</span>
+                                <span class="text-xs font-bold text-primary uppercase tracking-widest">Chào Xuân Giáp
+                                    Thìn 2024</span>
+                            </div>
+                            <h1 class="text-[#181111] text-5xl md:text-7xl font-black leading-tight tracking-[-0.03em]">
+                                Tinh Hoa Nghệ Thuật <br /><span class="text-primary italic">Cắm Hoa Tết</span>
+                            </h1>
+                            <p class="text-gray-600 text-lg md:text-xl max-w-xl leading-relaxed">
+                                Khám phá nét đẹp truyền thống qua từng nhành hoa cùng nghệ nhân hàng đầu. Tham gia ngay
+                                để tự tay tạo nên những tác phẩm Tết ý nghĩa, mang xuân về nhà.
+                            </p>
+                            <div class="flex flex-wrap gap-4 mt-4">
+                                <button
+                                    class="flex items-center justify-center rounded-full h-14 px-8 bg-primary hover:bg-[#5a252b] text-white text-lg font-bold transition-all shadow-xl shadow-red-100">
+                                    Khám phá khóa học
+                                </button>
+                                <button
+                                    class="flex items-center justify-center rounded-full h-14 px-8 bg-white border-2 border-primary text-primary text-lg font-bold hover:bg-red-50 transition-all">
+                                    Xem sản phẩm
+                                </button>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 w-full">
+                            <div class="relative">
+                                <div class="w-full aspect-[4/3] bg-center bg-cover rounded-[2rem] shadow-2xl relative z-10"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDi6tu_PFakN_PMcVOPdSmhxAjsPDOLNhl5uWgTTXPDKNkJc-jJUWxQGTguI4wDmSW-RUWu6DsPM4Uz1YleOeWbxg9mvcmRpI8rAevEO_mVVUMCeI3SSs6nimydGbMi--7CDdL-Lv0oWsWs6JgdoCDRfHNk8DrQOM9zfIUnrXZU9WeH6lUwjYZq4sp5QWsr5pe9lt28bCb26rI5dvj9QAV2JVNHLkzt-ow5R2Gb5V4nTAp7yWMW34lF8e0EidXxeQHMfCqwlyAHOt8");'>
+                                </div>
+                                <div class="absolute -bottom-6 -right-6 w-1/2 h-1/2 bg-gold/20 rounded-[2rem] -z-0">
+                                </div>
+                                <div
+                                    class="absolute -top-6 -left-6 w-1/3 h-1/3 border-4 border-primary/10 rounded-[2rem] -z-0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-[#FAF9F6] py-16 border-y border-gray-100">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                        <div class="flex flex-col gap-2">
+                            <span class="text-5xl font-black text-primary">5000+</span>
+                            <span class="text-gray-500 font-medium uppercase tracking-widest text-sm">Học viên tin
+                                tưởng</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <span class="text-5xl font-black text-gold">50+</span>
+                            <span class="text-gray-500 font-medium uppercase tracking-widest text-sm">Khóa học nghệ
+                                thuật</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <span class="text-5xl font-black text-primary">10+</span>
+                            <span class="text-gray-500 font-medium uppercase tracking-widest text-sm">Năm kinh
+                                nghiệm</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-12 bg-white">
+                <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+                    <div
+                        class="relative w-full rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-[#722F37] to-[#4a1a1e] shadow-2xl p-8 md:p-14 flex flex-col lg:flex-row items-center justify-between gap-10 border border-[#8a3c45]">
+                        <div class="relative z-10 flex flex-col gap-5 text-center lg:text-left flex-1">
+                            <div class="inline-flex items-center justify-center lg:justify-start gap-2 mb-1">
+                                <span class="material-symbols-outlined text-[#FFD700]">celebration</span>
+                                <span class="text-[#FFD700] font-bold tracking-[0.2em] text-sm uppercase">Sự kiện giới
+                                    hạn</span>
+                            </div>
+                            <h2 class="text-3xl md:text-5xl font-black text-white leading-tight">
+                                Workshop Đặc Biệt:<br />Nghệ Thuật Cắm Hoa Khai Xuân
+                            </h2>
+                            <p class="text-white/80 text-lg max-w-xl">
+                                Đừng bỏ lỡ cơ hội nhận ưu đãi <span
+                                    class="font-black text-[#FFD700] text-xl underline decoration-2 underline-offset-4">Giảm
+                                    ngay 20%</span> khi đăng ký trước khi bộ đếm kết thúc.
+                            </p>
+                            <div class="flex items-start justify-center lg:justify-start gap-3 md:gap-5 mt-4">
+                                <div class="flex flex-col items-center">
+                                    <div
+                                        class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl w-20 h-20 md:w-24 md:h-24 flex items-center justify-center shadow-2xl">
+                                        <span class="text-3xl md:text-4xl font-black text-white">03</span>
+                                    </div>
+                                    <span
+                                        class="text-xs text-white/60 mt-3 uppercase tracking-widest font-bold">Ngày</span>
+                                </div>
+                                <span class="text-3xl font-bold text-white/30 mt-6 md:mt-8">:</span>
+                                <div class="flex flex-col items-center">
+                                    <div
+                                        class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl w-20 h-20 md:w-24 md:h-24 flex items-center justify-center shadow-2xl">
+                                        <span class="text-3xl md:text-4xl font-black text-white">12</span>
+                                    </div>
+                                    <span
+                                        class="text-xs text-white/60 mt-3 uppercase tracking-widest font-bold">Giờ</span>
+                                </div>
+                                <span class="text-3xl font-bold text-white/30 mt-6 md:mt-8">:</span>
+                                <div class="flex flex-col items-center">
+                                    <div
+                                        class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl w-20 h-20 md:w-24 md:h-24 flex items-center justify-center shadow-2xl">
+                                        <span class="text-3xl md:text-4xl font-black text-white">45</span>
+                                    </div>
+                                    <span
+                                        class="text-xs text-white/60 mt-3 uppercase tracking-widest font-bold">Phút</span>
+                                </div>
+                                <span class="text-3xl font-bold text-white/30 mt-6 md:mt-8">:</span>
+                                <div class="flex flex-col items-center">
+                                    <div
+                                        class="bg-[#FFD700]/20 backdrop-blur-xl border border-[#FFD700]/40 rounded-2xl w-20 h-20 md:w-24 md:h-24 flex items-center justify-center shadow-2xl ring-2 ring-[#FFD700]/50 ring-offset-4 ring-offset-[#722F37]">
+                                        <span class="text-3xl md:text-4xl font-black text-[#FFD700]">20</span>
+                                    </div>
+                                    <span
+                                        class="text-xs text-[#FFD700] mt-3 uppercase tracking-widest font-black">Giây</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="relative z-10 flex flex-col items-center gap-4 shrink-0 bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm">
+                            <button
+                                class="group relative overflow-hidden bg-[#D4AF37] hover:bg-[#FFD700] text-primary font-black text-xl py-5 px-12 rounded-full shadow-[0_10px_40px_rgba(212,175,55,0.4)] transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+                                ĐĂNG KÝ NGAY
+                            </button>
+                            <div class="flex items-center gap-2 text-[#FFD700] font-bold">
+                                <span class="material-symbols-outlined text-xl">group_add</span>
+                                <span>Chỉ còn 5 suất cuối cùng!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-[#F2EBE3] py-24">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-black text-primary mb-4 uppercase">Tại Sao Chọn Chúng Tôi?</h2>
+                        <div class="h-1.5 w-24 bg-gold mx-auto rounded-full"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div
+                            class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                            <div
+                                class="size-16 bg-[#F2EBE3] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gold transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-4xl text-gold group-hover:text-white">person_pin</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Giảng viên nghệ nhân</h3>
+                            <p class="text-gray-500 leading-relaxed">Đội ngũ chuyên gia hàng đầu với hơn 15 năm kinh
+                                nghiệm cắm hoa nghệ thuật.</p>
+                        </div>
+                        <div
+                            class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                            <div
+                                class="size-16 bg-[#F2EBE3] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gold transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-4xl text-gold group-hover:text-white">eco</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Nguyên liệu tươi mới</h3>
+                            <p class="text-gray-500 leading-relaxed">Hoa được nhập trực tiếp từ Đà Lạt mỗi sáng, đảm bảo
+                                độ tươi tối đa cho tác phẩm.</p>
+                        </div>
+                        <div
+                            class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                            <div
+                                class="size-16 bg-[#F2EBE3] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gold transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-4xl text-gold group-hover:text-white">verified_user</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Chứng nhận hoàn thành</h3>
+                            <p class="text-gray-500 leading-relaxed">Cấp chứng chỉ uy tín sau mỗi khóa học, hỗ trợ học
+                                viên phát triển nghề nghiệp.</p>
+                        </div>
+                        <div
+                            class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+                            <div
+                                class="size-16 bg-[#F2EBE3] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gold transition-colors">
+                                <span
+                                    class="material-symbols-outlined text-4xl text-gold group-hover:text-white">groups</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Cộng đồng học viên</h3>
+                            <p class="text-gray-500 leading-relaxed">Tham gia cộng đồng hơn 5000+ thành viên để cùng
+                                chia sẻ niềm đam mê cắm hoa.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-white py-24">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                        <div>
+                            <h2 class="text-4xl font-black text-[#181111] uppercase">Khóa Học &amp; Workshop Mới</h2>
+                            <p class="text-gray-500 mt-2 text-lg">Học viên thực hành trực tiếp dưới sự hướng dẫn tỉ mỉ
+                            </p>
+                        </div>
+                        <a class="text-primary font-bold flex items-center gap-2 hover:underline group" href="#">
+                            Xem tất cả lịch học <span
+                                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-3xl mb-6">
+                                <div class="aspect-[4/3] bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaee97iKtrgVmBnYPIJ_J5OxsVuez0NdQ5ZTMvVqd7sBy5YY_iFCsUbrDqWJVaQ46ek05zIqLqKTnEHPVaqT_KmQTbaOQf_wa24ELH2vf2r2A1Fmy7Aak5H6R-Ofkr8YNqltoRJ5qfsVacsyi4p2SoPiolSNjCjTbLozmPxndq_ei27aY-m1mp4JVmv1Qot1lqvIZO487ogMsvc0tkLUlsmu3AZ3ek0ZSxlVScf4PRM-nI5l0emDoAywjWdCSJLx1pfWzuVLJYeyQ");'>
+                                </div>
+                                <div class="absolute top-4 left-4">
+                                    <span
+                                        class="bg-primary text-white text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">Bán
+                                        chạy nhất</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-3 text-gray-400 text-sm font-medium">
+                                    <span class="flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-sm">calendar_today</span>
+                                        20/01/2024</span>
+                                    <span class="flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-sm">schedule</span> 3 tiếng</span>
+                                </div>
+                                <h3 class="text-2xl font-black group-hover:text-primary transition-colors">Cắm Hoa Tết
+                                    Cơ Bản</h3>
+                                <p class="text-gray-500 line-clamp-2">Làm quen với các loại hoa Tết truyền thống và kỹ
+                                    thuật giữ hoa tươi lâu.</p>
+                                <div class="flex items-center justify-between mt-4">
+                                    <span class="text-2xl font-black text-primary">500.000đ</span>
+                                    <button
+                                        class="p-2 border border-gray-200 rounded-full hover:bg-primary hover:text-white transition-all">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-3xl mb-6">
+                                <div class="aspect-[4/3] bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8JT3jnMZpG0tsvh_cUVEEd5T03_eL6ZWdNV_oX55OcqBSSJ1inDR2dfPdix2APPdv9CxSQJb3a3BWgJpOykyQFkmw6Zs_ZfrYI2o1EqMJ_vZV_ZVqY4f29VhIKbTMENJnsufkuM6VyYvUn9TnCvgX9f7UPUQNneEZp4WKrJXDwWU6lTYLQ9O8C5uBEJeMjdcrbsB6sdn-2p-C58F5mzeNg1uJZcDb5IGVXmCoL5Eg1w-CRHrBEEmkxxrm88GYLSYeyW-fa0KysYk");'>
+                                </div>
+                                <div class="absolute top-4 left-4">
+                                    <span
+                                        class="bg-gold text-white text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">Workshop</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-3 text-gray-400 text-sm font-medium">
+                                    <span class="flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-sm">calendar_today</span>
+                                        22/01/2024</span>
+                                    <span class="flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-sm">schedule</span> 4 tiếng</span>
+                                </div>
+                                <h3 class="text-2xl font-black group-hover:text-primary transition-colors">Workshop Giỏ
+                                    Quà Tết</h3>
+                                <p class="text-gray-500 line-clamp-2">Thiết kế giỏ quà tặng cao cấp kết hợp hoa tươi và
+                                    các sản phẩm đặc sản.</p>
+                                <div class="flex items-center justify-between mt-4">
+                                    <span class="text-2xl font-black text-primary">850.000đ</span>
+                                    <button
+                                        class="p-2 border border-gray-200 rounded-full hover:bg-primary hover:text-white transition-all">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-3xl mb-6">
+                                <div class="aspect-[4/3] bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjQSlXA3jSdaISmv-8CVwU_Hyrv-TaHxxYuT_yOGlMf83XqdIpcy1Jc8uq8ejLR10oQ2qmkCx9NbXddS2e6diRAeiu6cSjvgZ_Swo-HqPc6fcmS3bk2_ZqNiwQf1hcU2a502jAS8KF01RSzDOkOMojU3ajO6w26cbFHRgV21ZTzmgQIDCa4XwxD34Esp2Qy4ZteJ1eT97Bzn-kzasYJIU0UegQ4EQB4bqTWdDjzmEn0sUbIg5I71nIGP--9-inhBkAMTwHj8M9wfE");'>
+                                </div>
+                                <div class="absolute top-4 left-4">
+                                    <span
+                                        class="bg-black text-white text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">Nâng
+                                        cao</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-center gap-3 text-gray-400 text-sm font-medium">
+                                    <span class="flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-sm">calendar_today</span>
+                                        25/01/2024</span>
+                                    <span class="flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-sm">schedule</span> 5 tiếng</span>
+                                </div>
+                                <h3 class="text-2xl font-black group-hover:text-primary transition-colors">Nghệ Thuật
+                                    Bình Hoa Đào</h3>
+                                <p class="text-gray-500 line-clamp-2">Kỹ thuật tạo hình bonsai cho đào rừng và đào phai
+                                    theo phong cách truyền thống.</p>
+                                <div class="flex items-center justify-between mt-4">
+                                    <span class="text-2xl font-black text-primary">1.200.000đ</span>
+                                    <button
+                                        class="p-2 border border-gray-200 rounded-full hover:bg-primary hover:text-white transition-all">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-off-white py-24 border-y border-gray-100">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                        <div>
+                            <h2 class="text-4xl font-black text-primary uppercase">Sản Phẩm Nổi Bật</h2>
+                            <p class="text-gray-500 mt-2 text-lg">Quà tặng hoa nghệ thuật thiết kế riêng cho dịp Tết</p>
+                        </div>
+                        <a class="text-primary font-bold flex items-center gap-2 hover:underline group" href="#">
+                            Xem tất cả sản phẩm <span
+                                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="group">
+                            <div
+                                class="aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-100 shadow-sm transition-all group-hover:shadow-xl">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPoG5HpHCkiS4qn4QQq5Iw45BVlgXbiN0zEjoPYg5w9w1MBzOw_MI3MKhcgl-kzNR_szCvpsYV7u1mObMLzz0XIjXPsoHojeD8EcryyM-l7utn9S4-edgTuBlMjU7Qa7DLOAtbtA1WKtUBn4Bs3MKvxe90KyqMyiSmd8BgTpBX7fPN8G4bpKW3BqYRNTLf4xL7xkj3JhJGg66s48zcTvWR0qKqe49ABPsqtF7gtk1HowLjsC74HsR--z5IPxAsAbbzmiv2t9Hj6N4");'>
+                                </div>
+                            </div>
+                            <h3
+                                class="text-lg font-bold text-[#181111] mb-1 group-hover:text-primary transition-colors">
+                                Lan Hồ Điệp Phú Quý</h3>
+                            <p class="text-primary font-bold text-lg">2.500.000đ</p>
+                        </div>
+                        <div class="group">
+                            <div
+                                class="aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-100 shadow-sm transition-all group-hover:shadow-xl">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4u5tc1L0BiB2BB-YeATKX1OLKAvTSS0erEk4NsEeM18hnTo-0q7dI1JvbHO6tppkfuE2IJ7fUdjU2moRtAIpbdtp61n0wkKlhVlQMdw98U_PbeqAZu0WW038y5Vgp2fI26WZ6su2A9qBjqPxeLTWGtuIHXy8iJZUZOeQWB3YyY5JeYYwthUIViCKpQb5CWTf7hI2-MVLkRp_r_PC1s8_ZA3L035Fy0ujgPTzOTLlIZGwkTsrHALC2CT0DicpW_ew34ztGUEJe-Ao");'>
+                                </div>
+                            </div>
+                            <h3
+                                class="text-lg font-bold text-[#181111] mb-1 group-hover:text-primary transition-colors">
+                                Mai Vàng Chấn Bảo</h3>
+                            <p class="text-primary font-bold text-lg">3.800.000đ</p>
+                        </div>
+                        <div class="group">
+                            <div
+                                class="aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-100 shadow-sm transition-all group-hover:shadow-xl">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCzGPfBBlBvSEbjk6__NWoxbRvdqnOO6TyHuQ46sKl9RtIKuYEb0NpJK2kyyG0lIuz3eQIdPpnc1dCHpLpuK9lVIDghMKrEq8FOsMcWJfkeIi6-8m4gi0Opo4V-E6a3SRWivoDZjqlBKcfSNL2JPrAOWesGwoJTQ2y7dqiQX4jxq5vNLlPWqsRmSYTuR8ZXA7bBRjwNp14ib0TDXHp75q2OHLGsLLQSCAv6UYZlnfzoXg4GyMloGB-CjPeacEkacs6LFnwG5RkODIo");'>
+                                </div>
+                            </div>
+                            <h3
+                                class="text-lg font-bold text-[#181111] mb-1 group-hover:text-primary transition-colors">
+                                Giỏ Hoa Xuân An Khang</h3>
+                            <p class="text-primary font-bold text-lg">1.200.000đ</p>
+                        </div>
+                        <div class="group">
+                            <div
+                                class="aspect-square overflow-hidden rounded-2xl mb-4 bg-gray-100 shadow-sm transition-all group-hover:shadow-xl">
+                                <div class="w-full h-full bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAjaO-FJzthQOn9U2JReRFBRJDOm4WU9AAQ_SDAFHYhawIHj8aRIeCZMusrrRzqeujBA_mJ0X0UTNwQQlGIZwKMdKPEp5BUJxSmtCVMM0PHZjcIVRnBpFlg_pG81w_x7tbkLA3bGli0Ctc7-5akzano06VX7U-aY4e2cyi3zzv5j7-ce5UNGURIg4Yq8Pu0oXakhA7o6B9-uZ7mcn_ZWdsC6Sr1Mf16q-LnqQSCXJ5a15_DBoKaBDW0fHrk-Sao3VEuTSLl6zg2KPM");'>
+                                </div>
+                            </div>
+                            <h3
+                                class="text-lg font-bold text-[#181111] mb-1 group-hover:text-primary transition-colors">
+                                Bình Đào Đông Tài Lộc</h3>
+                            <p class="text-primary font-bold text-lg">1.950.000đ</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-white py-12 overflow-hidden">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <p class="text-center text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-8">Đối tác &amp;
+                        Truyền thông tin cậy</p>
+                    <div
+                        class="flex flex-wrap items-center justify-center gap-12 md:gap-24 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                        <span class="text-2xl font-black text-primary">VTV1</span>
+                        <span class="text-2xl font-black text-primary">VNEXPRESS</span>
+                        <span class="text-2xl font-black text-primary">ELLE DECOR</span>
+                        <span class="text-2xl font-black text-primary">KENH14</span>
+                        <span class="text-2xl font-black text-primary">THANH NIEN</span>
+                        <span class="text-2xl font-black text-primary">L'OFFICIEL</span>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-light-beige py-24">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                        <div>
+                            <h2 class="text-4xl font-black text-primary uppercase">Góc Chia Sẻ</h2>
+                            <p class="text-gray-500 mt-2 text-lg">Bí quyết cắm hoa và văn hóa Tết từ các chuyên gia</p>
+                        </div>
+                        <a class="text-primary font-bold flex items-center gap-2 hover:underline group" href="#">
+                            Xem thêm bài viết <span
+                                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        <article
+                            class="bg-white p-6 rounded-[2rem] flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-xl transition-all border border-gray-100">
+                            <div class="md:w-1/2 shrink-0">
+                                <div class="aspect-[4/3] rounded-2xl bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC-dXJL8KiOd1Gohbmd9C-9ckH-LbgQZZZLf6GR9Y2ZRah4y2dG7uJ49cabzDo-WVhzLp_Lh4WcDFqonR0DFDEjUB38tOvemxPd9ICHQVY3TOjZsCDI7QcjtAhf7g7R2QD2nt1OzkBcq8VZrU1o5Ts3op4y6d3NpZdHee8wsQdNhOCLeXcLzaZQjtB-TvN0wQa8c2dj0cC5ESOFyc2g2J3pn1BfXgLvFAWsIi10lkSKPEo-epNx-6eQQZPcp3L7S7N7_1CnXbwah-Y");'>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-between py-2">
+                                <div>
+                                    <span class="text-xs font-bold text-gold uppercase tracking-widest mb-2 block">Kỹ
+                                        thuật &amp; Mẹo</span>
+                                    <h3
+                                        class="text-xl font-bold mb-3 leading-tight group-hover:text-primary transition-colors">
+                                        Cách giữ hoa Lan Hồ Điệp tươi suốt 2 tháng Tết</h3>
+                                    <p class="text-gray-500 text-sm line-clamp-3 mb-4">Chia sẻ quy trình chăm sóc lan từ
+                                        chuyên gia, cách điều chỉnh ánh sáng và lượng nước để hoa bền màu...</p>
+                                </div>
+                                <a class="inline-flex items-center gap-2 text-primary font-bold text-sm group/btn"
+                                    href="#">
+                                    Đọc thêm <span
+                                        class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform">trending_flat</span>
+                                </a>
+                            </div>
+                        </article>
+                        <article
+                            class="bg-white p-6 rounded-[2rem] flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-xl transition-all border border-gray-100">
+                            <div class="md:w-1/2 shrink-0">
+                                <div class="aspect-[4/3] rounded-2xl bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhtiFfK9gw-n8YJpzMZxzciii7qtgf8Wpirgv1YHbX6mrLTqs0-usPT476E8tyULoQu-0x0rIxvnZeHfgCNQJlHUerZTJiGggm5ZlDytSPDJWIzADvQjbH40bQzEXI-XEhlTg6Xeoybz74zNj5HQaue1dmVw5aQG0ORhEtFrKiDNfpxz-wkqvpLMEvLUPST25XVBBpKD2Zv__AofT9Zo6tZ1poQpRZfjVSt5U11bCVKQdkm9Uwwz1w4RIfy5UHtdcbLU7RQeY8yl0");'>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-between py-2">
+                                <div>
+                                    <span class="text-xs font-bold text-gold uppercase tracking-widest mb-2 block">Xu
+                                        hướng 2024</span>
+                                    <h3
+                                        class="text-xl font-bold mb-3 leading-tight group-hover:text-primary transition-colors">
+                                        Phong cách cắm hoa hiện đại kết hợp truyền thống</h3>
+                                    <p class="text-gray-500 text-sm line-clamp-3 mb-4">Khám phá cách sử dụng các phụ
+                                        kiện Tết như lồng đèn, bao lì xì để tạo điểm nhấn cho bình hoa phòng khách...
+                                    </p>
+                                </div>
+                                <a class="inline-flex items-center gap-2 text-primary font-bold text-sm group/btn"
+                                    href="#">
+                                    Đọc thêm <span
+                                        class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform">trending_flat</span>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-white py-24">
+                <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                    <div class="flex flex-col items-center text-center gap-4 mb-16">
+                        <h2 class="text-4xl font-black text-primary uppercase">Khách Hàng Nói Gì?</h2>
+                        <div class="flex text-gold">
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-[#F2EBE3]/30 p-10 rounded-3xl relative">
+                            <span
+                                class="material-symbols-outlined text-primary/10 text-7xl absolute top-6 right-8">format_quote</span>
+                            <p class="text-gray-600 italic mb-8 relative z-10">"Khóa học rất bổ ích, cô giáo hướng dẫn
+                                tận tình. Mình đã tự tay cắm được bình hoa ưng ý cho phòng khách."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-cover bg-center ring-2 ring-primary/10"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDif9M-DN1Mft_kteCwvvjkYas_bqQss9VOtis2oKj89Yh_9LXAtFxbz1hYxDLO2R29USaro2XSM-ELEQRuXdMpaiYu7A2HpilHxpD00xPXQ9rVVRDcTo_YVWUpY6uJzBpcQDI3fRG1RhOV8BBPUMwCLXVQGt8J2hVQnYbpEJ7zegfnoncW19Q74xtCnBDaHs1gBuYkPxQIfDOMk__wKrYjclBXS0jDBGasdaLxbyCO0HFWq4Al41-hX7HqotcNEE6tcGTajLg2MDs");'>
+                                </div>
+                                <div>
+                                    <p class="font-black text-primary">Chị Mai Lan</p>
+                                    <p class="text-xs text-gray-500">Học viên lớp Cơ bản</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#F2EBE3]/30 p-10 rounded-3xl relative">
+                            <span
+                                class="material-symbols-outlined text-primary/10 text-7xl absolute top-6 right-8">format_quote</span>
+                            <p class="text-gray-600 italic mb-8 relative z-10">"Hoa đẹp, tươi lâu, giao hàng đúng hẹn.
+                                Mình rất thích cách gói quà tỉ mỉ của shop. Sẽ ủng hộ dài dài."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-cover bg-center ring-2 ring-primary/10"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7-aw76CtuzkstBzZY9aiEVTXjy8C5eFXf-NEw_AXz6cX5TR9EBv3L8-rGEv4pAmGcppMeipYiLhrIz8xLwC0geenji88Z-77UCMl0xprNBaOGl2MFNJ1KkD692Iho1Hls_SzZQGgxme0tVZFhOaUd2q0niAyv-_fRtiBv897_wFKrPkoawKMUOaHZr5cM3-u603j9Vo0wSiVSOHaby7UGI8ltv5UNfP987SwG0IFdLBZYAWK-O7AnGlKKkXQeFzhltX_Y6vvtQd4");'>
+                                </div>
+                                <div>
+                                    <p class="font-black text-primary">Anh Minh Anh</p>
+                                    <p class="text-xs text-gray-500">Khách hàng thân thiết</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#F2EBE3]/30 p-10 rounded-3xl relative">
+                            <span
+                                class="material-symbols-outlined text-primary/10 text-7xl absolute top-6 right-8">format_quote</span>
+                            <p class="text-gray-600 italic mb-8 relative z-10">"Workshop làm giỏ quà Tết rất vui. Không
+                                khí ấm cúng, trà bánh ngon. Mình học được nhiều tip hay."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-cover bg-center ring-2 ring-primary/10"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdOJBO-LjfgKUW6gg-3eZMMJsMQ1K4On6jVYUeOeVovKS_2e8EmbsQzTd7wr2ag35GFHGt5pVFrbtGrzWw7EONhColX37IWRDJPB5QCcdZb0-QBP7Go3F6v9QVxa1FMtBLwwM2idbuW91wMgbn46NE7laFtmBZ730hBeGbHr_hcwWWaph3jVZHPPyuzf1vHkGKCQ6g_scudKTTKILzio20RH7z44YC6BbAdc97iufhSW2e3FNufdP-L70El9OkQVgjG69HHrAEuW8");'>
+                                </div>
+                                <div>
+                                    <p class="font-black text-primary">Chị Thu Hà</p>
+                                    <p class="text-xs text-gray-500">Tham gia Workshop</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="bg-[#1a0f0f] text-white/80 pt-24 pb-12 border-t border-white/5">
+            <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-20">
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center gap-3 mb-6 text-white">
+                            <div class="size-10 bg-primary flex items-center justify-center rounded-lg">
+                                <span class="material-symbols-outlined text-3xl">local_florist</span>
+                            </div>
+                            <h3 class="font-black text-2xl tracking-tighter uppercase">HOA TẾT <span
+                                    class="text-gold">WORKSHOP</span></h3>
+                        </div>
+                        <p class="text-white/60 leading-relaxed mb-8 max-w-sm">
+                            Lan tỏa vẻ đẹp hoa Việt, gìn giữ nét xuân truyền thống qua từng tác phẩm nghệ thuật đương
+                            đại.
+                        </p>
+                        <div class="flex gap-4">
+                            <a class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-all group"
+                                href="#">
+                                <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <a class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-all group"
+                                href="#">
+                                <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <a class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-all group"
+                                href="#">
+                                <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform"
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white uppercase tracking-widest text-sm mb-8">Liên kết nhanh</h4>
+                        <ul class="flex flex-col gap-4 text-sm font-medium">
+                            <li><a class="hover:text-gold transition-colors" href="#">Trang chủ</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Tất cả khóa học</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Sản phẩm quà tặng</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Tin tức &amp; Sự kiện</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Thư viện hình ảnh</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white uppercase tracking-widest text-sm mb-8">Chính sách</h4>
+                        <ul class="flex flex-col gap-4 text-sm font-medium">
+                            <li><a class="hover:text-gold transition-colors" href="#">Chính sách bảo mật</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Điều khoản sử dụng</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Chính sách đổi trả</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Chính sách vận chuyển</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="#">Chương trình thành viên</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white uppercase tracking-widest text-sm mb-8">Đăng ký nhận tin</h4>
+                        <p class="text-xs mb-6 text-white/50">Nhận thông tin về các buổi workshop mới nhất và mã giảm
+                            giá sớm nhất.</p>
+                        <div class="flex flex-col gap-3">
+                            <input
+                                class="bg-white/5 border border-white/10 rounded-full px-5 py-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="Email của bạn" type="email" />
+                            <button
+                                class="bg-primary hover:bg-[#5a252b] text-white rounded-full px-5 py-3 text-sm font-black transition-colors uppercase tracking-widest">Gửi
+                                ngay</button>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5 text-xs font-bold text-white/40 tracking-widest uppercase">
+                    <p>© 2024 HOA TẾT WORKSHOP. ALL RIGHTS RESERVED.</p>
+                    <p class="mt-4 md:mt-0">DESIGNED BY ARTISANS</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

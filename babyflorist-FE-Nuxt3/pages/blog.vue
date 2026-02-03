@@ -1,0 +1,410 @@
+<script setup lang="ts"></script>
+
+<template>
+    <div class="layout-container flex h-full grow flex-col">
+        <main class="site-container px-4 py-8 flex flex-col flex-1">
+            <div
+                class="relative w-full rounded-2xl overflow-hidden bg-[#fbf5f5] dark:bg-[#2a1a1a] mb-12 shadow-sm border border-[#f4f0f0] dark:border-[#3a2828]">
+                <div class="absolute inset-0 opacity-30"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDi6tu_PFakN_PMcVOPdSmhxAjsPDOLNhl5uWgTTXPDKNkJc-jJUWxQGTguI4wDmSW-RUWu6DsPM4Uz1YleOeWbxg9mvcmRpI8rAevEO_mVVUMCeI3SSs6nimydGbMi--7CDdL-Lv0oWsWs6JgdoCDRfHNk8DrQOM9zfIUnrXZU9WeH6lUwjYZq4sp5QWsr5pe9lt28bCb26rI5dvj9QAV2JVNHLkzt-ow5R2Gb5V4nTAp7yWMW34lF8e0EidXxeQHMfCqwlyAHOt8'); background-size: cover; background-position: center;">
+                </div>
+                <div class="relative z-10 px-6 py-12 md:py-16 text-center max-w-3xl mx-auto">
+                    <h1
+                        class="text-3xl md:text-5xl font-black text-[#181111] dark:text-white mb-6 tracking-tight font-display">
+                        Góc Chia Sẻ &amp; Cảm Hứng</h1>
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="h-px w-12 bg-primary/40"></div>
+                        <span class="material-symbols-outlined text-primary text-2xl">local_florist</span>
+                        <div class="h-px w-12 bg-primary/40"></div>
+                    </div>
+                    <p class="text-[#896161] dark:text-[#d4b0b0] text-xl font-medium italic">
+                        "Mỗi bông hoa là một tâm hồn nở rộ giữa thiên nhiên."
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="w-full lg:w-[72%] flex flex-col gap-10">
+                    <div
+                        class="group relative flex flex-col md:flex-row bg-white dark:bg-[#1a0f0f] rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-[#3a2828] hover:shadow-lg transition-all duration-300">
+                        <div class="md:w-3/5 relative overflow-hidden h-64 md:h-auto">
+                            <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjQSlXA3jSdaISmv-8CVwU_Hyrv-TaHxxYuT_yOGlMf83XqdIpcy1Jc8uq8ejLR10oQ2qmkCx9NbXddS2e6diRAeiu6cSjvgZ_Swo-HqPc6fcmS3bk2_ZqNiwQf1hcU2a502jAS8KF01RSzDOkOMojU3ajO6w26cbFHRgV21ZTzmgQIDCa4XwxD34Esp2Qy4ZteJ1eT97Bzn-kzasYJIU0UegQ4EQB4bqTWdDjzmEn0sUbIg5I71nIGP--9-inhBkAMTwHj8M9wfE');">
+                            </div>
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors">
+                            </div>
+                            <span
+                                class="absolute top-4 left-4 bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded uppercase tracking-wider shadow-sm">Nổi
+                                bật</span>
+                        </div>
+                        <div class="md:w-2/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Mẹo cắm
+                                    hoa</span>
+                            </div>
+                            <h2
+                                class="text-2xl font-bold text-[#181111] dark:text-white mb-4 leading-tight group-hover:text-primary transition-colors">
+                                <a href="#">Bí Quyết Giữ Hoa Đào Tươi Lâu Suốt 9 Ngày Tết</a>
+                            </h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed">
+                                Tìm hiểu về kỹ thuật tuốt lá, đốt gốc và công thức nước dưỡng đặc biệt từ nghệ
+                                nhân
+                                lâu năm để bình hoa đào của bạn luôn rực rỡ đón xuân.
+                            </p>
+                            <div
+                                class="mt-auto flex items-center justify-between pt-4 border-t border-gray-50 dark:border-[#2a1a1a]">
+                                <span class="text-xs text-gray-400 font-medium">12 Tháng 1, 2024</span>
+                                <a class="text-sm font-bold text-primary hover:text-[#b00e0e] flex items-center gap-1 transition-colors group/btn"
+                                    href="#">
+                                    Đọc thêm <span
+                                        class="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <h3 class="text-xl font-bold text-[#181111] dark:text-white">Bài viết mới nhất</h3>
+                            <div class="h-px flex-1 bg-gray-100 dark:bg-[#3a2828]"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <article class="flex flex-col group h-full bg-transparent">
+                                <div
+                                    class="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                                    <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBaee97iKtrgVmBnYPIJ_J5OxsVuez0NdQ5ZTMvVqd7sBy5YY_iFCsUbrDqWJVaQ46ek05zIqLqKTnEHPVaqT_KmQTbaOQf_wa24ELH2vf2r2A1Fmy7Aak5H6R-Ofkr8YNqltoRJ5qfsVacsyi4p2SoPiolSNjCjTbLozmPxndq_ei27aY-m1mp4JVmv1Qot1lqvIZO487ogMsvc0tkLUlsmu3AZ3ek0ZSxlVScf4PRM-nI5l0emDoAywjWdCSJLx1pfWzuVLJYeyQ');">
+                                    </div>
+                                    <div
+                                        class="absolute top-3 left-3 bg-white/95 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
+                                        Workshop
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        <span>10/01/2024</span>
+                                    </div>
+                                    <h4
+                                        class="text-lg font-bold text-[#181111] dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        <a href="#">Trải Nghiệm Lớp Học Cắm Hoa Cơ Bản Tại Hà Nội</a>
+                                    </h4>
+                                    <p
+                                        class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                                        Khóa học vỡ lòng cho những ai yêu hoa, bắt đầu từ cách chọn hoa tươi đến
+                                        kỹ
+                                        thuật cắm bình tròn.
+                                    </p>
+                                    <button
+                                        class="mt-auto self-start text-xs font-bold text-[#181111] dark:text-white border-b-2 border-primary/20 hover:border-primary transition-all pb-0.5">
+                                        Đọc thêm
+                                    </button>
+                                </div>
+                            </article>
+                            <article class="flex flex-col group h-full bg-transparent">
+                                <div
+                                    class="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                                    <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8JT3jnMZpG0tsvh_cUVEEd5T03_eL6ZWdNV_oX55OcqBSSJ1inDR2dfPdix2APPdv9CxSQJb3a3BWgJpOykyQFkmw6Zs_ZfrYI2o1EqMJ_vZV_ZVqY4f29VhIKbTMENJnsufkuM6VyYvUn9TnCvgX9f7UPUQNneEZp4WKrJXDwWU6lTYLQ9O8C5uBEJeMjdcrbsB6sdn-2p-C58F5mzeNg1uJZcDb5IGVXmCoL5Eg1w-CRHrBEEmkxxrm88GYLSYeyW-fa0KysYk');">
+                                    </div>
+                                    <div
+                                        class="absolute top-3 left-3 bg-white/95 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-amber-600 shadow-sm">
+                                        Ý nghĩa hoa
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        <span>08/01/2024</span>
+                                    </div>
+                                    <h4
+                                        class="text-lg font-bold text-[#181111] dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        <a href="#">Ý Nghĩa Của Việc Tặng Giỏ Quà Tết Tự Làm</a>
+                                    </h4>
+                                    <p
+                                        class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                                        Món quà tự tay gói ghém không chỉ thể hiện sự khéo léo mà còn chứa đựng
+                                        tâm
+                                        tình trân quý.
+                                    </p>
+                                    <button
+                                        class="mt-auto self-start text-xs font-bold text-[#181111] dark:text-white border-b-2 border-primary/20 hover:border-primary transition-all pb-0.5">
+                                        Đọc thêm
+                                    </button>
+                                </div>
+                            </article>
+                            <article class="flex flex-col group h-full bg-transparent">
+                                <div
+                                    class="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                                    <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDD2jL7Yy-NZOg68K-kcGfXMJLowfi_qKqp8ol5-xC7uvPyQWp3zudEsB6CNfgBa7KGj3-xXwlhoQUf4T0JzoCpXfxV8Q1gIcnIEg515wOPrIQ4v7UY0JAYxn6JW9oYbJqUzISQhBRxeMHIrJLa8dDUPoqmH-bht8srhm7Gha3Q8d4D4oMva9lpDeVMgDMZibixi3e1D43DyCnZgWwgS9yDfYZeZa4OlLQaCjfT04L9k3JJ38REp1Wr1R6WpSwLI4xsbCNGOrFTN2c');">
+                                    </div>
+                                    <div
+                                        class="absolute top-3 left-3 bg-white/95 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
+                                        Mẹo cắm hoa
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        <span>05/01/2024</span>
+                                    </div>
+                                    <h4
+                                        class="text-lg font-bold text-[#181111] dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        <a href="#">Cách Chăm Sóc Lan Hồ Điệp Ra Hoa Quanh Năm</a>
+                                    </h4>
+                                    <p
+                                        class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                                        Lan Hồ Điệp được mệnh danh là nữ hoàng của các loại lan, nhưng chăm sóc
+                                        sao
+                                        cho đúng cách?
+                                    </p>
+                                    <button
+                                        class="mt-auto self-start text-xs font-bold text-[#181111] dark:text-white border-b-2 border-primary/20 hover:border-primary transition-all pb-0.5">
+                                        Đọc thêm
+                                    </button>
+                                </div>
+                            </article>
+                            <article class="flex flex-col group h-full bg-transparent">
+                                <div
+                                    class="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                                    <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCrO4HTIXhfKuEMVKFnLMpNarrzhi3e7_eZf2pTuPB1bmTIwQpLiyMBQQRrSW4qqAhn51sGZjAMyP9-2hBm0RSDxO7tpQPRVVAbL_DmL3GbAV1JJwwdqbmpyyMWlhOtHkBQilpHD7nyB_KzIeReEvHBoz1t9cCFF9NB0EDgeaQmEMexuNaPx24gWO-gHnnEX16yvCQ3_hovVRtlxQtko455blZ9XPRnL0Yg2JSNMcFFqQhVbyJXGUvnbyMhMdPLef8fpx3baPSNHq0');">
+                                    </div>
+                                    <div
+                                        class="absolute top-3 left-3 bg-white/95 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-amber-600 shadow-sm">
+                                        Ý nghĩa hoa
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        <span>03/01/2024</span>
+                                    </div>
+                                    <h4
+                                        class="text-lg font-bold text-[#181111] dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        <a href="#">Mai Vàng Phú Quý - Biểu Tượng Của Sự May Mắn</a>
+                                    </h4>
+                                    <p
+                                        class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                                        Khám phá nguồn gốc và ý nghĩa phong thủy của loài hoa đặc trưng miền Nam
+                                        mỗi
+                                        dịp Tết đến.
+                                    </p>
+                                    <button
+                                        class="mt-auto self-start text-xs font-bold text-[#181111] dark:text-white border-b-2 border-primary/20 hover:border-primary transition-all pb-0.5">
+                                        Đọc thêm
+                                    </button>
+                                </div>
+                            </article>
+                            <article class="flex flex-col group h-full bg-transparent">
+                                <div
+                                    class="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                                    <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAsVos6btThk4HuS8Q3R-pU48tvFdMefwOMGtO2s69Ke6EUZF90Il2tV7EZrtDUEXyYEYUs97qZYCfteEbiRvHS2tmz8TnkutvirHPHtcaiqZyIwT70SXarz9zHSm-AExIV_CgkWk2agQ4og3Zt0Iyz2K0hHiXHRg9ncAA4Dhk4FSOLVBvqceW5UzG8Pjs-uEJEq9MW-xea6FdhnLIFcBaT9sPvfoqdeaBtTw6zjJXXxxnaXvc_JvO22uxAk4ah5utulqwd5yFZfEw');">
+                                    </div>
+                                    <div
+                                        class="absolute top-3 left-3 bg-white/95 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
+                                        Workshop
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        <span>01/01/2024</span>
+                                    </div>
+                                    <h4
+                                        class="text-lg font-bold text-[#181111] dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        <a href="#">Lớp Học Phối Màu Hoa Đương Đại</a>
+                                    </h4>
+                                    <p
+                                        class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                                        Học cách phối hợp màu sắc táo bạo nhưng vẫn giữ được nét tinh tế, sang
+                                        trọng
+                                        cho không gian.
+                                    </p>
+                                    <button
+                                        class="mt-auto self-start text-xs font-bold text-[#181111] dark:text-white border-b-2 border-primary/20 hover:border-primary transition-all pb-0.5">
+                                        Đọc thêm
+                                    </button>
+                                </div>
+                            </article>
+                            <article class="flex flex-col group h-full bg-transparent">
+                                <div
+                                    class="relative aspect-[4/3] rounded-lg overflow-hidden mb-4 border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                                    <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDi6tu_PFakN_PMcVOPdSmhxAjsPDOLNhl5uWgTTXPDKNkJc-jJUWxQGTguI4wDmSW-RUWu6DsPM4Uz1YleOeWbxg9mvcmRpI8rAevEO_mVVUMCeI3SSs6nimydGbMi--7CDdL-Lv0oWsWs6JgdoCDRfHNk8DrQOM9zfIUnrXZU9WeH6lUwjYZq4sp5QWsr5pe9lt28bCb26rI5dvj9QAV2JVNHLkzt-ow5R2Gb5V4nTAp7yWMW34lF8e0EidXxeQHMfCqwlyAHOt8');">
+                                    </div>
+                                    <div
+                                        class="absolute top-3 left-3 bg-white/95 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-amber-600 shadow-sm">
+                                        Mẹo cắm hoa
+                                    </div>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                        <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        <span>28/12/2023</span>
+                                    </div>
+                                    <h4
+                                        class="text-lg font-bold text-[#181111] dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        <a href="#">Top 5 Mẫu Bình Hoa Phòng Khách Được Yêu Thích</a>
+                                    </h4>
+                                    <p
+                                        class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                                        Tổng hợp những mẫu bình gốm sứ Bát Tràng độc đáo làm tôn lên vẻ đẹp của
+                                        mọi
+                                        loài hoa.
+                                    </p>
+                                    <button
+                                        class="mt-auto self-start text-xs font-bold text-[#181111] dark:text-white border-b-2 border-primary/20 hover:border-primary transition-all pb-0.5">
+                                        Đọc thêm
+                                    </button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="flex justify-center mt-6 gap-2">
+                        <button
+                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">
+                            <span class="material-symbols-outlined text-sm">chevron_left</span>
+                        </button>
+                        <button
+                            class="w-9 h-9 flex items-center justify-center rounded-lg bg-primary text-white font-bold shadow-md shadow-primary/30 transition-colors">1</button>
+                        <button
+                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">2</button>
+                        <button
+                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">
+                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+                <aside class="w-full lg:w-[28%] flex-shrink-0 space-y-8">
+                    <div
+                        class="bg-white dark:bg-[#1a0f0f] p-6 rounded-xl border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                        <h4
+                            class="font-bold text-base text-[#181111] dark:text-white mb-5 pb-2 border-b border-gray-100 dark:border-[#3a2828]">
+                            Danh mục
+                        </h4>
+                        <ul class="space-y-3">
+                            <li>
+                                <a class="flex items-center justify-between group" href="#">
+                                    <span
+                                        class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Cắm
+                                        hoa nghệ thuật</span>
+                                    <span
+                                        class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center justify-between group" href="#">
+                                    <span
+                                        class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Quà
+                                        Tết 2024</span>
+                                    <span
+                                        class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">08</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center justify-between group" href="#">
+                                    <span
+                                        class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Kiến
+                                        thức hoa tươi</span>
+                                    <span
+                                        class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">24</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center justify-between group" href="#">
+                                    <span
+                                        class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Sự
+                                        kiện &amp; Workshop</span>
+                                    <span
+                                        class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">05</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-[#1a0f0f] p-6 rounded-xl border border-gray-100 dark:border-[#3a2828] shadow-sm">
+                        <h4
+                            class="font-bold text-base uppercase tracking-wider text-[#181111] dark:text-white mb-5 pb-2 border-b border-gray-100 dark:border-[#3a2828] flex items-center gap-2">
+                            <span class="material-symbols-outlined text-amber-600">trending_up</span>
+                            Bài viết xem nhiều
+                        </h4>
+                        <div class="flex flex-col gap-5">
+                            <a class="group flex gap-3 items-start" href="#">
+                                <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
+                                    <div class="w-full h-full bg-cover bg-center"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8JT3jnMZpG0tsvh_cUVEEd5T03_eL6ZWdNV_oX55OcqBSSJ1inDR2dfPdix2APPdv9CxSQJb3a3BWgJpOykyQFkmw6Zs_ZfrYI2o1EqMJ_vZV_ZVqY4f29VhIKbTMENJnsufkuM6VyYvUn9TnCvgX9f7UPUQNneEZp4WKrJXDwWU6lTYLQ9O8C5uBEJeMjdcrbsB6sdn-2p-C58F5mzeNg1uJZcDb5IGVXmCoL5Eg1w-CRHrBEEmkxxrm88GYLSYeyW-fa0KysYk');">
+                                    </div>
+                                    <span
+                                        class="absolute top-0 left-0 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br">1</span>
+                                </div>
+                                <div>
+                                    <h5
+                                        class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        Xu Hướng Quà Tết Thủ Công 2024</h5>
+                                    <span class="text-[10px] text-gray-400 mt-1 block">5.2k lượt xem</span>
+                                </div>
+                            </a>
+                            <a class="group flex gap-3 items-start" href="#">
+                                <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
+                                    <div class="w-full h-full bg-cover bg-center"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDD2jL7Yy-NZOg68K-kcGfXMJLowfi_qKqp8ol5-xC7uvPyQWp3zudEsB6CNfgBa7KGj3-xXwlhoQUf4T0JzoCpXfxV8Q1gIcnIEg515wOPrIQ4v7UY0JAYxn6JW9oYbJqUzISQhBRxeMHIrJLa8dDUPoqmH-bht8srhm7Gha3Q8d4D4oMva9lpDeVMgDMZibixi3e1D43DyCnZgWwgS9yDfYZeZa4OlLQaCjfT04L9k3JJ38REp1Wr1R6WpSwLI4xsbCNGOrFTN2c');">
+                                    </div>
+                                    <span
+                                        class="absolute top-0 left-0 bg-gray-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br">2</span>
+                                </div>
+                                <div>
+                                    <h5
+                                        class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        Kỹ Thuật Cấy Mô Lan Hồ Điệp</h5>
+                                    <span class="text-[10px] text-gray-400 mt-1 block">4.1k lượt xem</span>
+                                </div>
+                            </a>
+                            <a class="group flex gap-3 items-start" href="#">
+                                <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
+                                    <div class="w-full h-full bg-cover bg-center"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCrO4HTIXhfKuEMVKFnLMpNarrzhi3e7_eZf2pTuPB1bmTIwQpLiyMBQQRrSW4qqAhn51sGZjAMyP9-2hBm0RSDxO7tpQPRVVAbL_DmL3GbAV1JJwwdqbmpyyMWlhOtHkBQilpHD7nyB_KzIeReEvHBoz1t9cCFF9NB0EDgeaQmEMexuNaPx24gWO-gHnnEX16yvCQ3_hovVRtlxQtko455blZ9XPRnL0Yg2JSNMcFFqQhVbyJXGUvnbyMhMdPLef8fpx3baPSNHq0');">
+                                    </div>
+                                    <span
+                                        class="absolute top-0 left-0 bg-gray-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br">3</span>
+                                </div>
+                                <div>
+                                    <h5
+                                        class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                        Ý Nghĩa Mai Vàng Trong Văn Hóa Việt</h5>
+                                    <span class="text-[10px] text-gray-400 mt-1 block">3.8k lượt xem</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-[#fbf5f5] dark:bg-[#2a1a1a] p-6 rounded-xl border border-primary/10 dark:border-[#3a2828] text-center relative overflow-hidden">
+                        <div class="absolute -top-6 -right-6 text-primary/5 dark:text-white/5">
+                            <span class="material-symbols-outlined text-[120px]">mark_email_unread</span>
+                        </div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-12 h-12 bg-white dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-primary">
+                                <span class="material-symbols-outlined text-2xl">mail_outline</span>
+                            </div>
+                            <h4 class="font-bold text-lg text-[#181111] dark:text-white mb-2">Đăng ký nhận tin
+                            </h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-5 leading-relaxed">Nhận ngay
+                                ưu
+                                đãi khóa học và các bí quyết cắm hoa nghệ thuật hàng tuần.</p>
+                            <form class="space-y-3">
+                                <input
+                                    class="w-full text-sm px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a0f0f] focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-shadow placeholder-gray-400"
+                                    placeholder="Nhập email của bạn" type="email" />
+                                <button
+                                    class="w-full bg-primary hover:bg-red-700 text-white font-bold text-sm py-2.5 rounded-lg transition-colors shadow-lg shadow-primary/20">Đăng
+                                    ký ngay</button>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+</template>

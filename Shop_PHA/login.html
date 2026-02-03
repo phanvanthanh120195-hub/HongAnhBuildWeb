@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        input[type="checkbox"] {
+            color: #d41111;
+        }
+
+        input[type="checkbox"]:focus {
+            --tw-ring-color: #d41111;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display">
+    <div class="fixed inset-0 z-0 overflow-hidden filter blur-sm">
+        <div class="relative flex h-full w-full flex-col">
+            <header
+                class="flex items-center justify-between border-b border-solid border-white/10 px-10 py-3 bg-background-dark/80">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-4 text-white">
+                        <div class="size-6 text-primary">
+                            <span class="material-symbols-outlined">local_florist</span>
+                        </div>
+                        <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Floral Workshop</h2>
+                    </div>
+                    <div class="flex items-center gap-9">
+                        <a class="text-white/70 text-sm font-medium" href="#">Workshops</a>
+                        <a class="text-white/70 text-sm font-medium" href="#">Cửa hàng</a>
+                        <a class="text-white/70 text-sm font-medium" href="#">Khóa học</a>
+                    </div>
+                </div>
+            </header>
+            <div class="flex flex-1 items-center justify-center p-20">
+                <div class="w-full max-w-[1200px] h-[600px] rounded-xl bg-cover bg-center"
+                    style='background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfSeCdXEeD-jyy0xel-nPnH0EZCy81E8nZSYPLANBoV9vjW9KA2NEu_3qSSEWClYlD4eCmj5odp80dojxGhfZYrwl4wWn40QcbhR6VxHjY2vDw78Gzyz8JX80rImw6sdjokzYn08wZhnEDIgsTLZbs5cNLxPU3BMZzjh1t1RAsJ4rmqS0rWB_8lK-5s3nDUcwWX_elyoz5-YrEh63AFw8HC7ZqfpxtOcOWfXWOKB83tObYaW535Oqz4UFATOtm-iBM_wtrlfRGP9M");'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed inset-0 z-10 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div
+            class="relative w-full max-w-[900px] bg-background-dark border border-white/10 rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[550px]">
+            <button class="absolute top-4 right-4 z-30 text-white/50 hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+            <div class="hidden md:flex md:w-5/12 relative overflow-hidden group">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/20 to-transparent z-10">
+                </div>
+                <img alt="Tet flowers arrangement"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmUHvi062Fw__zSentslMMROB1GyKXnsOyFc91I82CG8Va2VgE-1J_H8jLPEPOtbOXB3dLOmPoJTbbUjuExslv8bFWQD20Q42nD2LsGOt1HOigPQV2rqH1cAgRbDjt1UGFJQuQ0vBqicgvoANsVHDwgcCfLCGNodyvdJEOUCTEN-1FdzbYyvQ4uAat8HkT1d24grDolKnnN6MvfeyAEBSnxFLOP5RG5I02-dqH6u7SPc4Ow9DoC1IWerd1E5rFO4m5Ubwu8RjikUs" />
+                <div class="absolute bottom-10 left-10 z-20 pr-10">
+                    <h3 class="text-3xl font-bold text-white mb-3">Tinh Hoa Tết Việt</h3>
+                    <p class="text-white/70 text-sm leading-relaxed">
+                        Khám phá nghệ thuật cắm hoa truyền thống và tạo nên những tác phẩm đặc sắc đón xuân.
+                    </p>
+                </div>
+            </div>
+            <div class="flex-1 p-8 md:p-14 flex flex-col justify-center">
+                <div class="mb-10 flex border-b border-white/10">
+                    <button
+                        class="flex-1 pb-4 text-center border-b-2 border-primary text-white font-bold text-lg tracking-wide transition-all">
+                        Đăng nhập
+                    </button>
+                    <button
+                        class="flex-1 pb-4 text-center border-b-2 border-transparent text-white/40 hover:text-white/70 font-bold text-lg tracking-wide transition-all">
+                        Đăng ký
+                    </button>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <div class="space-y-5">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-white/80 text-sm font-medium flex items-center gap-2">
+                                <span class="material-symbols-outlined text-base">mail</span>
+                                Email
+                            </label>
+                            <input
+                                class="w-full bg-white/5 border border-white/10 rounded-lg h-14 px-4 text-white placeholder:text-white/20 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                                placeholder="nguyenvan@gmail.com" type="email" />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between items-center">
+                                <label class="text-white/80 text-sm font-medium flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-base">lock</span>
+                                    Mật khẩu
+                                </label>
+                                <a class="text-primary/80 text-xs hover:text-primary transition-colors" href="#">Quên
+                                    mật khẩu?</a>
+                            </div>
+                            <input
+                                class="w-full bg-white/5 border border-white/10 rounded-lg h-14 px-4 text-white placeholder:text-white/20 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                                placeholder="••••••••" type="password" />
+                        </div>
+                        <div class="flex items-center gap-3 py-1">
+                            <input
+                                class="h-5 w-5 rounded border-white/20 bg-white/5 text-primary focus:ring-offset-background-dark cursor-pointer transition-all"
+                                id="remember-me" name="remember-me" type="checkbox" />
+                            <label class="text-white/70 text-sm font-medium cursor-pointer select-none"
+                                for="remember-me">Ghi nhớ đăng nhập</label>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-white h-14 rounded-lg font-bold text-base shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 mt-2">
+                        Đăng nhập
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

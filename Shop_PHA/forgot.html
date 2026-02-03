@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Quên Mật Khẩu - Workshop Hoa Tết</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41152", // Wine Red
+                        "primary-hover": "#b00e43",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221016",
+                        "text-main": "#181113",
+                        "text-sub": "#89616f",
+                        "border-color": "#e6dbdf",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        "luxury": "0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04)",
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-display antialiased text-text-main">
+    <!-- Background with Blur & Overlay -->
+    <div class="relative min-h-screen w-full bg-cover bg-center bg-fixed flex flex-col items-center justify-center py-10 px-4 sm:px-6 lg:px-8"
+        data-alt="Artistic blurred background of traditional Tet flower arrangement with peach blossoms and red lanterns"
+        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAuS6hXpswnyM2lmS8yKBYNEulzJcgpFCtTlRRbCLkbCkSz7WkOL0AkO0Am0VFVCTLeQVOw_uhWIHh1GZ8pvMQSAcGJfHjNMShv1clHTkM4dEzd7qy2lOjQqXhpJrXr3yeuIC6c5o3HblQuau6yiQIOrNCsEBwpdU6NXHQYIEh_DsmqMQzkAIFbviO3pb3TPyWbKL06i4V7S6Av8hs2VqOzER01svGhuBgrwM8grOQmJdP8u46Zx9RmGe8rBzUJ1JcssglPNge3tHU");'>
+        <!-- Dark Overlay for readability -->
+        <div class="absolute inset-0 bg-black/30 backdrop-blur-sm z-0"></div>
+        <!-- Content Wrapper -->
+        <div class="relative z-10 w-full max-w-[1400px] flex flex-col md:flex-row gap-8 items-center justify-center">
+            <!-- STEP 1: Forgot Password (Email) -->
+            <div class="w-full max-w-[480px] bg-white rounded-2xl shadow-luxury overflow-hidden">
+                <div class="p-8 sm:p-10 flex flex-col gap-6">
+                    <!-- Icon Header -->
+                    <div
+                        class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
+                        <span class="material-symbols-outlined text-[28px]">lock_reset</span>
+                    </div>
+                    <!-- Header -->
+                    <div class="flex flex-col gap-2">
+                        <h2 class="text-3xl font-bold text-text-main tracking-tight">Quên Mật Khẩu?</h2>
+                        <p class="text-text-sub text-base leading-relaxed">
+                            Đừng lo lắng, chúng tôi sẽ giúp bạn. Nhập email đã đăng ký để nhận mã xác thực.
+                        </p>
+                    </div>
+                    <!-- Form -->
+                    <div class="flex flex-col gap-5">
+                        <label class="flex flex-col gap-2">
+                            <span class="text-text-main text-sm font-semibold">Email</span>
+                            <div class="relative">
+                                <span
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 text-text-sub material-symbols-outlined">mail</span>
+                                <input
+                                    class="w-full h-12 pl-12 pr-4 rounded-lg border border-border-color bg-white text-text-main placeholder:text-text-sub/70 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                                    placeholder="vidu@email.com" type="email" />
+                            </div>
+                        </label>
+                        <button
+                            class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-primary-hover text-white text-base font-bold tracking-wide transition-colors duration-200 shadow-lg shadow-primary/30">
+                            Gửi mã xác thực
+                        </button>
+                    </div>
+                    <!-- Footer Link -->
+                    <div class="flex justify-center pt-2">
+                        <a class="flex items-center gap-2 text-sm font-medium text-text-sub hover:text-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg">arrow_back</span>
+                            Quay lại đăng nhập
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- STEP 2: OTP Verification (Visual Demo) -->
+            <!-- Ideally this would replace the above card via JS, but showing side-by-side for design approval -->
+            <div class="w-full max-w-[480px] bg-white rounded-2xl shadow-luxury overflow-hidden">
+                <div class="p-8 sm:p-10 flex flex-col gap-6">
+                    <!-- Icon Header -->
+                    <div
+                        class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
+                        <span class="material-symbols-outlined text-[28px]">security</span>
+                    </div>
+                    <!-- Header -->
+                    <div class="flex flex-col gap-2">
+                        <h2 class="text-3xl font-bold text-text-main tracking-tight">Xác thực OTP</h2>
+                        <p class="text-text-sub text-base leading-relaxed">
+                            Mã xác thực 6 số đã được gửi tới email <span
+                                class="font-semibold text-text-main">khachhang@email.com</span>
+                        </p>
+                    </div>
+                    <!-- OTP Inputs -->
+                    <div class="flex flex-col gap-6 py-2">
+                        <div class="flex justify-between gap-2">
+                            <!-- 6 Individual Input Boxes -->
+                            <input
+                                class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold rounded-xl border border-border-color bg-background-light focus:bg-white text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                                maxlength="1" type="text" value="5" />
+                            <input autofocus=""
+                                class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold rounded-xl border border-primary bg-white text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 shadow-[0_0_0_4px_rgba(212,17,82,0.1)]"
+                                maxlength="1" type="text" value="" />
+                            <input
+                                class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold rounded-xl border border-border-color bg-background-light focus:bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                                maxlength="1" type="text" value="" />
+                            <input
+                                class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold rounded-xl border border-border-color bg-background-light focus:bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                                maxlength="1" type="text" value="" />
+                            <input
+                                class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold rounded-xl border border-border-color bg-background-light focus:bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                                maxlength="1" type="text" value="" />
+                            <input
+                                class="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold rounded-xl border border-border-color bg-background-light focus:bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+                                maxlength="1" type="text" value="" />
+                        </div>
+                        <!-- Timer & Resend -->
+                        <div class="text-center">
+                            <p class="text-sm text-text-sub">
+                                Không nhận được mã?
+                                <button class="ml-1 font-semibold text-text-sub cursor-not-allowed" disabled="">
+                                    Gửi lại sau (59s)
+                                </button>
+                            </p>
+                        </div>
+                        <button
+                            class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-primary-hover text-white text-base font-bold tracking-wide transition-colors duration-200 shadow-lg shadow-primary/30 mt-2">
+                            Xác nhận
+                        </button>
+                    </div>
+                    <!-- Footer Link -->
+                    <div class="flex justify-center pt-2">
+                        <a class="flex items-center gap-2 text-sm font-medium text-text-sub hover:text-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg">edit</span>
+                            Thay đổi email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative Footer/Copyright (Optional to frame the design) -->
+        <div class="relative z-10 mt-12 text-white/80 text-sm font-medium">
+            © 2024 Workshop Hoa Tết &amp; Art Gift Baskets
+        </div>
+    </div>
+</body>
+
+</html>
