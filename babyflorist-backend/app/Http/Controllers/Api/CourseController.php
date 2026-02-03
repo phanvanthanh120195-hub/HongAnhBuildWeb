@@ -102,6 +102,40 @@ class CourseController extends Controller
     }
 
     #[OA\Get(
+        path: '/api/courses/featured-workshop',
+        operationId: 'getFeaturedWorkshop',
+        tags: ['Khóa học'],
+        summary: 'Lấy Workshop nổi bật',
+        description: 'Lấy workshop đầu tiên được đánh dấu là nổi bật',
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Thành công',
+                content: new OA\JsonContent(
+                    type: 'object',
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: true),
+                        new OA\Property(property: 'data', type: 'object'),
+                    ]
+                )
+            )
+        ]
+    )]
+    public function featuredWorkshop()
+    {
+        $workshop = \App\Models\Course::where('format', 'workshop')
+            ->where('is_featured', true)
+            ->where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'data' => $workshop
+        ]);
+    }
+
+    #[OA\Get(
         path: '/api/courses/{slug}',
         operationId: 'getCourseDetail',
         tags: ['Khóa học'],

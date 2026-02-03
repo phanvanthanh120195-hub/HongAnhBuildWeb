@@ -18,6 +18,7 @@ Route::get('/about-us', [App\Http\Controllers\Api\AboutUsController::class, 'ind
 
 // Khóa học
 Route::get('/courses/flash-deal', [App\Http\Controllers\Api\CourseController::class, 'flashDeal']);
+Route::get('/courses/featured-workshop', [App\Http\Controllers\Api\CourseController::class, 'featuredWorkshop']);
 Route::get('/courses', [App\Http\Controllers\Api\CourseController::class, 'index']);
 Route::get('/courses/{slug}', [App\Http\Controllers\Api\CourseController::class, 'show']);
 
@@ -34,7 +35,7 @@ Route::get('/reviews', [App\Http\Controllers\Api\ReviewController::class, 'index
 Route::prefix('customer')->group(function () {
     Route::post('/register', [App\Http\Controllers\Api\CustomerAuthController::class, 'register']);
     Route::post('/login', [App\Http\Controllers\Api\CustomerAuthController::class, 'login']);
-    
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [App\Http\Controllers\Api\CustomerAuthController::class, 'logout']);
         Route::get('/profile', [App\Http\Controllers\Api\CustomerAuthController::class, 'profile']);

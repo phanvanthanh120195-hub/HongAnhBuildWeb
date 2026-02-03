@@ -17,6 +17,9 @@ class CoursesTable
                 TextColumn::make('id')
                     ->label('ID')
                     ->sortable(),
+                TextColumn::make('format')
+                    ->label('Loại nội dung')
+                    ->searchable(),
                 TextColumn::make('name')
                     ->label('Tên khóa học')
                     ->searchable()
@@ -57,6 +60,8 @@ class CoursesTable
                     ->label('Số học viên')
                     ->numeric()
                     ->sortable(),
+                \Filament\Tables\Columns\ToggleColumn::make('is_featured')
+                    ->label('Nổi bật'),
                 \Filament\Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Trạng thái'),
                 TextColumn::make('created_at')

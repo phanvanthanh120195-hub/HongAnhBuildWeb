@@ -3,7 +3,7 @@
 
 <template>
     <div
-        class="font-display bg-[url('image/BG_home.jpg')] h-auto bg-no-repeat text-[#181113] dark:text-white transition-colors duration-200">
+        class="font-display bg-[url('image/BG_home.png')] h-auto bg-no-repeat text-[#181113] dark:text-white transition-colors duration-200">
         <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
             <!-- Hero Section -->
             <div class="px-4 sm:px-10 lg:px-40 flex flex-1 justify-center py-10">

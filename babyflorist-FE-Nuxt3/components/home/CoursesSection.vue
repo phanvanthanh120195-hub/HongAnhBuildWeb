@@ -3,7 +3,7 @@
         <div class="max-w-[1400px] mx-auto px-6 md:px-10">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
                 <div>
-                    <h2 class="text-4xl font-black text-[#181111]">Khóa Học</h2>
+                    <h2 class="text-4xl font-black text-[#722F37]">Khóa Học</h2>
                     <p class="text-gray-500 mt-2 text-lg">Học viên thực hành trực tiếp dưới sự hướng dẫn tỉ mỉ
                     </p>
                 </div>

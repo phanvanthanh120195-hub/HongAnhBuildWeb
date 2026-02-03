@@ -3,7 +3,7 @@
         <div class="max-w-[1400px] mx-auto px-6 md:px-10">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
                 <div>
-                    <h2 class="text-4xl font-black text-primary">Góc Chia Sẻ</h2>
+                    <h2 class="text-4xl font-black text-[#722F37]">Góc Chia Sẻ</h2>
                     <p class="text-gray-500 mt-2 text-lg">Bí quyết cắm hoa và văn hóa Tết từ các chuyên gia</p>
                 </div>
                 <a class="text-primary font-bold flex items-center gap-2 group" href="#">

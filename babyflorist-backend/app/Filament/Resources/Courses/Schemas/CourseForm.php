@@ -50,6 +50,18 @@ class CourseForm
                                                 ->required()
                                                 ->native(false),
 
+                                            Select::make('label')
+                                                ->label('Nhãn')
+                                                ->options([
+                                                    'new' => 'New',
+                                                    'hot' => 'Hot',
+                                                    'basic' => 'Cơ bản',
+                                                    'advanced' => 'Nâng cao',
+                                                ])
+                                                ->default('new')
+                                                ->native(false)
+                                                ->searchable(),
+
                                             TextInput::make('name')
                                                 ->label('Tên khóa học')
                                                 ->required()
@@ -91,9 +103,18 @@ class CourseForm
                                 ->schema([
                                     Section::make('Trạng thái')
                                         ->schema([
+                                            Toggle::make('is_featured')
+                                                ->label('Sản phẩm nổi bật')
+                                                ->helperText('Sản phẩm sẽ được hiển thị ở mục nổi bật trang chủ')
+                                                ->default(false)
+                                                ->onColor('success')
+                                                ->offColor('gray'),
+
                                             Toggle::make('is_active')
                                                 ->label('Hiển thị')
-                                                ->default(true),
+                                                ->helperText('Bật để hiển thị sản phẩm')
+                                                ->default(true)
+                                                ->inline(false),
                                         ]),
 
                                     Section::make('Giá & Số liệu')
