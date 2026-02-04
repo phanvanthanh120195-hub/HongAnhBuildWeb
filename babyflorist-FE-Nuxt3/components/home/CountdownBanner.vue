@@ -79,34 +79,26 @@
 
 <script setup>
 const config = useRuntimeConfig();
-const workshop = ref(null);
 const days = ref('00');
 const hours = ref('00');
 const minutes = ref('00');
 const seconds = ref('00');
 let timer = null;
 
-const fetchWorkshop = async () => {
-    try {
-        // Sử dụng $fetch thay vì useFetch khi gọi trong onMounted
-        const response = await $fetch(`${config.public.apiBase}/api/courses`);
-        if (response && response.success && response.data) {
-            // Lọc theo format='workshop' và is_featured=true
-            const featuredWorkshop = response.data.find(
-                course => course.format === 'workshop' && course.is_featured === true
-            );
+// Use useFetch with caching instead of $fetch
+const { data: coursesResponse } = useFetch('/api/courses', {
+    baseURL: config.public.apiBase,
+    lazy: true,
+    key: 'home-workshop-banner',
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key],
+});
 
-            if (featuredWorkshop) {
-                workshop.value = featuredWorkshop;
-                if (workshop.value.sale_end) {
-                    startCountdown(new Date(workshop.value.sale_end).getTime());
-                }
-            }
-        }
-    } catch (error) {
-        console.error('Failed to fetch featured workshop:', error);
-    }
-};
+const workshop = computed(() => {
+    if (!coursesResponse.value?.success) return null;
+    return coursesResponse.value.data.find(
+        course => course.format === 'workshop' && course.is_featured === true
+    );
+});
 
 const startCountdown = (endTime) => {
     const update = () => {
@@ -128,9 +120,11 @@ const startCountdown = (endTime) => {
     timer = setInterval(update, 1000);
 };
 
-onMounted(() => {
-    fetchWorkshop();
-});
+watch(workshop, (newVal) => {
+    if (newVal?.sale_end) {
+        startCountdown(new Date(newVal.sale_end).getTime());
+    }
+}, { immediate: true });
 
 onUnmounted(() => {
     if (timer) clearInterval(timer);

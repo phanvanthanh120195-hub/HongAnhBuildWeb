@@ -4,6 +4,8 @@ const config = useRuntimeConfig();
 const { data: response } = useFetch('/api/products', {
     baseURL: config.public.apiBase,
     lazy: true,
+    key: 'home-products-featured',
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key],
     query: {
         limit: 4,
         featured_priority: 1
@@ -31,8 +33,6 @@ const getLabelClass = (label) => {
     if (l === 'sale') return 'bg-purple-100 text-purple-700';
     if (l === 'hot') return 'bg-red-100 text-[#722F37]';
     if (l === 'new' || l === 'mới') return 'bg-green-100 text-green-700';
-    if (l === 'nâng cao') return 'bg-blue-100 text-blue-800';
-    if (l === 'cơ bản') return 'bg-purple-100 text-purple-700';
 
     return 'bg-yellow-100 text-yellow-700';
 };

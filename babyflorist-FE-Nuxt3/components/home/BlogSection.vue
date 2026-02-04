@@ -4,6 +4,8 @@ const config = useRuntimeConfig();
 const { data: response } = useFetch('/api/blogs', {
     baseURL: config.public.apiBase,
     lazy: true,
+    key: 'home-blogs-featured',
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key],
     query: {
         limit: 2,
         featured_priority: 1

@@ -8,8 +8,11 @@ interface Category {
     slug: string
 }
 
-// Fetch categories from API
-const { data: categoryResponse } = await useFetch<{ success: boolean, data: Category[] }>(`${config.public.apiBase}/api/course-categories`)
+// Fetch categories from API with caching
+const { data: categoryResponse } = await useFetch<{ success: boolean, data: Category[] }>(`${config.public.apiBase}/api/course-categories`, {
+    key: 'course-categories',
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+})
 const categories = computed(() => categoryResponse.value?.data || [])
 
 const levels = [

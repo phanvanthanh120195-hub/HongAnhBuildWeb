@@ -8,6 +8,8 @@ const config = useRuntimeConfig();
 const { data: response } = useFetch('/api/featured-reviews', {
     baseURL: config.public.apiBase,
     lazy: true,
+    key: 'home-featured-reviews',
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key],
 });
 
 const reviews = computed(() => {

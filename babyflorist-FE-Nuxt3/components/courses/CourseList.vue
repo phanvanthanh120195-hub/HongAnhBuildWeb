@@ -40,8 +40,12 @@ const queryParams = computed(() => {
     return params
 })
 
+const cacheKey = computed(() => `courses-${JSON.stringify(queryParams.value)}`)
+
 const { data: response } = await useFetch<CourseResponse>(`${config.public.apiBase}/api/courses`, {
-    query: queryParams
+    query: queryParams,
+    key: cacheKey,
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
 })
 
 const formatPrice = (price: number) => {

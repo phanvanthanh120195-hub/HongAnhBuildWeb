@@ -4,6 +4,8 @@ const config = useRuntimeConfig();
 const { data: response } = useFetch('/api/courses', {
     baseURL: config.public.apiBase,
     lazy: true,
+    key: 'home-courses-featured',
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key],
     query: {
         limit: 3,
         format: 'course',
@@ -30,10 +32,8 @@ const getLabelClass = (label) => {
     if (!label) return 'bg-yellow-100 text-yellow-700';
     const l = label.toLowerCase();
 
-    if (l === 'hot') return 'bg-red-100 text-[#722F37]'; // Primary color used in text-primary is typically #722F37 based on previous context, or just use text-primary if it's a utility class. User said 'text-primary' for Hot.
-    if (l === 'nâng cao') return 'bg-blue-100 text-blue-800';
-    if (l === 'new' || l === 'mới') return 'bg-green-100 text-green-700';
-    if (l === 'cơ bản') return 'bg-purple-100 text-purple-700';
+    if (l === 'basic') return 'bg-purple-100 text-purple-700';
+    if (l === 'advanced') return 'bg-orange-100 text-orange-800';
 
     return 'bg-yellow-100 text-yellow-700';
 };
