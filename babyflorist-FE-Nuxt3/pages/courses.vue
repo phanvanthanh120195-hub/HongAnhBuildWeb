@@ -36,7 +36,7 @@
                         <div class="w-full h-px bg-gray-100 dark:bg-[#3a2828]"></div>
                         <div>
                             <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">
-                                Chủ đề</h4>
+                                DANH MỤC</h4>
                             <div class="space-y-3">
                                 <label class="flex items-center gap-3 cursor-pointer group select-none">
 

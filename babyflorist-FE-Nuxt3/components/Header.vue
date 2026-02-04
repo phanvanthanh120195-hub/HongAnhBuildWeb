@@ -21,19 +21,19 @@ const isCartOpen = useIsCartOpen()
                 <nav class="hidden lg:flex items-center gap-9">
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
-                        to="/">Trang chủ</NuxtLink>
+                        to="/" exact-active-class="text-primary">Trang chủ</NuxtLink>
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
-                        to="/courses">Khóa học</NuxtLink>
+                        to="/courses" active-class="text-primary">Khóa học</NuxtLink>
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
-                        to="/products">Sản phẩm</NuxtLink>
+                        to="/products" active-class="text-primary">Sản phẩm</NuxtLink>
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
-                        to="/blog">Blog</NuxtLink>
+                        to="/blog" active-class="text-primary">Blog</NuxtLink>
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
-                        to="/contact">Liên hệ</NuxtLink>
+                        to="/contact" active-class="text-primary">Liên hệ</NuxtLink>
                 </nav>
                 <div class="flex items-center gap-4">
                     <button @click="isCartOpen = true"
