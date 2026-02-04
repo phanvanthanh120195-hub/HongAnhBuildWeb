@@ -33,7 +33,7 @@ Route::get('/blogs/{slug}', [App\Http\Controllers\Api\BlogPostController::class,
 Route::get('/reviews', [App\Http\Controllers\Api\CourseReviewController::class, 'index']);
 
 // Customer Authentication
-Route::prefix('customer')->group(function () {
+Route::prefix('auth')->group(function () {
     Route::post('/register', [App\Http\Controllers\Api\CustomerAuthController::class, 'register']);
     Route::post('/login', [App\Http\Controllers\Api\CustomerAuthController::class, 'login']);
 

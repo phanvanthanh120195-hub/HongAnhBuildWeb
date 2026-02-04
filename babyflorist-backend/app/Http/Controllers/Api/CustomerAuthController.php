@@ -20,6 +20,17 @@ class CustomerAuthController extends Controller
             'email' => 'required|email|unique:customers,email',
             'phone' => 'required|string|unique:customers,phone',
             'password' => 'required|string|min:6|confirmed',
+        ], [
+            'name.required' => 'Vui lòng nhập họ và tên.',
+            'name.max' => 'Họ và tên không được quá 255 ký tự.',
+            'email.required' => 'Vui lòng nhập email.',
+            'email.email' => 'Email không đúng định dạng.',
+            'email.unique' => 'Email này đã được đăng ký.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+            'phone.unique' => 'Số điện thoại này đã được đăng ký.',
+            'password.required' => 'Vui lòng nhập mật khẩu.',
+            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'password.confirmed' => 'Mật khẩu nhập lại không khớp.',
         ]);
 
         $customer = Customer::create([
@@ -49,10 +60,13 @@ class CustomerAuthController extends Controller
         $request->validate([
             'identifier' => 'required|string', // Can be email or phone
             'password' => 'required|string',
+        ], [
+            'identifier.required' => 'Vui lòng nhập email hoặc số điện thoại.',
+            'password.required' => 'Vui lòng nhập mật khẩu.',
         ]);
 
         $identifier = $request->identifier;
-        
+
         // Find customer by email or phone
         $customer = Customer::where('email', $identifier)
             ->orWhere('phone', $identifier)
@@ -114,7 +128,7 @@ class CustomerAuthController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20|unique:customers,phone,'.$user->id,
+            'phone' => 'nullable|string|max:20|unique:customers,phone,' . $user->id,
             'province' => 'nullable|string',
             'district' => 'nullable|string',
             'ward' => 'nullable|string',
@@ -125,7 +139,7 @@ class CustomerAuthController extends Controller
         if ($request->hasFile('avatar')) {
             $path = $request->file('avatar')->store('customers', 'public');
             $validated['avatar'] = $path;
-            
+
             // Optional: Delete old avatar if exists and not default
             // if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
             //     Storage::disk('public')->delete($user->avatar);

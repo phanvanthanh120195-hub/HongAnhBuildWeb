@@ -4,6 +4,71 @@ import { ref } from 'vue'
 const emit = defineEmits(['close'])
 type AuthView = 'login' | 'register' | 'forgot' | 'otp'
 const currentView = ref<AuthView>('login')
+
+const { register, login } = useAuth()
+const isLoading = ref(false)
+const errorMessage = ref('')
+const errors = ref<any>({})
+
+// Register Form Data
+const registerData = reactive({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    password_confirmation: '' // Backend requirement for 'confirmed' validation
+})
+
+// Login Form Data
+const loginData = reactive({
+    identifier: '',
+    password: ''
+})
+
+const handleRegister = async () => {
+    isLoading.value = true
+    errorMessage.value = ''
+    errors.value = {}
+
+    // Add confirmation
+    registerData.password_confirmation = registerData.password
+
+    const res = await register(registerData)
+
+    isLoading.value = false
+
+    if (res.success) {
+        emit('close')
+        // Optional: Show success toast
+    } else {
+        errorMessage.value = res.message
+        if (res.errors) {
+            errors.value = res.errors
+        }
+    }
+}
+
+const handleLogin = async () => {
+    isLoading.value = true
+    errorMessage.value = ''
+
+    const res = await login(loginData)
+
+    isLoading.value = false
+
+    if (res.success) {
+        emit('close')
+    } else {
+        errorMessage.value = res.message
+    }
+}
+
+// Clear errors when switching views
+watch(currentView, () => {
+    errorMessage.value = ''
+    errors.value = {}
+})
+
 </script>
 
 <template>
@@ -47,15 +112,20 @@ const currentView = ref<AuthView>('login')
 
                 <!-- Login Form -->
                 <div v-if="currentView === 'login'" class="flex flex-col gap-6">
+                    <div v-if="errorMessage" class="bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center">
+                        {{ errorMessage }}
+                    </div>
                     <div class="space-y-5">
                         <div class="flex flex-col gap-2">
                             <label class="text-[#181113] text-base font-medium flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">mail</span>
                                 Email hoặc số điện thoại
                             </label>
-                            <input
+                            <input v-model="loginData.identifier" @keyup.enter="handleLogin"
+                                :class="{ '!border-red-500': errors.identifier }"
                                 class="w-full bg-white border border-[#e6dbdf] rounded-lg h-14 px-4 text-[#181113] placeholder-[#89616f]/70 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 placeholder="nguyenvan@gmail.com" type="text" />
+                            <p v-if="errors.identifier" class="text-red-500 text-xs">{{ errors.identifier[0] }}</p>
                         </div>
                         <div class="flex flex-col gap-2">
                             <div class="flex justify-between items-center">
@@ -67,9 +137,11 @@ const currentView = ref<AuthView>('login')
                                     class="text-primary text-sm hover:text-primary transition-colors text-base font-medium">
                                     Quên mật khẩu?</button>
                             </div>
-                            <input
+                            <input v-model="loginData.password" @keyup.enter="handleLogin"
+                                :class="{ '!border-red-500': errors.password }"
                                 class="w-full bg-white border border-[#e6dbdf] rounded-lg h-14 px-4 text-[#181113] placeholder-[#89616f]/70 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 placeholder="••••••••" type="password" />
+                            <p v-if="errors.password" class="text-red-500 text-xs">{{ errors.password[0] }}</p>
                         </div>
                         <div class="flex items-center gap-3 py-1">
                             <input
@@ -79,10 +151,11 @@ const currentView = ref<AuthView>('login')
                                 for="remember-me">Ghi nhớ đăng nhập</label>
                         </div>
                     </div>
-                    <button
-                        class="w-full bg-primary hover:bg-[#b00e43] text-white h-14 rounded-lg font-bold text-base shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 mt-2">
-                        Đăng nhập
-                        <span class="material-symbols-outlined">arrow_forward</span>
+                    <button @click="handleLogin" :disabled="isLoading"
+                        class="w-full bg-primary hover:bg-[#b00e43] disabled:opacity-70 disabled:cursor-not-allowed text-white h-14 rounded-lg font-bold text-base shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 mt-2">
+                        <span v-if="isLoading">Đang xử lý...</span>
+                        <span v-else>Đăng nhập</span>
+                        <span v-if="!isLoading" class="material-symbols-outlined">arrow_forward</span>
                     </button>
                     <div class="text-center">
                         <button @click="currentView = 'register'" class="text-[#89616f] hover:text-primary text-sm">
@@ -93,48 +166,58 @@ const currentView = ref<AuthView>('login')
 
                 <!-- Register Form -->
                 <div v-else-if="currentView === 'register'" class="flex flex-col gap-4">
+                    <!-- Error Message -->
+                    <div v-if="errorMessage" class="bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center">
+                        {{ errorMessage }}
+                    </div>
+
                     <div class="space-y-4">
                         <div class="flex flex-col gap-2">
                             <label class="text-[#181113] text-base font-medium flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">person</span>
                                 Họ và tên
                             </label>
-                            <input
+                            <input v-model="registerData.name" :class="{ '!border-red-500': errors.name }"
                                 class="w-full bg-white border border-[#e6dbdf] rounded-lg h-12 px-4 text-[#181113] placeholder-[#89616f]/70 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 placeholder="Nguyễn Văn A" type="text" />
+                            <p v-if="errors.name" class="text-red-500 text-xs">{{ errors.name[0] }}</p>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-[#181113] text-base font-medium flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">mail</span>
                                 Email
                             </label>
-                            <input
+                            <input v-model="registerData.email" :class="{ '!border-red-500': errors.email }"
                                 class="w-full bg-white border border-[#e6dbdf] rounded-lg h-12 px-4 text-[#181113] placeholder-[#89616f]/70 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 placeholder="email@example.com" type="email" />
+                            <p v-if="errors.email" class="text-red-500 text-xs">{{ errors.email[0] }}</p>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-[#181113] text-base font-medium flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">call</span>
                                 Số điện thoại
                             </label>
-                            <input
+                            <input v-model="registerData.phone" :class="{ '!border-red-500': errors.phone }"
                                 class="w-full bg-white border border-[#e6dbdf] rounded-lg h-12 px-4 text-[#181113] placeholder-[#89616f]/70 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 placeholder="0909 123 456" type="tel" />
+                            <p v-if="errors.phone" class="text-red-500 text-xs">{{ errors.phone[0] }}</p>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-[#181113] text-base font-medium flex items-center gap-2">
                                 <span class="material-symbols-outlined text-base">lock</span>
                                 Mật khẩu
                             </label>
-                            <input
+                            <input v-model="registerData.password" :class="{ '!border-red-500': errors.password }"
                                 class="w-full bg-white border border-[#e6dbdf] rounded-lg h-12 px-4 text-[#181113] placeholder-[#89616f]/70 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                                 placeholder="••••••••" type="password" />
+                            <p v-if="errors.password" class="text-red-500 text-xs">{{ errors.password[0] }}</p>
                         </div>
                     </div>
-                    <button
-                        class="w-full bg-primary hover:bg-[#b00e43] text-white h-14 rounded-lg font-bold text-base shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 mt-2">
-                        Đăng ký ngay
-                        <span class="material-symbols-outlined">arrow_forward</span>
+                    <button @click="handleRegister" :disabled="isLoading"
+                        class="w-full bg-primary hover:bg-[#b00e43] disabled:opacity-70 disabled:cursor-not-allowed text-white h-14 rounded-lg font-bold text-base shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 mt-2">
+                        <span v-if="isLoading">Đang xử lý...</span>
+                        <span v-else>Đăng ký ngay</span>
+                        <span v-if="!isLoading" class="material-symbols-outlined">arrow_forward</span>
                     </button>
                     <div class="text-center">
                         <button @click="currentView = 'login'" class="text-[#89616f] hover:text-primary text-sm">
