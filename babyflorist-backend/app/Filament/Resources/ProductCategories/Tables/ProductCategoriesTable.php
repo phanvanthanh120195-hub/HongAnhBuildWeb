@@ -17,7 +17,7 @@ class ProductCategoriesTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('STT')
+                    ->label('ID')
                     ->sortable(),
                 TextColumn::make('name')
                     ->label('Tên danh mục')

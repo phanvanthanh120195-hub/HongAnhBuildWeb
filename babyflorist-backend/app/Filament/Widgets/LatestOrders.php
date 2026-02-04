@@ -17,6 +17,8 @@ class LatestOrders extends TableWidget
 
     protected static ?string $heading = 'Đơn hàng gần đây';
 
+    protected ?string $pollingInterval = null;
+
     public function table(Table $table): Table
     {
         return $table

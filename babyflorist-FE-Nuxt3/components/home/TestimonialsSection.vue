@@ -5,8 +5,9 @@ import 'swiper/css';
 
 const config = useRuntimeConfig();
 
-const { data: response } = await useFetch('/api/featured-reviews', {
+const { data: response } = useFetch('/api/featured-reviews', {
     baseURL: config.public.apiBase,
+    lazy: true,
 });
 
 const reviews = computed(() => {

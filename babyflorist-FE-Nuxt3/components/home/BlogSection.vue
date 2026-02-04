@@ -1,8 +1,9 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data: response } = await useFetch('/api/blogs', {
+const { data: response } = useFetch('/api/blogs', {
     baseURL: config.public.apiBase,
+    lazy: true,
     query: {
         limit: 2,
         featured_priority: 1

@@ -1,8 +1,9 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data: response } = await useFetch('/api/courses', {
+const { data: response } = useFetch('/api/courses', {
     baseURL: config.public.apiBase,
+    lazy: true,
     query: {
         limit: 3,
         format: 'course',

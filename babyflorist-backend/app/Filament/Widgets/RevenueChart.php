@@ -13,11 +13,13 @@ class RevenueChart extends ChartWidget
 
     protected static ?int $sort = 2;
 
-    protected int | string | array $columnSpan = 1;
+    protected int|string|array $columnSpan = 1;
+
+    protected ?string $pollingInterval = null;
 
     protected function getData(): array
     {
-        $data = Trend::query(Order::where('payment_status', 'paid'))
+        $data = Trend::query(Order::query()->where('payment_status', 'paid'))
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear(),
@@ -29,11 +31,11 @@ class RevenueChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Doanh thu',
-                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                     'borderColor' => '#10b981', // success color
                 ],
             ],
-            'labels' => $data->map(fn (TrendValue $value) => $value->date),
+            'labels' => $data->map(fn(TrendValue $value) => $value->date),
         ];
     }
 
