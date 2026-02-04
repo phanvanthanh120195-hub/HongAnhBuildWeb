@@ -12,6 +12,7 @@ class BlogPost extends Model
         'content',
         'thumbnail',
         'is_active',
+        'is_featured',
         'published_at',
         'blog_category_id',
     ];
@@ -19,6 +20,7 @@ class BlogPost extends Model
     protected $casts = [
         'published_at' => 'date',
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     public function category()

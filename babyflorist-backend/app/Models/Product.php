@@ -12,7 +12,7 @@ class Product extends Model
         'thumbnail',
         'slug',
         'description',
-        'category_id',
+        'product_category_id',
         'price',
         'sale_price',
         'discount_percent',
@@ -29,9 +29,9 @@ class Product extends Model
         'is_featured' => 'boolean',
     ];
 
-    public function category()
+    public function product_category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(ProductCategory::class);
     }
 
     public function images()

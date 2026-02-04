@@ -52,12 +52,17 @@ class BlogPostController extends Controller
     public function index(Request $request)
     {
         $query = BlogPost::where('is_active', true)
-            ->with(['category'])
-            ->orderBy('published_at', 'desc');
+            ->with(['category']);
 
         if ($request->has('category_id')) {
             $query->where('blog_category_id', $request->category_id);
         }
+
+        if ($request->has('featured_priority')) {
+            $query->orderBy('is_featured', 'desc');
+        }
+
+        $query->orderBy('published_at', 'desc');
 
         $limit = $request->get('limit', 10);
         $posts = $query->limit($limit)->get();

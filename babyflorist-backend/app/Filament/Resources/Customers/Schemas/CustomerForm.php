@@ -20,6 +20,17 @@ class CustomerForm
                     ->schema([
                         Section::make('Thông tin cá nhân')
                             ->schema([
+                                \Filament\Forms\Components\Select::make('customer_type')
+                                    ->label('Loại tài khoản')
+                                    ->options([
+                                        'customer' => 'Khách hàng',
+                                        'admin' => 'Quản trị viên',
+                                    ])
+                                    ->default('customer')
+                                    ->native(false)
+                                    ->required()
+                                    ->columnSpanFull(),
+
                                 TextInput::make('name')
                                     ->label('Họ và tên')
                                     ->maxLength(255)

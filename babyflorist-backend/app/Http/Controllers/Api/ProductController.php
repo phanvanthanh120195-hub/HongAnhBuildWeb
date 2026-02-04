@@ -55,9 +55,17 @@ class ProductController extends Controller
             $query->where('label', 'new');
         }
 
-        $products = $query->orderBy('id', 'desc')
-            ->limit(4)
-            ->get(['id', 'name', 'thumbnail', 'price', 'sale_price', 'label', 'is_featured']);
+        // Sort by featured first if requested
+        if ($request->has('featured_priority')) {
+            $query->orderBy('is_featured', 'desc');
+        }
+
+        $query->orderBy('id', 'desc');
+
+        $limit = $request->input('limit', 4);
+
+        $products = $query->limit($limit)
+            ->get(['id', 'name', 'thumbnail', 'price', 'sale_price', 'label', 'is_featured', 'discount_percent']);
 
         return response()->json([
             'success' => true,

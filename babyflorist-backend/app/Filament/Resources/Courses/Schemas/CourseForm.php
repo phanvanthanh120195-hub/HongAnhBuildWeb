@@ -30,6 +30,7 @@ class CourseForm
                                 ->schema([
                                     Section::make('Thông tin khóa học')
                                         ->schema([
+                                            Grid::make(2)->schema([
                                             Select::make('type')
                                                 ->label('Hình thức học')
                                                 ->options([
@@ -49,18 +50,28 @@ class CourseForm
                                                 ->default('course')
                                                 ->required()
                                                 ->native(false),
+                                            ]),
 
-                                            Select::make('label')
-                                                ->label('Nhãn')
-                                                ->options([
-                                                    'new' => 'New',
-                                                    'hot' => 'Hot',
-                                                    'basic' => 'Cơ bản',
-                                                    'advanced' => 'Nâng cao',
-                                                ])
-                                                ->default('new')
-                                                ->native(false)
-                                                ->searchable(),
+                                            Grid::make(2)->schema([
+                                                Select::make('course_category_id')
+                                                    ->label('Danh mục')
+                                                    ->relationship('category', 'name')
+                                                    ->searchable()
+                                                    ->preload()
+                                                    ->required()
+                                                    ->default(null),
+                                                Select::make('label')
+                                                    ->label('Nhãn')
+                                                    ->options([
+                                                        'new' => 'New',
+                                                        'hot' => 'Hot',
+                                                        'basic' => 'Cơ bản',
+                                                        'advanced' => 'Nâng cao',
+                                                    ])
+                                                    ->default('new')
+                                                    ->native(false)
+                                                    ->searchable(),
+                                            ]),
 
                                             TextInput::make('name')
                                                 ->label('Tên khóa học')
@@ -108,6 +119,7 @@ class CourseForm
                                                 ->helperText('Sản phẩm sẽ được hiển thị ở mục nổi bật trang chủ')
                                                 ->default(false)
                                                 ->onColor('success')
+                                                ->inline(false)
                                                 ->offColor('gray'),
 
                                             Toggle::make('is_active')

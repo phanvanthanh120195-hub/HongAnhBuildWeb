@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Filament\Resources\BlogComments;
+
+use App\Filament\Resources\BlogComments\Pages\CreateBlogComment;
+use App\Filament\Resources\BlogComments\Pages\EditBlogComment;
+use App\Filament\Resources\BlogComments\Pages\ListBlogComments;
+use App\Filament\Resources\BlogComments\Schemas\BlogCommentForm;
+use App\Filament\Resources\BlogComments\Tables\BlogCommentsTable;
+use App\Models\BlogComment;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Tables\Table;
+
+class BlogCommentResource extends Resource
+{
+    protected static ?string $model = BlogComment::class;
+
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+
+    protected static string | \UnitEnum | null $navigationGroup = 'Content';
+
+    protected static ?int $navigationSort = 4;
+
+    protected static ?string $navigationLabel = 'Bình luận';
+
+    protected static ?string $modelLabel = 'Bình luận';
+
+    protected static ?string $pluralModelLabel = 'Bình luận';
+
+    public static function form(Schema $schema): Schema
+    {
+        return BlogCommentForm::configure($schema)
+            ->columns(1);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return BlogCommentsTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListBlogComments::route('/'),
+            'create' => CreateBlogComment::route('/create'),
+            'edit' => EditBlogComment::route('/{record}/edit'),
+        ];
+    }
+}

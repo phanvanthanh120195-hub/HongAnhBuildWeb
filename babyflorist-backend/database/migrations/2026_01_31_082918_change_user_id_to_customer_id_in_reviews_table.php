@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -39,13 +40,16 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->dropForeign(['customer_id']);
-            $table->renameColumn('customer_id', 'user_id');
-        });
+        try {
+            DB::statement('ALTER TABLE `reviews` DROP FOREIGN KEY `reviews_customer_id_foreign`');
+        } catch (\Exception $e) {}
 
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-        });
+        if (Schema::hasColumn('reviews', 'customer_id')) {
+            DB::statement('ALTER TABLE `reviews` CHANGE `customer_id` `user_id` BIGINT UNSIGNED NULL');
+        }
+
+        try {
+            DB::statement('ALTER TABLE `reviews` ADD CONSTRAINT `reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL');
+        } catch (\Exception $e) {}
     }
 };

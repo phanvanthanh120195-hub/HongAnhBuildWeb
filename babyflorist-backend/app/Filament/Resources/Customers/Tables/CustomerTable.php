@@ -33,6 +33,13 @@ class CustomerTable
                 TextColumn::make('email')
                     ->searchable(),
 
+                \Filament\Tables\Columns\TextColumn::make('customer_type')
+                    ->label('Loại')
+                    ->formatStateUsing(fn (string $state): string => $state === 'admin' ? 'Admin' : 'Khách hàng')
+                    ->badge()
+                    ->color(fn (string $state): string => $state === 'admin' ? 'success' : 'info')
+                    ->sortable(),
+
                 TextColumn::make('phone')
                     ->label('SĐT')
                     ->searchable(),

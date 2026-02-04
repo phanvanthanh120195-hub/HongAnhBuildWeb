@@ -21,6 +21,7 @@ class Customer extends Authenticatable
         'district',
         'ward',
         'address',
+        'customer_type',
     ];
 
     protected $hidden = [

@@ -23,7 +23,9 @@ class Course extends Model
         'is_featured',
         'is_active',
         'sale_start',
+        'sale_start',
         'sale_end',
+        'course_category_id',
     ];
 
     protected $casts = [
@@ -34,6 +36,11 @@ class Course extends Model
     ];
 
     protected $appends = ['remaining_slots'];
+
+    public function category()
+    {
+        return $this->belongsTo(CourseCategory::class, 'course_category_id');
+    }
 
     public function enrollments()
     {

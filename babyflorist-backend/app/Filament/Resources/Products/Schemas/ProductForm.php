@@ -58,9 +58,9 @@ class ProductForm
                                         ->dehydrated(),
 
                                     Grid::make(2)->schema([
-                                        Select::make('category_id')
+                                        Select::make('product_category_id')
                                             ->label('Danh mục')
-                                            ->relationship('category', 'name')
+                                            ->relationship('product_category', 'name')
                                             ->searchable()
                                             ->preload()
                                             ->required()

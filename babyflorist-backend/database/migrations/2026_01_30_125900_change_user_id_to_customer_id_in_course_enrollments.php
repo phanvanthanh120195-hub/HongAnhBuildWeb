@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -10,17 +10,20 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('course_enrollments', function (Blueprint $table) {
-            // Drop the old foreign key constraint
-            $table->dropForeign(['user_id']);
-            // Rename column
-            $table->renameColumn('user_id', 'customer_id');
-        });
+        // Drop old FK
+        try {
+            DB::statement('ALTER TABLE `course_enrollments` DROP FOREIGN KEY `course_enrollments_user_id_foreign`');
+        } catch (\Exception $e) {}
 
-        Schema::table('course_enrollments', function (Blueprint $table) {
-            // Add new foreign key constraint
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-        });
+        // Rename column
+        if (Schema::hasColumn('course_enrollments', 'user_id')) {
+            DB::statement('ALTER TABLE `course_enrollments` CHANGE `user_id` `customer_id` BIGINT UNSIGNED NOT NULL');
+        }
+
+        // Add new FK
+        try {
+            DB::statement('ALTER TABLE `course_enrollments` ADD CONSTRAINT `course_enrollments_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers`(`id`) ON DELETE CASCADE');
+        } catch (\Exception $e) {}
     }
 
     /**
@@ -28,13 +31,16 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('course_enrollments', function (Blueprint $table) {
-            $table->dropForeign(['customer_id']);
-            $table->renameColumn('customer_id', 'user_id');
-        });
+        try {
+            DB::statement('ALTER TABLE `course_enrollments` DROP FOREIGN KEY `course_enrollments_customer_id_foreign`');
+        } catch (\Exception $e) {}
 
-        Schema::table('course_enrollments', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
+        if (Schema::hasColumn('course_enrollments', 'customer_id')) {
+            DB::statement('ALTER TABLE `course_enrollments` CHANGE `customer_id` `user_id` BIGINT UNSIGNED NOT NULL');
+        }
+
+        try {
+            DB::statement('ALTER TABLE `course_enrollments` ADD CONSTRAINT `course_enrollments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE');
+        } catch (\Exception $e) {}
     }
 };

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -10,17 +10,20 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            // Drop the old foreign key constraint
-            $table->dropForeign(['user_id']);
-            // Rename column
-            $table->renameColumn('user_id', 'customer_id');
-        });
+        // Drop old FK
+        try {
+            DB::statement('ALTER TABLE `orders` DROP FOREIGN KEY `orders_user_id_foreign`');
+        } catch (\Exception $e) {}
 
-        Schema::table('orders', function (Blueprint $table) {
-            // Add new foreign key constraint
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
-        });
+        // Rename column
+        if (Schema::hasColumn('orders', 'user_id')) {
+            DB::statement('ALTER TABLE `orders` CHANGE `user_id` `customer_id` BIGINT UNSIGNED NULL');
+        }
+
+        // Add new FK
+        try {
+            DB::statement('ALTER TABLE `orders` ADD CONSTRAINT `orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers`(`id`) ON DELETE SET NULL');
+        } catch (\Exception $e) {}
     }
 
     /**
@@ -28,13 +31,16 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropForeign(['customer_id']);
-            $table->renameColumn('customer_id', 'user_id');
-        });
+        try {
+            DB::statement('ALTER TABLE `orders` DROP FOREIGN KEY `orders_customer_id_foreign`');
+        } catch (\Exception $e) {}
 
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-        });
+        if (Schema::hasColumn('orders', 'customer_id')) {
+            DB::statement('ALTER TABLE `orders` CHANGE `customer_id` `user_id` BIGINT UNSIGNED NULL');
+        }
+
+        try {
+            DB::statement('ALTER TABLE `orders` ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL');
+        } catch (\Exception $e) {}
     }
 };

@@ -25,7 +25,8 @@ class BlogPostsTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->label('Slug')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 ImageColumn::make('thumbnail')
                     ->label('Hình ảnh')
                     ->disk('public')
@@ -44,6 +45,8 @@ class BlogPostsTable
                     ->label('Ngày đăng')
                     ->date('d/m/Y')
                     ->sortable(),
+                ToggleColumn::make('is_featured')
+                    ->label('Nổi bật'),
                 ToggleColumn::make('is_active')
                     ->label('Hiển thị'),
                 TextColumn::make('created_at')

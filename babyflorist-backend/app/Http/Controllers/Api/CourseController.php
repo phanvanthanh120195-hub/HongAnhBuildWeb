@@ -46,11 +46,29 @@ class CourseController extends Controller
             )
         ]
     )]
-    public function index()
+    public function index(Request $request)
     {
-        $courses = \App\Models\Course::where('is_active', true)
-            ->orderBy('id', 'desc')
-            ->get();
+        $query = \App\Models\Course::where('is_active', true);
+
+        // Filter by format (optional)
+        if ($request->has('format')) {
+            $query->where('format', $request->format);
+        }
+
+        // Sort by featured first if requested
+        if ($request->has('featured_priority')) {
+            $query->orderBy('is_featured', 'desc');
+        }
+
+        // Default sort
+        $query->orderBy('created_at', 'desc');
+
+        // Limit results if requested
+        if ($request->has('limit')) {
+            $courses = $query->take($request->limit)->get();
+        } else {
+            $courses = $query->get();
+        }
 
         return response()->json([
             'success' => true,
