@@ -48,11 +48,11 @@ class CourseController extends Controller
     )]
     public function index(Request $request)
     {
-        $query = \App\Models\Course::where('is_active', true);
+        $query = \App\Models\Course::where('is_active', true)->withCount('enrollments');
 
         // Filter by format (optional)
         if ($request->has('format')) {
-            $query->where('format', $request->format);
+            $query->where('format', $request->input('format'));
         }
 
         // Sort by featured first if requested
@@ -62,6 +62,51 @@ class CourseController extends Controller
 
         // Default sort
         $query->orderBy('created_at', 'desc');
+
+        // Filter by Categories
+        if ($request->has('categories')) {
+            $categories = explode(',', $request->input('categories'));
+            if (!empty($categories)) {
+                $query->whereIn('course_category_id', $categories);
+            }
+        }
+
+        // Filter by Levels (labels)
+        if ($request->has('levels')) {
+            $levels = explode(',', $request->input('levels'));
+            $mappedLevels = [];
+            foreach ($levels as $level) {
+                if ($level === 'Cơ bản')
+                    $mappedLevels[] = 'basic';
+                if ($level === 'Nâng cao')
+                    $mappedLevels[] = 'advanced';
+            }
+            if (!empty($mappedLevels)) {
+                $query->whereIn('label', $mappedLevels);
+            }
+        }
+
+        // Filter by Price Ranges
+        if ($request->has('price_ranges')) {
+            $ranges = explode(',', $request->input('price_ranges'));
+            $query->where(function ($q) use ($ranges) {
+                foreach ($ranges as $range) {
+                    if ($range === 'under-500k') {
+                        $q->orWhere(function ($subQ) {
+                            $subQ->whereRaw('COALESCE(sale_price, price) < 500000');
+                        });
+                    } elseif ($range === '500k-1m') {
+                        $q->orWhere(function ($subQ) {
+                            $subQ->whereRaw('COALESCE(sale_price, price) >= 500000 AND COALESCE(sale_price, price) <= 1000000');
+                        });
+                    } elseif ($range === 'above-1m') {
+                        $q->orWhere(function ($subQ) {
+                            $subQ->whereRaw('COALESCE(sale_price, price) > 1000000');
+                        });
+                    }
+                }
+            });
+        }
 
         // Limit results if requested
         if ($request->has('limit')) {

@@ -5,7 +5,7 @@ const topics = [
     'Bình hoa gốm'
 ]
 
-const types = [
+const categories = [
     'Cao cấp',
     'Phổ thông'
 ]
@@ -27,10 +27,9 @@ const prices = [
                 </h3>
             </div>
             <div class="w-full h-px bg-gray-100 dark:bg-[#3a2828]"></div>
-
-            <!-- Topics -->
             <div>
-                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">Chủ đề</h4>
+                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">
+                    Chủ đề</h4>
                 <div class="space-y-3">
                     <label v-for="topic in topics" :key="topic"
                         class="flex items-center gap-3 cursor-pointer group select-none">
@@ -43,32 +42,26 @@ const prices = [
                     </label>
                 </div>
             </div>
-
             <div class="w-full h-px bg-gray-100 dark:bg-[#3a2828]"></div>
-
-            <!-- Types -->
             <div>
-                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">Phân loại
-                </h4>
+                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">
+                    Phân loại</h4>
                 <div class="space-y-3">
-                    <label v-for="type in types" :key="type"
+                    <label v-for="category in categories" :key="category"
                         class="flex items-center gap-3 cursor-pointer group select-none">
                         <input
                             class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                             type="checkbox" />
                         <span
                             class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">{{
-                            type }}</span>
+                            category }}</span>
                     </label>
                 </div>
             </div>
-
             <div class="w-full h-px bg-gray-100 dark:bg-[#3a2828]"></div>
-
-            <!-- Prices -->
             <div>
-                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">Khoảng giá
-                </h4>
+                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">
+                    Khoảng giá</h4>
                 <div class="space-y-3">
                     <label v-for="price in prices" :key="price"
                         class="flex items-center gap-3 cursor-pointer group select-none">
@@ -81,7 +74,6 @@ const prices = [
                     </label>
                 </div>
             </div>
-
             <button
                 class="w-full bg-[#221010] text-white py-3 rounded-lg font-bold text-sm hover:bg-primary transition-colors mt-4">
                 Áp dụng bộ lọc

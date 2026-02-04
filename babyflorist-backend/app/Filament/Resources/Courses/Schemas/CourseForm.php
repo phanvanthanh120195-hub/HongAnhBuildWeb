@@ -31,25 +31,25 @@ class CourseForm
                                     Section::make('Thông tin khóa học')
                                         ->schema([
                                             Grid::make(2)->schema([
-                                            Select::make('type')
-                                                ->label('Hình thức học')
-                                                ->options([
-                                                    'offline' => 'Học offline',
-                                                    'online' => 'Học online',
-                                                ])
-                                                ->default('offline')
-                                                ->required()
-                                                ->native(false),
+                                                Select::make('type')
+                                                    ->label('Hình thức học')
+                                                    ->options([
+                                                        'offline' => 'Học offline',
+                                                        'online' => 'Học online',
+                                                    ])
+                                                    ->default('offline')
+                                                    ->required()
+                                                    ->native(false),
 
-                                            Select::make('format')
-                                                ->label('Loại nội dung')
-                                                ->options([
-                                                    'course' => 'Khóa học',
-                                                    'workshop' => 'Workshop',
-                                                ])
-                                                ->default('course')
-                                                ->required()
-                                                ->native(false),
+                                                Select::make('format')
+                                                    ->label('Loại nội dung')
+                                                    ->options([
+                                                        'course' => 'Khóa học',
+                                                        'workshop' => 'Workshop',
+                                                    ])
+                                                    ->default('course')
+                                                    ->required()
+                                                    ->native(false),
                                             ]),
 
                                             Grid::make(2)->schema([
@@ -61,14 +61,12 @@ class CourseForm
                                                     ->required()
                                                     ->default(null),
                                                 Select::make('label')
-                                                    ->label('Nhãn')
+                                                    ->label('Cấp độ')
                                                     ->options([
-                                                        'new' => 'New',
-                                                        'hot' => 'Hot',
                                                         'basic' => 'Cơ bản',
                                                         'advanced' => 'Nâng cao',
                                                     ])
-                                                    ->default('new')
+                                                    ->default('basic')
                                                     ->native(false)
                                                     ->searchable(),
                                             ]),

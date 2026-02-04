@@ -1,9 +1,16 @@
 <script setup lang="ts">
-const topics = [
-    'Cắm hoa bình',
-    'Bó hoa nghệ thuật',
-    'Giỏ quà Tết'
-]
+const config = useRuntimeConfig()
+const emit = defineEmits(['apply'])
+
+interface Category {
+    id: number
+    name: string
+    slug: string
+}
+
+// Fetch categories from API
+const { data: categoryResponse } = await useFetch<{ success: boolean, data: Category[] }>(`${config.public.apiBase}/api/course-categories`)
+const categories = computed(() => categoryResponse.value?.data || [])
 
 const levels = [
     'Cơ bản',
@@ -11,10 +18,22 @@ const levels = [
 ]
 
 const prices = [
-    'Dưới 500k',
-    '500k - 1 triệu',
-    'Trên 1 triệu'
+    { label: 'Dưới 500k', value: 'under-500k' },
+    { label: '500k - 1 triệu', value: '500k-1m' },
+    { label: 'Trên 1 triệu', value: 'above-1m' }
 ]
+
+const selectedCategories = ref<number[]>([])
+const selectedLevels = ref<string[]>([])
+const selectedPrices = ref<string[]>([])
+
+const applyFilters = () => {
+    emit('apply', {
+        categories: selectedCategories.value,
+        levels: selectedLevels.value,
+        prices: selectedPrices.value
+    })
+}
 </script>
 
 <template>
@@ -28,18 +47,18 @@ const prices = [
             </div>
             <div class="w-full h-px bg-gray-100 dark:bg-[#3a2828]"></div>
 
-            <!-- Topics -->
+            <!-- Categories -->
             <div>
-                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">Chủ đề</h4>
+                <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">DANH MỤC</h4>
                 <div class="space-y-3">
-                    <label v-for="topic in topics" :key="topic"
+                    <label v-for="category in categories" :key="category.id"
                         class="flex items-center gap-3 cursor-pointer group select-none">
-                        <input
+                        <input v-model="selectedCategories" :value="category.id"
                             class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                             type="checkbox" />
                         <span
                             class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">{{
-                                topic }}</span>
+                                category.name }}</span>
                     </label>
                 </div>
             </div>
@@ -52,7 +71,7 @@ const prices = [
                 <div class="space-y-3">
                     <label v-for="level in levels" :key="level"
                         class="flex items-center gap-3 cursor-pointer group select-none">
-                        <input
+                        <input v-model="selectedLevels" :value="level"
                             class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                             type="checkbox" />
                         <span
@@ -69,19 +88,19 @@ const prices = [
                 <h4 class="font-bold text-sm text-[#181111] dark:text-white mb-4 uppercase tracking-wider">Khoảng giá
                 </h4>
                 <div class="space-y-3">
-                    <label v-for="price in prices" :key="price"
+                    <label v-for="price in prices" :key="price.value"
                         class="flex items-center gap-3 cursor-pointer group select-none">
-                        <input
+                        <input v-model="selectedPrices" :value="price.value"
                             class="w-5 h-5 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary focus:ring-2 focus:ring-offset-1 dark:bg-[#2a1a1a] dark:border-gray-600"
                             type="checkbox" />
                         <span
                             class="text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors text-base">{{
-                                price }}</span>
+                                price.label }}</span>
                     </label>
                 </div>
             </div>
 
-            <button
+            <button @click="applyFilters"
                 class="w-full bg-[#221010] text-white py-3 rounded-lg font-bold text-sm hover:bg-primary transition-colors mt-4">
                 Áp dụng bộ lọc
             </button>

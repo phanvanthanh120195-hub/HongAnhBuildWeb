@@ -17,6 +17,7 @@ Route::get('/categories', [ProductCategoryController::class, 'index']);
 Route::get('/about-us', [App\Http\Controllers\Api\AboutUsController::class, 'index']);
 
 // Khóa học
+Route::get('/course-categories', [App\Http\Controllers\Api\CourseCategoryController::class, 'index']);
 Route::get('/courses/flash-deal', [App\Http\Controllers\Api\CourseController::class, 'flashDeal']);
 Route::get('/courses/featured-workshop', [App\Http\Controllers\Api\CourseController::class, 'featuredWorkshop']);
 Route::get('/courses', [App\Http\Controllers\Api\CourseController::class, 'index']);
