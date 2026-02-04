@@ -42,9 +42,11 @@ const queryParams = computed(() => {
 
 const cacheKey = computed(() => `courses-${JSON.stringify(queryParams.value)}`)
 
-const { data: response } = await useFetch<CourseResponse>(`${config.public.apiBase}/api/courses`, {
+// Non-blocking fetch - page renders immediately, data loads in background
+const { data: response, pending } = useFetch<CourseResponse>(`${config.public.apiBase}/api/courses`, {
     query: queryParams,
     key: cacheKey,
+    lazy: true,
     getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
 })
 
@@ -157,7 +159,24 @@ const displayedPages = computed(() => {
             </div>
         </div>
 
-        <div v-if="paginatedCourses.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Skeleton Loading -->
+        <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-for="i in 6" :key="i"
+                class="bg-white dark:bg-[#1a0f0f] rounded-xl overflow-hidden border border-gray-100 dark:border-[#3a2828] animate-pulse">
+                <div class="aspect-[4/3] bg-gray-200 dark:bg-gray-700"></div>
+                <div class="p-5">
+                    <div class="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-3"></div>
+                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mb-4"></div>
+                    <div class="pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between">
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                        <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="paginatedCourses.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div v-for="course in paginatedCourses" :key="course.id"
                 class="group flex flex-col bg-white dark:bg-[#1a0f0f] rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-[#3a2828] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div class="relative aspect-[4/3] overflow-hidden">

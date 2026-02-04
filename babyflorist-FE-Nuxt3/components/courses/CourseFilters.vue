@@ -8,9 +8,10 @@ interface Category {
     slug: string
 }
 
-// Fetch categories from API with caching
-const { data: categoryResponse } = await useFetch<{ success: boolean, data: Category[] }>(`${config.public.apiBase}/api/course-categories`, {
+// Non-blocking fetch - categories load in background
+const { data: categoryResponse } = useFetch<{ success: boolean, data: Category[] }>(`${config.public.apiBase}/api/course-categories`, {
     key: 'course-categories',
+    lazy: true,
     getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
 })
 const categories = computed(() => categoryResponse.value?.data || [])
