@@ -33,7 +33,7 @@ useHead({
                             </span>
                             <br>
                             <span class="text-primary">
-                                Chuyên Sâu
+                                Chuyên Sâu Làm chủ kỹ thuật cắm hoa truyền thống
                             </span>
                         </h1>
                         <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">

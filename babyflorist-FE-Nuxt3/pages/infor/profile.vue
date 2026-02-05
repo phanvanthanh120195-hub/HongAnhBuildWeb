@@ -31,7 +31,7 @@
                         <li>
                             <NuxtLink
                                 class="flex items-center gap-4 px-6 py-4 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-400 transition-all border-l-4 border-transparent hover:border-stone-300"
-                                to="/change-password">
+                                to="/infor/change-password">
                                 <span class="material-icons-outlined">lock</span>
                                 Đổi mật khẩu
                             </NuxtLink>

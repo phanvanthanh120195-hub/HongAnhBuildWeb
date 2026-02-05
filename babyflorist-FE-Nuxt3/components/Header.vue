@@ -51,7 +51,7 @@ const handleLogout = async () => {
                         to="/products" active-class="text-primary">Sản phẩm</NuxtLink>
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
-                        to="/blog" active-class="text-primary">Blog</NuxtLink>
+                        to="/blogs" active-class="text-primary">Bài viết</NuxtLink>
                     <NuxtLink
                         class="text-sm font-semibold leading-normal hover:text-primary transition-colors uppercase tracking-wider"
                         to="/contact" active-class="text-primary">Liên hệ</NuxtLink>
@@ -83,13 +83,13 @@ const handleLogout = async () => {
                                 <div class="flex flex-col">
                                     <NuxtLink
                                         class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-light-beige hover:text-primary transition-colors"
-                                        to="/profile">
+                                        to="/infor/profile">
                                         <span class="material-symbols-outlined text-xl text-gold">person</span>
                                         Hồ sơ cá nhân
                                     </NuxtLink>
                                     <NuxtLink
                                         class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-light-beige hover:text-primary transition-colors"
-                                        to="/order-history">
+                                        to="/infor/order-history">
                                         <span class="material-symbols-outlined text-xl text-gold">receipt_long</span>
                                         Lịch sử đơn hàng
                                     </NuxtLink>

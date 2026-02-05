@@ -27,6 +27,7 @@ Route::get('/featured-reviews', [App\Http\Controllers\Api\FeaturedReviewControll
 Route::get('/categories/{id}', [ProductCategoryController::class, 'show']);
 
 // Blog Posts
+Route::get('/blog-categories', [App\Http\Controllers\Api\BlogCategoryController::class, 'index']);
 Route::get('/blogs', [App\Http\Controllers\Api\BlogPostController::class, 'index']);
 Route::get('/blogs/{slug}', [App\Http\Controllers\Api\BlogPostController::class, 'show']);
 
@@ -55,3 +56,6 @@ Route::post('/vouchers/check', [App\Http\Controllers\Api\VoucherController::clas
 // Order Methods
 Route::post('/orders', [App\Http\Controllers\Api\OrderController::class, 'store']);
 Route::post('/orders/{id}/confirm', [App\Http\Controllers\Api\OrderController::class, 'confirm']);
+
+// Support Requests
+Route::post('/support-requests', [App\Http\Controllers\Api\SupportRequestController::class, 'store']);

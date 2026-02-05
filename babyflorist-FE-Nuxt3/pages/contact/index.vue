@@ -1,4 +1,52 @@
 <script setup lang="ts">
+const config = useRuntimeConfig()
+
+// Form data
+const formData = ref({
+    name: '',
+    phone: '',
+    email: '',
+    subject: '',
+    message: ''
+})
+
+// State
+const isLoading = ref(false)
+const showSuccess = ref(false)
+const errorMessage = ref('')
+
+// Submit handler
+async function handleSubmit() {
+    // Validate
+    if (!formData.value.name || !formData.value.phone || !formData.value.email || !formData.value.subject || !formData.value.message) {
+        errorMessage.value = 'Vui lòng điền đầy đủ thông tin'
+        return
+    }
+
+    isLoading.value = true
+    errorMessage.value = ''
+    showSuccess.value = false
+
+    try {
+        const response = await $fetch(`${config.public.apiBase}/api/support-requests`, {
+            method: 'POST',
+            body: formData.value
+        })
+
+        // Redirect to success page with name and subject
+        navigateTo({
+            path: '/contact/success',
+            query: {
+                name: formData.value.name,
+                subject: formData.value.subject
+            }
+        })
+    } catch (error: any) {
+        errorMessage.value = error?.data?.message || 'Đã có lỗi xảy ra, vui lòng thử lại sau'
+    } finally {
+        isLoading.value = false
+    }
+}
 </script>
 
 <template>
@@ -11,8 +59,12 @@
                 <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
                 <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-16">
                     <h1
-                        class="font-serif text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-md tracking-tight leading-tight">
-                        Kết Nối Cùng <br /> <span class="text-gold italic">Workshop Hoa Tết</span>
+                        class="font-serif text-2xl md:text-5xl font-bold text-white mb-4 drop-shadow-md tracking-tight leading-tight">
+                        Kết Nối Cùng <br />
+                    </h1>
+                    <h1
+                        class="font-serif text-2xl md:text-6xl font-bold text-gold italic mb-4 drop-shadow-md tracking-tight leading-tight">
+                        Baby Florist
                     </h1>
                     <p class="text-white/90 text-lg md:text-xl font-light max-w-xl drop-shadow-sm">
                         Mang không gian nghệ thuật và hương sắc mùa xuân đến gần bạn hơn.
@@ -22,7 +74,7 @@
         </div>
         <div class="w-full max-w-[1400px] px-4 py-12 flex flex-col lg:flex-row gap-8 items-start">
             <div class="w-full lg:w-1/3 flex flex-col gap-8">
-                <h2 class="font-serif text-3xl font-bold text-[#181111] dark:text-white border-l-4 border-primary pl-4">
+                <h2 class="text-3xl font-bold text-[#181111] dark:text-white border-l-4 border-primary pl-4">
                     Thông Tin Liên Hệ
                 </h2>
                 <div class="flex flex-col gap-5">
@@ -93,33 +145,45 @@
                 <div
                     class="bg-white dark:bg-[#2a1a1a] rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 p-8 md:p-10 h-full">
                     <div class="mb-8">
-                        <h2 class="font-serif text-3xl font-bold text-[#181111] dark:text-white mb-2">
+                        <h2 class="text-3xl font-bold text-[#181111] dark:text-white mb-2">
                             Gửi Yêu Cầu Hỗ Trợ
                         </h2>
                         <p class="text-gray-500 dark:text-gray-400">Vui lòng điền thông tin bên dưới, chúng tôi
                             sẽ
                             liên hệ lại sớm nhất.</p>
                     </div>
-                    <form class="flex flex-col gap-6">
+
+                    <!-- Success Message -->
+                    <div v-if="showSuccess" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <p class="text-green-700 font-medium">✓ Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ lại sớm
+                            nhất.</p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div v-if="errorMessage" class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p class="text-red-700 font-medium">{{ errorMessage }}</p>
+                    </div>
+
+                    <form class="flex flex-col gap-6" @submit.prevent="handleSubmit">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="flex flex-col gap-2">
                                 <label class="font-bold text-sm text-gray-700 dark:text-gray-300">Họ và
                                     Tên</label>
-                                <input
+                                <input v-model="formData.name"
                                     class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f1616] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
                                     placeholder="Nhập họ tên của bạn" type="text" />
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label class="font-bold text-sm text-gray-700 dark:text-gray-300">Số Điện
                                     Thoại</label>
-                                <input
+                                <input v-model="formData.phone"
                                     class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f1616] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
                                     placeholder="09xxxxxxxx" type="tel" />
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="font-bold text-sm text-gray-700 dark:text-gray-300">Email</label>
-                            <input
+                            <input v-model="formData.email"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f1616] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
                                 placeholder="email@example.com" type="email" />
                         </div>
@@ -127,33 +191,34 @@
                             <label class="font-bold text-sm text-gray-700 dark:text-gray-300">Chủ Đề Cần Hỗ
                                 Trợ</label>
                             <div class="relative">
-                                <select
+                                <select v-model="formData.subject"
                                     class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f1616] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm appearance-none cursor-pointer">
-                                    <option>Chọn chủ đề...</option>
-                                    <option>Tư vấn khóa học</option>
-                                    <option>Đặt hàng sản phẩm</option>
-                                    <option>Hợp tác doanh nghiệp</option>
-                                    <option>Khác</option>
+                                    <option value="">Chọn chủ đề...</option>
+                                    <option value="Tư vấn khóa học">Tư vấn khóa học</option>
+                                    <option value="Đặt hàng sản phẩm">Đặt hàng sản phẩm</option>
+                                    <option value="Hợp tác doanh nghiệp">Hợp tác doanh nghiệp</option>
+                                    <option value="Khác">Khác</option>
                                 </select>
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="font-bold text-sm text-gray-700 dark:text-gray-300">Nội Dung Tin
                                 Nhắn</label>
-                            <textarea
+                            <textarea v-model="formData.message"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1f1616] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm resize-none"
                                 placeholder="Nhập nội dung yêu cầu chi tiết..." rows="5"></textarea>
                         </div>
-                        <button
+                        <button :disabled="isLoading" :class="{ 'opacity-70 cursor-not-allowed': isLoading }"
                             class="mt-2 w-full bg-primary hover:bg-[#8a1820] text-white font-bold py-4 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base uppercase tracking-wide"
                             type="submit">
-                            Gửi Yêu Cầu
+                            <span v-if="isLoading">Đang gửi...</span>
+                            <span v-else>Gửi Yêu Cầu</span>
                         </button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="w-full max-w-[1400px] mb-[-20px] relative z-0">
+        <div class="w-full max-w-[1400px] mb-5 relative z-0">
             <div class="w-full h-[450px] bg-gray-200 relative">
                 <iframe height="100%" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.162799307268!2d106.6896233!3d10.7988358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528ce2268798d%3A0x29c78736e1338d81!2sPhu%20Nhuan%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2s!4v1709223456789!5m2!1sen!2s"

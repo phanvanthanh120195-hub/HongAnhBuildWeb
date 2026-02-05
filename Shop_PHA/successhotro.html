@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gửi Yêu Cầu Thành Công - Workshop Hoa Tết</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1313",
+                        "gold": "#D4AF37",
+                        "cream": "#FDFBF7",
+                        "background-light": "#f8f6f6",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        .flower-pattern {
+            background-image: radial-gradient(#D4AF37 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+
+<body class="bg-cream text-[#181113]">
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        <div class="layout-container flex w-full flex-col border-b border-solid border-[#e6dbde] bg-white">
+            <div class="flex justify-center">
+                <div class="layout-content-container flex flex-col w-full max-w-[1400px]">
+                    <header class="flex items-center justify-between whitespace-nowrap px-4 py-3 md:px-10">
+                        <div class="flex items-center gap-8">
+                            <div class="flex items-center gap-4 text-[#181113]">
+                                <div class="size-8 text-primary">
+                                    <span class="material-symbols-outlined text-[32px]">local_florist</span>
+                                </div>
+                                <h2 class="text-[#181113] text-xl font-bold leading-tight tracking-[-0.015em]">Workshop
+                                    Hoa Tết</h2>
+                            </div>
+                            <div class="hidden lg:flex items-center gap-9">
+                                <a class="text-[#181113] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                                    href="#">Trang Chủ</a>
+                                <a class="text-[#181113] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                                    href="#">Khóa Học</a>
+                                <a class="text-[#181113] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                                    href="#">Quà Tết</a>
+                                <a class="text-[#181113] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                                    href="#">Về Chúng Tôi</a>
+                                <a class="text-[#181113] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                                    href="#">Liên Hệ</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-opacity shadow-md">
+                                <span class="truncate">Đăng Ký</span>
+                            </button>
+                        </div>
+                    </header>
+                </div>
+            </div>
+        </div>
+        <main class="flex-1 flex items-center justify-center py-16 px-4 relative">
+            <div class="absolute inset-0 flower-pattern pointer-events-none"></div>
+            <div
+                class="w-full max-w-[700px] bg-white rounded-2xl shadow-2xl border border-[#e6dbde] overflow-hidden relative z-10">
+                <div class="h-2 bg-gradient-to-r from-primary via-gold to-primary"></div>
+                <div class="p-10 md:p-16 flex flex-col items-center text-center">
+                    <div class="relative mb-8">
+                        <div class="absolute inset-0 scale-150 opacity-20 text-gold">
+                            <span class="material-symbols-outlined text-[100px]">filter_vintage</span>
+                        </div>
+                        <div class="size-24 rounded-full bg-primary/5 flex items-center justify-center relative">
+                            <div
+                                class="size-20 rounded-full border-2 border-dashed border-gold flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-[48px] font-bold">check</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="text-primary text-4xl font-bold font-display mb-6">Gửi yêu cầu thành công!</h1>
+                    <p class="text-[#5c4a4e] text-lg leading-relaxed font-sans max-w-lg mb-10">
+                        Cảm ơn bạn đã quan tâm đến <span class="font-semibold text-primary">Workshop Hoa Tết</span>.
+                        Đội ngũ của chúng tôi đã nhận được thông tin và sẽ phản hồi bạn trong vòng 24 giờ tới qua số
+                        điện thoại hoặc email bạn đã cung cấp.
+                    </p>
+                    <div class="w-full bg-cream rounded-xl p-6 border border-gold/20 mb-10 text-left">
+                        <h3
+                            class="text-primary text-xs font-bold uppercase tracking-widest mb-4 border-b border-gold/20 pb-2">
+                            Tóm tắt yêu cầu</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-[#89616b] text-xs font-medium uppercase">Họ tên khách hàng</p>
+                                <p class="text-[#181113] font-semibold">Nguyễn Văn An</p>
+                            </div>
+                            <div>
+                                <p class="text-[#89616b] text-xs font-medium uppercase">Chủ đề quan tâm</p>
+                                <p class="text-[#181113] font-semibold">Đăng ký tham gia Workshop Hoa Xuân</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                        <a class="flex flex-1 items-center justify-center h-14 px-8 rounded-lg bg-primary text-white font-bold tracking-wide hover:bg-opacity-90 transition-all shadow-lg"
+                            href="#">
+                            VỀ TRANG CHỦ
+                        </a>
+                        <a class="flex flex-1 items-center justify-center h-14 px-8 rounded-lg border-2 border-primary text-primary font-bold tracking-wide hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            XEM THÊM KHÓA HỌC
+                        </a>
+                    </div>
+                </div>
+                <div class="p-6 bg-cream border-t border-[#e6dbde] flex justify-center items-center gap-2">
+                    <span class="material-symbols-outlined text-gold text-sm">auto_awesome</span>
+                    <span class="text-[#89616b] text-sm font-sans italic italic">Hẹn sớm được cùng bạn sáng tạo nghệ
+                        thuật hoa Tết</span>
+                    <span class="material-symbols-outlined text-gold text-sm">auto_awesome</span>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-[#221015] text-white py-8 px-10 border-t-4 border-primary">
+            <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-[24px] text-gold">local_florist</span>
+                    <span class="font-display font-bold text-lg">Workshop Hoa Tết Nghệ Thuật</span>
+                </div>
+                <p class="text-white/60 text-xs font-light">© 2024 Art Tet Flower Workshop. Mang sắc xuân vào không gian
+                    sống của bạn.</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

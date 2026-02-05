@@ -1,4 +1,41 @@
 <script setup lang="ts">
+const config = useRuntimeConfig();
+
+interface Category {
+    id: number;
+    name: string;
+    slug: string;
+    count: number;
+}
+
+interface Post {
+    id: number;
+    title: string;
+    slug: string;
+    thumbnail: string;
+    category: string;
+    published_at: string;
+}
+
+// Fetch blog categories
+const { data: categoriesResponse } = await useFetch(`${config.public.apiBase}/api/blog-categories`, {
+    lazy: true,
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+});
+
+const categories = computed<Category[]>(() => (categoriesResponse.value as any)?.data || []);
+
+// Fetch featured posts (limit 3, newest first)
+const { data: featuredResponse } = await useFetch(`${config.public.apiBase}/api/blogs`, {
+    query: {
+        featured: true,
+        limit: 3
+    },
+    lazy: true,
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+});
+
+const featuredPosts = computed<Post[]>(() => (featuredResponse.value as any)?.data || []);
 </script>
 
 <template>
@@ -9,41 +46,18 @@
                 Danh mục
             </h4>
             <ul class="space-y-3">
-                <li>
-                    <a class="flex items-center justify-between group" href="#">
+                <li v-for="category in categories" :key="category.id">
+                    <NuxtLink :to="`/blog/category/${category.slug}`" class="flex items-center justify-between group">
                         <span
-                            class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Cắm
-                            hoa nghệ thuật</span>
+                            class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">{{
+                                category.name }}</span>
                         <span
-                            class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">12</span>
-                    </a>
+                            class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">{{
+                                category.count.toString().padStart(2, '0') }}</span>
+                    </NuxtLink>
                 </li>
-                <li>
-                    <a class="flex items-center justify-between group" href="#">
-                        <span
-                            class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Quà
-                            Tết 2024</span>
-                        <span
-                            class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">08</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between group" href="#">
-                        <span
-                            class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Kiến
-                            thức hoa tươi</span>
-                        <span
-                            class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">24</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center justify-between group" href="#">
-                        <span
-                            class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-primary transition-colors">Sự
-                            kiện &amp; Workshop</span>
-                        <span
-                            class="text-[10px] font-bold bg-gray-100 dark:bg-[#2a1a1a] text-gray-500 px-2 py-0.5 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">05</span>
-                    </a>
+                <li v-if="categories.length === 0" class="text-sm text-gray-500 italic">
+                    Chưa có danh mục nào.
                 </li>
             </ul>
         </div>
@@ -54,51 +68,29 @@
                 Bài viết nổi bật
             </h4>
             <div class="flex flex-col gap-5">
-                <a class="group flex gap-3 items-start" href="#">
-                    <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
-                        <div class="w-full h-full bg-cover bg-center"
-                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8JT3jnMZpG0tsvh_cUVEEd5T03_eL6ZWdNV_oX55OcqBSSJ1inDR2dfPdix2APPdv9CxSQJb3a3BWgJpOykyQFkmw6Zs_ZfrYI2o1EqMJ_vZV_ZVqY4f29VhIKbTMENJnsufkuM6VyYvUn9TnCvgX9f7UPUQNneEZp4WKrJXDwWU6lTYLQ9O8C5uBEJeMjdcrbsB6sdn-2p-C58F5mzeNg1uJZcDb5IGVXmCoL5Eg1w-CRHrBEEmkxxrm88GYLSYeyW-fa0KysYk');">
+                <div v-for="(post, index) in featuredPosts" :key="post.id">
+                    <NuxtLink :to="`/blog/${post.slug}`" class="group flex gap-3 items-start">
+                        <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
+                            <div class="w-full h-full bg-cover bg-center"
+                                :style="{ backgroundImage: `url('${post.thumbnail}')` }">
+                            </div>
+                            <span
+                                :class="[index === 0 ? 'bg-primary' : 'bg-gray-500', 'absolute top-0 left-0 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br']">
+                                {{ index + 1 }}
+                            </span>
                         </div>
-                        <span
-                            class="absolute top-0 left-0 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br">1</span>
-                    </div>
-                    <div>
-                        <h5
-                            class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
-                            Xu Hướng Quà Tết Thủ Công 2024</h5>
-                        <span class="text-[10px] text-gray-400 mt-1 block">5.2k lượt xem</span>
-                    </div>
-                </a>
-                <a class="group flex gap-3 items-start" href="#">
-                    <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
-                        <div class="w-full h-full bg-cover bg-center"
-                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDD2jL7Yy-NZOg68K-kcGfXMJLowfi_qKqp8ol5-xC7uvPyQWp3zudEsB6CNfgBa7KGj3-xXwlhoQUf4T0JzoCpXfxV8Q1gIcnIEg515wOPrIQ4v7UY0JAYxn6JW9oYbJqUzISQhBRxeMHIrJLa8dDUPoqmH-bht8srhm7Gha3Q8d4D4oMva9lpDeVMgDMZibixi3e1D43DyCnZgWwgS9yDfYZeZa4OlLQaCjfT04L9k3JJ38REp1Wr1R6WpSwLI4xsbCNGOrFTN2c');">
+                        <div>
+                            <h5
+                                class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                {{ post.title }}
+                            </h5>
+                            <span class="text-[10px] text-gray-400 mt-1 block">{{ post.category }}</span>
                         </div>
-                        <span
-                            class="absolute top-0 left-0 bg-gray-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br">2</span>
-                    </div>
-                    <div>
-                        <h5
-                            class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
-                            Kỹ Thuật Cấy Mô Lan Hồ Điệp</h5>
-                        <span class="text-[10px] text-gray-400 mt-1 block">4.1k lượt xem</span>
-                    </div>
-                </a>
-                <a class="group flex gap-3 items-start" href="#">
-                    <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden relative">
-                        <div class="w-full h-full bg-cover bg-center"
-                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCrO4HTIXhfKuEMVKFnLMpNarrzhi3e7_eZf2pTuPB1bmTIwQpLiyMBQQRrSW4qqAhn51sGZjAMyP9-2hBm0RSDxO7tpQPRVVAbL_DmL3GbAV1JJwwdqbmpyyMWlhOtHkBQilpHD7nyB_KzIeReEvHBoz1t9cCFF9NB0EDgeaQmEMexuNaPx24gWO-gHnnEX16yvCQ3_hovVRtlxQtko455blZ9XPRnL0Yg2JSNMcFFqQhVbyJXGUvnbyMhMdPLef8fpx3baPSNHq0');">
-                        </div>
-                        <span
-                            class="absolute top-0 left-0 bg-gray-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-br">3</span>
-                    </div>
-                    <div>
-                        <h5
-                            class="text-sm font-bold text-[#181111] dark:text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
-                            Ý Nghĩa Mai Vàng Trong Văn Hóa Việt</h5>
-                        <span class="text-[10px] text-gray-400 mt-1 block">3.8k lượt xem</span>
-                    </div>
-                </a>
+                    </NuxtLink>
+                </div>
+                <div v-if="featuredPosts.length === 0" class="text-sm text-gray-500 italic text-center">
+                    Chưa có bài viết nổi bật.
+                </div>
             </div>
         </div>
         <div

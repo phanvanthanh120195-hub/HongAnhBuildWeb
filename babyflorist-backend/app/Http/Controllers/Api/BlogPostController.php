@@ -58,6 +58,10 @@ class BlogPostController extends Controller
             $query->where('blog_category_id', $request->category_id);
         }
 
+        if ($request->has('featured')) {
+            $query->where('is_featured', true);
+        }
+
         if ($request->has('featured_priority')) {
             $query->orderBy('is_featured', 'desc');
         }
@@ -65,7 +69,9 @@ class BlogPostController extends Controller
         $query->orderBy('published_at', 'desc');
 
         $limit = $request->get('limit', 10);
-        $posts = $query->limit($limit)->get();
+        
+        // Use paginate instead of limit for pagination support
+        $posts = $query->paginate($limit);
 
         // Transform data for frontend
         $data = $posts->map(function ($post) {
@@ -75,14 +81,22 @@ class BlogPostController extends Controller
                 'slug' => $post->slug,
                 'thumbnail' => $post->thumbnail ? asset('storage/' . $post->thumbnail) : null,
                 'excerpt' => \Illuminate\Support\Str::limit(strip_tags($post->content), 100),
-                'published_at' => $post->published_at ? $post->published_at->format('M d, Y') : null,
+                'content' => $post->content,
+                'published_at' => $post->published_at ? $post->published_at->format('d') . ' Tháng ' . $post->published_at->format('n') . ', ' . $post->published_at->format('Y') : null,
                 'category' => $post->category ? $post->category->name : null,
+                'is_featured' => $post->is_featured,
             ];
         });
 
         return response()->json([
             'success' => true,
-            'data' => $data
+            'data' => $data,
+            'meta' => [
+                'current_page' => $posts->currentPage(),
+                'last_page' => $posts->lastPage(),
+                'per_page' => $posts->perPage(),
+                'total' => $posts->total(),
+            ]
         ]);
     }
 
