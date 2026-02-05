@@ -323,7 +323,7 @@
                         <h4
                             class="font-bold text-base uppercase tracking-wider text-[#181111] dark:text-white mb-5 pb-2 border-b border-gray-100 dark:border-[#3a2828] flex items-center gap-2">
                             <span class="material-symbols-outlined text-amber-600">trending_up</span>
-                            Bài viết xem nhiều
+                            Bài viết nổi bật
                         </h4>
                         <div class="flex flex-col gap-5">
                             <a class="group flex gap-3 items-start" href="#">

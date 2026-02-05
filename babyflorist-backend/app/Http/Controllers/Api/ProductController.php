@@ -60,16 +60,68 @@ class ProductController extends Controller
             $query->orderBy('is_featured', 'desc');
         }
 
-        $query->orderBy('id', 'desc');
+        if ($request->filled('category_ids')) {
+            $categoryIds = explode(',', $request->input('category_ids'));
+            $query->whereIn('product_category_id', $categoryIds);
+        }
 
-        $limit = $request->input('limit', 4);
+        if ($request->filled('labels')) {
+            $labels = explode(',', $request->input('labels'));
+            $query->whereIn('label', $labels);
+        }
 
-        $products = $query->limit($limit)
-            ->get(['id', 'name', 'thumbnail', 'price', 'sale_price', 'label', 'is_featured', 'discount_percent']);
+        if ($request->filled('price_range')) {
+            $ranges = explode(',', $request->input('price_range'));
+            $query->where(function ($q) use ($ranges) {
+                foreach ($ranges as $range) {
+                    $parts = explode('-', $range);
+                    if (count($parts) === 2) {
+                        $min = (float) $parts[0];
+                        $max = (float) $parts[1];
+                        $q->orWhereBetween('price', [$min, $max]); 
+                    }
+                }
+            });
+        }
+
+        // Sorting
+        $sortBy = $request->input('sort_by', 'newest');
+        switch ($sortBy) {
+            case 'price_asc':
+                $query->orderBy('price', 'asc'); // Or sale_price if logic dictates
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'newest':
+            default:
+                $query->orderBy('id', 'desc');
+                break;
+        }
+
+        $limit = $request->input('limit', 12);
+
+        $products = $query->paginate($limit, [
+            'id', 
+            'name', 
+            'thumbnail', 
+            'price', 
+            'sale_price', 
+            'label', 
+            'is_featured', 
+            'discount_percent',
+            'description' // Added description
+        ]);
 
         return response()->json([
             'success' => true,
-            'data' => $products
+            'data' => $products->items(),
+            'meta' => [
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'per_page' => $products->perPage(),
+                'total' => $products->total(),
+            ]
         ]);
     }
 }

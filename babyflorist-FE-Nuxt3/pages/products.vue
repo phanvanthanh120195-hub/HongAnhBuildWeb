@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import ProductFilters from '~/components/products/ProductFilters.vue'
 import ProductList from '~/components/products/ProductList.vue'
+
+const filters = ref({
+    categories: [] as number[],
+    labels: [] as string[],
+    priceRange: [] as string[]
+});
+
+const handleFilterChange = (newFilters: any) => {
+    filters.value = newFilters;
+}
 </script>
 
 <template>
@@ -26,8 +36,8 @@ import ProductList from '~/components/products/ProductList.vue'
                 </div>
             </div>
             <div class="flex flex-col lg:flex-row gap-8">
-                <ProductFilters />
-                <ProductList />
+                <ProductFilters @change="handleFilterChange" />
+                <ProductList :filters="filters" />
             </div>
         </main>
     </div>

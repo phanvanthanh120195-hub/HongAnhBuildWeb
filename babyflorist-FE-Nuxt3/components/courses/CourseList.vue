@@ -152,7 +152,6 @@ const displayedPages = computed(() => {
                 <select v-model="sortBy"
                     class="form-select bg-gray-50 dark:bg-[#2a1a1a] border-gray-200 dark:border-[#3a2828] rounded-lg text-sm focus:ring-primary focus:border-primary py-2 pl-3 pr-10 cursor-pointer outline-none">
                     <option>Mới nhất</option>
-                    <option>Phổ biến nhất</option>
                     <option>Giá: Thấp đến Cao</option>
                     <option>Giá: Cao đến Thấp</option>
                 </select>

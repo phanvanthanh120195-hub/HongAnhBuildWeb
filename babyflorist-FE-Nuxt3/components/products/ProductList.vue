@@ -1,72 +1,113 @@
 <script setup lang="ts">
-const products = [
-    {
-        id: 1,
-        title: 'Giỏ Quà Tết Thịnh Vượng',
-        description: 'Sự kết hợp hoàn hảo giữa rượu vang nhập khẩu cao cấp và các loại bánh mứt truyền thống tuyển chọn.',
-        originalPrice: '1.500.000đ',
-        price: '1.500.000đ',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBaee97iKtrgVmBnYPIJ_J5OxsVuez0NdQ5ZTMvVqd7sBy5YY_iFCsUbrDqWJVaQ46ek05zIqLqKTnEHPVaqT_KmQTbaOQf_wa24ELH2vf2r2A1Fmy7Aak5H6R-Ofkr8YNqltoRJ5qfsVacsyi4p2SoPiolSNjCjTbLozmPxndq_ei27aY-m1mp4JVmv1Qot1lqvIZO487ogMsvc0tkLUlsmu3AZ3ek0ZSxlVScf4PRM-nI5l0emDoAywjWdCSJLx1pfWzuVLJYeyQ',
-        tag: 'Best Seller',
-        tagClass: 'bg-red-100 text-primary',
-        hasDiscount: false
-    },
-    {
-        id: 2,
-        title: 'Lẵng Hoa Khai Xuân',
-        description: 'Thiết kế hoa tươi rực rỡ với gam màu đỏ vàng chủ đạo, mang ý nghĩa khởi đầu may mắn, tài lộc.',
-        originalPrice: '850.000đ',
-        price: '850.000đ',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA8JT3jnMZpG0tsvh_cUVEEd5T03_eL6ZWdNV_oX55OcqBSSJ1inDR2dfPdix2APPdv9CxSQJb3a3BWgJpOykyQFkmw6Zs_ZfrYI2o1EqMJ_vZV_ZVqY4f29VhIKbTMENJnsufkuM6VyYvUn9TnCvgX9f7UPUQNneEZp4WKrJXDwWU6lTYLQ9O8C5uBEJeMjdcrbsB6sdn-2p-C58F5mzeNg1uJZcDb5IGVXmCoL5Eg1w-CRHrBEEmkxxrm88GYLSYeyW-fa0KysYk',
-        tag: 'New',
-        tagClass: 'bg-yellow-100 text-yellow-700',
-        hasDiscount: false
-    },
-    {
-        id: 3,
-        title: 'Bình Gốm Hoa Đào',
-        description: 'Bình gốm thủ công Bát Tràng cắm cành đào phai dáng cổ, đậm chất Tết xưa, vượng khí cho gia chủ.',
-        originalPrice: '1.500.000đ',
-        price: '1.200.000đ',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCjQSlXA3jSdaISmv-8CVwU_Hyrv-TaHxxYuT_yOGlMf83XqdIpcy1Jc8uq8ejLR10oQ2qmkCx9NbXddS2e6diRAeiu6cSjvgZ_Swo-HqPc6fcmS3bk2_ZqNiwQf1hcU2a502jAS8KF01RSzDOkOMojU3ajO6w26cbFHRgV21ZTzmgQIDCa4XwxD34Esp2Qy4ZteJ1eT97Bzn-kzasYJIU0UegQ4EQB4bqTWdDjzmEn0sUbIg5I71nIGP--9-inhBkAMTwHj8M9wfE',
-        tag: 'Giảm giá',
-        tagClass: 'bg-orange-100 text-orange-800',
-        hasDiscount: true
-    },
-    {
-        id: 4,
-        title: 'Lan Hồ Điệp Đại Sảnh',
-        description: 'Chậu lan hồ điệp trắng 5 cành thiết kế sang trọng, đẳng cấp, phù hợp trưng bày phòng khách lớn.',
-        originalPrice: '3.500.000đ',
-        price: '3.500.000đ',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDD2jL7Yy-NZOg68K-kcGfXMJLowfi_qKqp8ol5-xC7uvPyQWp3zudEsB6CNfgBa7KGj3-xXwlhoQUf4T0JzoCpXfxV8Q1gIcnIEg515wOPrIQ4v7UY0JAYxn6JW9oYbJqUzISQhBRxeMHIrJLa8dDUPoqmH-bht8srhm7Gha3Q8d4D4oMva9lpDeVMgDMZibixi3e1D43DyCnZgWwgS9yDfYZeZa4OlLQaCjfT04L9k3JJ38REp1Wr1R6WpSwLI4xsbCNGOrFTN2c',
-        tag: 'Best Seller',
-        tagClass: 'bg-red-100 text-primary',
-        hasDiscount: false
-    },
-    {
-        id: 5,
-        title: 'Mai Vàng Phú Quý',
-        description: 'Chậu mai vàng bonsai được uốn tỉa công phu, nụ nhiều và đều, cam kết nở đúng Mùng 1 Tết.',
-        originalPrice: '1.800.000đ',
-        price: '1.800.000đ',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCrO4HTIXhfKuEMVKFnLMpNarrzhi3e7_eZf2pTuPB1bmTIwQpLiyMBQQRrSW4qqAhn51sGZjAMyP9-2hBm0RSDxO7tpQPRVVAbL_DmL3GbAV1JJwwdqbmpyyMWlhOtHkBQilpHD7nyB_KzIeReEvHBoz1t9cCFF9NB0EDgeaQmEMexuNaPx24gWO-gHnnEX16yvCQ3_hovVRtlxQtko455blZ9XPRnL0Yg2JSNMcFFqQhVbyJXGUvnbyMhMdPLef8fpx3baPSNHq0',
-        tag: 'New',
-        tagClass: 'bg-green-100 text-green-700',
-        hasDiscount: false
-    },
-    {
-        id: 6,
-        title: 'Set Quà An Khang',
-        description: 'Hộp quà thiết kế hiện đại gồm các loại hạt dinh dưỡng, trà hoa và mứt Tết chất lượng cao.',
-        originalPrice: '650.000đ',
-        price: '650.000đ',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAsVos6btThk4HuS8Q3R-pU48tvFdMefwOMGtO2s69Ke6EUZF90Il2tV7EZrtDUEXyYEYUs97qZYCfteEbiRvHS2tmz8TnkutvirHPHtcaiqZyIwT70SXarz9zHSm-AExIV_CgkWk2agQ4og3Zt0Iyz2K0hHiXHRg9ncAA4Dhk4FSOLVBvqceW5UzG8Pjs-uEJEq9MW-xea6FdhnLIFcBaT9sPvfoqdeaBtTw6zjJXXxxnaXvc_JvO22uxAk4ah5utulqwd5yFZfEw',
-        tag: 'Phổ thông',
-        tagClass: 'bg-purple-100 text-purple-700',
-        hasDiscount: false
+const props = defineProps(['filters']);
+const config = useRuntimeConfig();
+const page = ref(1);
+const sortBy = ref('Mới nhất');
+
+const sortMap: Record<string, string> = {
+    'Mới nhất': 'newest',
+    'Giá: Thấp đến Cao': 'price_asc',
+    'Giá: Cao đến Thấp': 'price_desc'
+};
+
+const query = computed(() => ({
+    page: page.value,
+    limit: 6,
+    sort_by: sortMap[sortBy.value] || 'newest',
+    ...(props.filters?.categories?.length ? { 'category_ids': props.filters.categories.join(',') } : {}),
+    ...(props.filters?.labels?.length ? { 'labels': props.filters.labels.join(',') } : {}),
+    ...(props.filters?.priceRange?.length ? { 'price_range': props.filters.priceRange.join(',') } : {})
+}));
+
+const cacheKey = computed(() => `products-${JSON.stringify(query.value)}`);
+
+watch(sortBy, () => {
+    page.value = 1;
+});
+
+// Non-blocking fetch with caching for smooth tab switching
+const { data: response, pending, refresh } = useFetch(`${config.public.apiBase}/api/products`, {
+    query,
+    key: cacheKey,
+    lazy: true,
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+});
+
+const products = computed(() => {
+    const data = (response.value as any)?.data;
+    return data?.map((item: any) => {
+        return {
+            id: item.id,
+            title: item.name,
+            description: item.description,
+            originalPrice: formatPrice(item.price),
+            price: formatPrice(item.sale_price || item.price),
+            image: getImageUrl(item.thumbnail),
+            tag: getTagLabel(item.label),
+            tagClass: getTagClass(item.label),
+            hasDiscount: !!item.sale_price && item.sale_price < item.price
+        }
+    }) || [];
+});
+
+const pagination = computed(() => (response.value as any)?.meta || {});
+const totalPages = computed(() => pagination.value.last_page || 1);
+
+const displayedPages = computed(() => {
+    const delta = 2
+    const range = []
+    const current = page.value
+    const total = totalPages.value
+
+    for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
+        range.push(i)
     }
-]
+
+    if (current - delta > 2) {
+        range.unshift('...')
+    }
+    if (current + delta < total - 1) {
+        range.push('...')
+    }
+
+    range.unshift(1)
+    if (total > 1) {
+        range.push(total)
+    }
+
+    return range
+})
+
+function formatPrice(value: number) {
+    if (!value) return '0đ';
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+}
+
+function getImageUrl(path: string) {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    return `${config.public.apiBase}/storage/${path}`;
+}
+
+function getTagLabel(label: string) {
+    const map: Record<string, string> = {
+        'new': 'Mới',
+        'sale': 'Giảm giá',
+        'hot': 'Bán chạy',
+        'best_seller': 'Bán chạy'
+    };
+    return map[label] || 'Mới';
+}
+
+function getTagClass(label: string) {
+    const map: Record<string, string> = {
+        'new': 'bg-yellow-100 text-yellow-700',
+        'sale': 'bg-orange-100 text-orange-800',
+        'hot': 'bg-red-100 text-primary',
+        'best_seller': 'bg-red-100 text-primary'
+    };
+    return map[label] || 'bg-green-100 text-green-700';
+}
 </script>
 
 <template>
@@ -74,19 +115,19 @@ const products = [
         <div
             class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 bg-white dark:bg-[#1a0f0f] p-4 rounded-lg border border-gray-100 dark:border-[#3a2828] shadow-sm">
             <p class="text-base text-gray-500">Hiển thị <span class="font-bold text-[#181111] dark:text-white">{{
-                products.length }}</span> sản phẩm phù hợp</p>
+                pagination.total || 0 }}</span> sản phẩm phù hợp</p>
             <div class="flex items-center gap-3">
                 <span class="text-sm text-gray-500 whitespace-nowrap">Sắp xếp theo:</span>
-                <select
+                <select v-model="sortBy"
                     class="form-select bg-gray-50 dark:bg-[#2a1a1a] border-gray-200 dark:border-[#3a2828] rounded-lg text-sm focus:ring-primary focus:border-primary py-2 pl-3 pr-10 cursor-pointer outline-none">
                     <option>Mới nhất</option>
-                    <option>Bán chạy nhất</option>
                     <option>Giá: Thấp đến Cao</option>
                     <option>Giá: Cao đến Thấp</option>
                 </select>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div v-if="products.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div v-for="product in products" :key="product.id"
                 class="group flex flex-col bg-white dark:bg-[#1a0f0f] rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-[#3a2828] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div class="relative aspect-[4/3] overflow-hidden">
@@ -118,19 +159,31 @@ const products = [
                 </div>
             </div>
         </div>
-        <div class="flex justify-center mt-12 gap-2">
-            <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">
+        <div v-else class="text-center py-12 text-gray-500">
+            Hiện chưa có sản phẩm nào.
+        </div>
+
+        <div v-if="totalPages > 1" class="flex justify-center mt-12 gap-2">
+            <button @click="page--" :disabled="page === 1"
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 <span class="material-symbols-outlined text-base">chevron_left</span>
             </button>
-            <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold shadow-md shadow-red-200 dark:shadow-none hover:bg-red-700 transition-colors">1</button>
-            <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">2</button>
-            <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">3</button>
-            <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all">
+
+            <template v-for="p in displayedPages" :key="p">
+                <button v-if="p === '...'" disabled
+                    class="w-10 h-10 flex items-center justify-center text-gray-400">...</button>
+                <button v-else @click="page = Number(p)" :class="[
+                    'w-10 h-10 flex items-center justify-center rounded-lg transition-all',
+                    page === p
+                        ? 'bg-primary text-white font-bold shadow-md shadow-red-200 dark:shadow-none hover:bg-red-700'
+                        : 'border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary'
+                ]">
+                    {{ p }}
+                </button>
+            </template>
+
+            <button @click="page++" :disabled="page === totalPages"
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-[#3a2828] text-gray-500 hover:border-primary hover:text-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 <span class="material-symbols-outlined text-base">chevron_right</span>
             </button>
         </div>
