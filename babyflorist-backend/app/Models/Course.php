@@ -13,6 +13,8 @@ class Course extends Model
         'slug',
         'type',
         'description',
+        'content',
+        'targets',
         'price',
         'sale_price',
         'discount_percent',
@@ -31,6 +33,7 @@ class Course extends Model
     protected $casts = [
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
+        'targets' => 'array',
         'sale_start' => 'datetime',
         'sale_end' => 'datetime',
     ];
@@ -55,6 +58,16 @@ class Course extends Model
     public function curriculums()
     {
         return $this->hasMany(CourseCurriculum::class)->orderBy('sort_order');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(CourseReview::class)->where('is_active', true)->orderByDesc('created_at');
+    }
+
+    public function highlights()
+    {
+        return $this->hasMany(CourseHighlight::class)->orderBy('sort_order');
     }
 
     public function getRemainingSlotsAttribute()

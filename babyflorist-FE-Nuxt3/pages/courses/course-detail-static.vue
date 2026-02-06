@@ -305,9 +305,7 @@ useHead({
                         </div>
                         <div
                             class="bg-white text-gray-800 p-8 rounded-2xl shadow-xl flex flex-col items-center transform md:-translate-y-6 border-2 border-gold/50 relative hover:-translate-y-8 transition-transform duration-300">
-                            <div
-                                class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gold text-wine text-xs font-bold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
-                                Học viên xuất sắc</div>
+
                             <div class="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-primary to-gold mb-6">
                                 <div class="w-full h-full rounded-full bg-gray-200 bg-cover bg-center border-2 border-white"
                                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD7-aw76CtuzkstBzZY9aiEVTXjy8C5eFXf-NEw_AXz6cX5TR9EBv3L8-rGEv4pAmGcppMeipYiLhrIz8xLwC0geenji88Z-77UCMl0xprNBaOGl2MFNJ1KkD692Iho1Hls_SzZQGgxme0tVZFhOaUd2q0niAyv-_fRtiBv897_wFKrPkoawKMUOaHZr5cM3-u603j9Vo0wSiVSOHaby7UGI8ltv5UNfP987SwG0IFdLBZYAWK-O7AnGlKKkXQeFzhltX_Y6vvtQd4');">

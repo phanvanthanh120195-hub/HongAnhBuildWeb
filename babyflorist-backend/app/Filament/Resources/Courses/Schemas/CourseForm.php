@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Courses\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -38,7 +39,6 @@ class CourseForm
                                                         'online' => 'Học online',
                                                     ])
                                                     ->default('offline')
-                                                    ->required()
                                                     ->native(false),
 
                                                 Select::make('format')
@@ -48,7 +48,6 @@ class CourseForm
                                                         'workshop' => 'Workshop',
                                                     ])
                                                     ->default('course')
-                                                    ->required()
                                                     ->native(false),
                                             ]),
 
@@ -84,7 +83,8 @@ class CourseForm
                                                 ->dehydrated(),
 
                                             TextInput::make('instructor')
-                                                ->label('Giảng viên'),
+                                                ->label('Giảng viên')
+                                                ->default('Phan Hồng Anh'),
 
                                             FileUpload::make('thumbnail')
                                                 ->label('Hình ảnh')
@@ -95,12 +95,118 @@ class CourseForm
 
                                             Textarea::make('description')
                                                 ->label('Mô tả')
-                                                ->rows(4)
-                                                ->columnSpanFull()
-                                                ->extraInputAttributes([
-                                                    'style' => 'min-height: 250px;',
-                                                ]),
+                                                ->rows(2)
+                                                ->columnSpanFull(),
+                                            
+                                            Repeater::make('highlights')
+                                                ->label('Điểm nổi bật (Lợi ích khóa học)')
+                                                ->relationship()
+                                                ->schema([
+                                                    TextInput::make('content')
+                                                        ->label('Nội dung')
+                                                        ->columnSpanFull(),
+                                                ])
+                                                ->orderColumn('sort_order')
+                                                ->defaultItems(0)
+                                                ->addActionLabel('+ Thêm điểm nổi bật')
+                                                ->itemLabel(fn(array $state): ?string => $state['content'] ?? 'Điểm nổi bật mới')
+                                                ->reorderable()
+                                                ->collapsible()
+                                                ->collapsed(),
                                         ]),
+
+                                    // Lộ trình đào tạo (Curriculum)
+                                    Section::make('Lộ trình đào tạo')
+                                        ->description('Thêm các chương và nội dung bài học')
+                                        ->schema([
+                                            Repeater::make('curriculums')
+                                                ->label('')
+                                                ->relationship()
+                                                ->schema([
+                                                    TextInput::make('title')
+                                                        ->label('Tên chương')
+                                                        ->placeholder('VD: Chương 1: Tổng quan về Hoa Tết')
+                                                        ->columnSpanFull(),
+
+                                                    Textarea::make('description')
+                                                        ->label('Mô tả chương')
+                                                        ->rows(2)
+                                                        ->placeholder('Mô tả nội dung chương học...')
+                                                        ->columnSpanFull(),
+
+                                                    Repeater::make('items')
+                                                        ->label('Nội dung bài học')
+                                                        ->relationship()
+                                                        ->schema([
+                                                            Select::make('icon')
+                                                                ->label('Loại')
+                                                                ->options([
+                                                                    'local_florist' => 'Hoa',
+                                                                    'construction' => 'Dụng cụ',
+                                                                    'category' => 'Quy tắc',
+                                                                    'assignment' => 'Bài tập',
+                                                                    'water_drop' => 'Nước',
+                                                                    'quiz' => 'Quiz',
+                                                                    'video' => 'Video',
+                                                                    'article' => 'Đề thi',
+                                                                    'brush' => 'Bút ký',
+                                                                    'to_camera' => 'Camera',
+                                                                    'book' => 'Tài liệu',
+                                                                ])
+                                                                ->default('local_florist')
+                                                                ->native(false),
+
+                                                            TextInput::make('content')
+                                                                ->label('Nội dung')
+                                                                ->placeholder('VD: Ý nghĩa các loài hoa truyền thống ngày Tết')
+                                                                ->columnSpan(2),
+                                                        ])
+                                                        ->columns(3)
+                                                        ->addActionLabel('+ Thêm')
+                                                        ->reorderable()
+                                                        ->collapsible()
+                                                        ->itemLabel(fn(array $state): ?string => $state['content'] ?? 'Nội dung mới')
+                                                        ->defaultItems(0)
+                                                        ->addActionAlignment('end'),
+                                                ])
+                                                ->addActionLabel('+ Thêm lộ trình')
+                                                ->reorderable()
+                                                ->collapsible()
+                                                ->collapsed()
+                                                ->cloneable()
+                                                ->itemLabel(fn(array $state): ?string => $state['title'] ?? 'Chương mới')
+                                                ->defaultItems(0)
+                                        ])
+                                        ->collapsible(),
+
+                                    // FAQ - Câu hỏi thường gặp
+                                    Section::make('FAQ - Câu hỏi thường gặp')
+                                        ->description('Thêm các câu hỏi và trả lời thường gặp')
+                                        ->schema([
+                                            Repeater::make('faqs')
+                                                ->label('')
+                                                ->relationship()
+                                                ->schema([
+                                                    TextInput::make('question')
+                                                        ->label('Câu hỏi')
+                                                        ->placeholder('VD: Tôi chưa từng cắm hoa có học được không?')
+                                                        ->columnSpanFull(),
+
+                                                    Textarea::make('answer')
+                                                        ->label('Trả lời')
+                                                        ->rows(2)
+                                                        ->placeholder('Nhập câu trả lời...')
+                                                        ->columnSpanFull(),
+                                                ])
+                                                ->addActionLabel('+ Thêm FAQ')
+                                                ->reorderable()
+                                                ->collapsible()
+                                                ->collapsed()
+                                                ->cloneable()
+                                                ->itemLabel(fn(array $state): ?string => $state['question'] ?? 'Câu hỏi mới')
+                                                ->defaultItems(0),
+                                        ])
+                                        ->collapsible(),
                                 ])
                                 ->columnSpan([
                                     'default' => 12,
@@ -113,8 +219,8 @@ class CourseForm
                                     Section::make('Trạng thái')
                                         ->schema([
                                             Toggle::make('is_featured')
-                                                ->label('Sản phẩm nổi bật')
-                                                ->helperText('Sản phẩm sẽ được hiển thị ở mục nổi bật trang chủ')
+                                                ->label('Khóa học nổi bật')
+                                                ->helperText('Khóa học sẽ được hiển thị ở mục nổi bật trang chủ')
                                                 ->default(false)
                                                 ->onColor('success')
                                                 ->inline(false)
@@ -122,7 +228,7 @@ class CourseForm
 
                                             Toggle::make('is_active')
                                                 ->label('Hiển thị')
-                                                ->helperText('Bật để hiển thị sản phẩm')
+                                                ->helperText('Bật để hiển thị Khóa học')
                                                 ->default(true)
                                                 ->inline(false),
                                         ]),

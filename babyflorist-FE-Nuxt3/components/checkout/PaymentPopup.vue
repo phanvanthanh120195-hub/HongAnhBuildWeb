@@ -1,7 +1,41 @@
 <script setup lang="ts">
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'confirm'])
+
+const props = defineProps({
+    bank: {
+        type: Object,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    }
+})
 
 const timeLeft = ref('02:56')
+
+// Format price helper
+const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price || 0)
+}
+
+// Generate QR Code URL
+const qrCodeUrl = computed(() => {
+    if (!props.bank) return ''
+    // Use bank.bin or bank.short_name (e.g., VPBank, VCB). Fallback to bank_code or bank_name if needed.
+    // Assuming backend provides 'bin' or 'short_name'. If not, we might need a mapping or hope 'bank_name' works if it matches VietQR ID.
+    // Standard format: https://img.vietqr.io/image/<BANK_ID>-<ACCOUNT_NO>-<TEMPLATE>.png
+    const bankId = props.bank.bin || props.bank.short_name || props.bank.bank_code || 'VPBank' // Fallback
+    const accountNo = props.bank.account_number
+    const template = 'compact'
+
+    let url = `https://img.vietqr.io/image/${bankId}-${accountNo}-${template}.png?amount=${props.amount}&addInfo=${encodeURIComponent(props.content)}&accountName=${encodeURIComponent(props.bank.account_name)}`
+    return url
+})
 
 // Simple countdown timer logic (optional, for visual effect like in HTML)
 let timer: any
@@ -15,6 +49,7 @@ onMounted(() => {
             timeLeft.value = `${m}:${s}`
         } else {
             clearInterval(timer)
+            emit('close')
         }
     }, 1000)
 })
@@ -22,6 +57,22 @@ onMounted(() => {
 onUnmounted(() => {
     if (timer) clearInterval(timer)
 })
+
+const copyToClipboard = async (text: string) => {
+    try {
+        await navigator.clipboard.writeText(text)
+        // Optionally show toast/tooltip
+    } catch (err) {
+        console.error('Failed to copy', err)
+    }
+}
+
+const isConfirming = ref(false)
+
+const handleConfirm = () => {
+    isConfirming.value = true
+    emit('confirm')
+}
 </script>
 
 <template>
@@ -37,55 +88,49 @@ onUnmounted(() => {
                 </button>
             </div>
             <div class="p-6 md:p-8">
-                <p class="text-center text-sm text-[#9a4c52] dark:text-[#c08287] mb-6">
+                <p class="text-center text-sm text-[#9a4c52] dark:text-[#c08287] mb-5">
                     Vui lòng quét mã QR hoặc chuyển khoản theo thông tin bên dưới để hoàn tất đăng ký.
                 </p>
-                <div class="flex items-center justify-center space-x-2 text-primary font-medium mb-6">
+                <div class="flex items-center justify-center space-x-2 text-primary font-medium mb-5">
                     <span class="material-symbols-outlined text-lg">schedule</span>
                     <span>Thời gian còn lại: <span class="font-bold">{{ timeLeft }}</span></span>
                 </div>
-                <div class="flex flex-col items-center mb-8">
+                <div class="flex flex-col items-center mb-4">
                     <div class="mb-4">
-                        <img alt="Mã QR Thanh Toán VietQR"
-                            class="w-48 h-48 border-4 border-white dark:border-[#3d2a2c] rounded-lg shadow-sm"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeNAVO2fNfa5Yd_0DKNjqCS-rarqWUsZHcWbuB0gTWeJ3fonh6hD46JHVSQdYAVB_7t-tOo8c5y9NVwF2dwTDZ_rs850uYDwvHbxC7MoGuv6hHG_C7Uq7fdxjswKb8BffxuGCeZNGPt56GPhco4Dz8_Ni49C0rwCx3a1Dbkf54HQgGMygtpL8hLGlBgy21zRCqNKUx7UrAy4Z7MmPzpWugZatV43RIj4LpMMHgDkIyv5k2469DjoWfwf1ewzCIxJ8m-2rBNwlEnDw" />
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <img alt="Logo Napas" class="h-6 grayscale opacity-70 dark:invert"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOQNTYvN2mzjwMjYqhRDPmniPGoe6vsxusMi2OoOC9mIQN02EeJqTcObvVuP8Y0Prd76PRhd9iZOYacLznEAFuOKCo7QtcU0i2xpz372xkSWUa1Gfo182ckVvT9DkEQnGIYiqKVXOqEx-cp0am53_SCPdKgxALabQ8iILnoRhSgyKQjeYwDmAvCnw6y3hBUdNQO10QgDByzb1P-XTZKd20Xhi0UJPqL_gXRlCT8jvlQu6vLwKBznt0dUKEJO7FWZ2Pz3mpNg-c2uU" />
-                        <div class="h-4 w-[1px] bg-[#e7cfd1] dark:bg-[#3d2a2c]"></div>
-                        <img alt="VPBank Logo" class="h-5"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM9UFYRianP8vycuLzDyPrGf5Fk8LK0P6r3ja5x06Vu4sp1Eh6HiAQCojQkUq9Y5drfbedyM7oYOUvSIHS7YEAbwh67DXEu95haRuUt4HYhYTG9viQT-yV_3n_Bgn9waF_qNu2rxvvXW45ld_COB-kOPtLtBsQNSxnt963RxzearB16eOw0Lm45g_3Kh78XE69zuBsMq6GU4F8AIeRl5dbg1UF6NHHtNihUZOt2Vwv903PpFKeiglgXl-U7xIKViGJHKqKpQA1Jwg" />
+                        <img :src="qrCodeUrl" alt="Mã QR Thanh Toán"
+                            class="w-48 h-48 border-4 border-white dark:border-[#3d2a2c] rounded-lg shadow-sm" />
                     </div>
                 </div>
                 <div class="space-y-3 text-sm md:text-base mb-8">
                     <div class="flex justify-between items-center py-1">
                         <span class="text-[#9a4c52] dark:text-[#c08287]">Ngân hàng:</span>
-                        <span class="font-semibold text-[#1b0d0f] dark:text-white">VPBank</span>
+                        <span class="font-semibold text-[#1b0d0f] dark:text-white">{{ bank?.bank_name }}</span>
                     </div>
                     <div class="flex justify-between items-center py-1">
                         <span class="text-[#9a4c52] dark:text-[#c08287]">Số tài khoản:</span>
                         <div class="flex items-center space-x-2">
-                            <span class="font-bold text-[#1b0d0f] dark:text-white">232845376</span>
-                            <button class="text-primary hover:bg-primary/10 p-1 rounded transition-colors" title="Copy">
+                            <span class="font-bold text-[#1b0d0f] dark:text-white">{{ bank?.account_number }}</span>
+                            <button @click="copyToClipboard(bank?.account_number)"
+                                class="text-primary hover:bg-primary/10 p-1 rounded transition-colors" title="Copy">
                                 <span class="material-symbols-outlined text-base">content_copy</span>
                             </button>
                         </div>
                     </div>
                     <div class="flex justify-between items-center py-1">
                         <span class="text-[#9a4c52] dark:text-[#c08287]">Chủ tài khoản:</span>
-                        <span class="font-semibold text-[#1b0d0f] dark:text-white uppercase">Phan Văn Thành</span>
+                        <span class="font-semibold text-[#1b0d0f] dark:text-white uppercase">{{ bank?.account_name
+                        }}</span>
                     </div>
                     <div class="flex justify-between items-center py-1">
                         <span class="text-[#9a4c52] dark:text-[#c08287]">Số tiền:</span>
-                        <span class="font-bold text-primary text-lg">3.700.000 đ</span>
+                        <span class="font-bold text-primary text-lg">{{ formatPrice(amount) }}</span>
                     </div>
                     <div
                         class="flex justify-between items-center py-2 px-3 bg-background-light dark:bg-background-dark rounded-lg">
                         <span class="text-[#9a4c52] dark:text-[#c08287] text-xs">Nội dung CK:</span>
                         <div class="flex items-center space-x-2">
-                            <span class="font-mono font-bold text-[#1b0d0f] dark:text-white">KH 0965324921 XTNMU</span>
-                            <button
+                            <span class="font-mono font-bold text-[#1b0d0f] dark:text-white">{{ content }}</span>
+                            <button @click="copyToClipboard(content)"
                                 class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600/80 px-2 py-1 rounded text-xs flex items-center transition-colors">
                                 <span class="material-symbols-outlined text-sm mr-1">content_copy</span> Copy
                             </button>
@@ -102,9 +147,10 @@ onUnmounted(() => {
                         </p>
                     </div>
                 </div>
-                <button
-                    class="w-full py-4 bg-[#0dad68] hover:bg-[#0b9c5d] active:scale-[0.98] text-white font-bold rounded-xl transition-all shadow-lg shadow-green-200 dark:shadow-none uppercase tracking-wide">
-                    Tôi đã chuyển khoản
+                <button @click="handleConfirm" :disabled="isConfirming"
+                    class="w-full py-4 bg-[#0dad68] hover:bg-[#0b9c5d] active:scale-[0.98] text-white font-bold rounded-xl transition-all shadow-lg shadow-green-200 dark:shadow-none uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    <span v-if="isConfirming" class="material-symbols-outlined animate-spin">progress_activity</span>
+                    {{ isConfirming ? 'Đang xử lý...' : 'Tôi đã chuyển khoản' }}
                 </button>
             </div>
         </div>

@@ -2,24 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CourseFAQ extends Model
+class CourseHighlight extends Model
 {
-    use HasFactory;
-
-    protected $table = 'course_faqs';
-
     protected $fillable = [
         'course_id',
-        'question',
-        'answer',
+        'content',
         'sort_order',
     ];
 
-    public function course(): BelongsTo
+    public function course()
     {
         return $this->belongsTo(Course::class);
     }
@@ -27,7 +20,7 @@ class CourseFAQ extends Model
     protected static function booted(): void
     {
         static::saved(function (self $model) {
-            if (blank($model->question)) {
+            if (blank($model->content)) {
                 $model->delete();
             }
         });

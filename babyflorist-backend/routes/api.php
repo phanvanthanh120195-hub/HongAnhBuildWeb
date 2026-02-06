@@ -22,6 +22,8 @@ Route::get('/courses/flash-deal', [App\Http\Controllers\Api\CourseController::cl
 Route::get('/courses/featured-workshop', [App\Http\Controllers\Api\CourseController::class, 'featuredWorkshop']);
 Route::get('/courses', [App\Http\Controllers\Api\CourseController::class, 'index']);
 Route::get('/courses/{slug}', [App\Http\Controllers\Api\CourseController::class, 'show']);
+Route::post('/courses', [App\Http\Controllers\Api\CourseController::class, 'store']);
+Route::put('/courses/{id}', [App\Http\Controllers\Api\CourseController::class, 'update']);
 Route::get('/featured-reviews', [App\Http\Controllers\Api\FeaturedReviewController::class, 'index']);
 
 Route::get('/categories/{id}', [ProductCategoryController::class, 'show']);

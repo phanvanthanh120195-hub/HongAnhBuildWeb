@@ -120,8 +120,8 @@ export const useAuth = () => {
             token.value = null;
             user.value = null;
             // Optional: redirect to home
-            const router = useRouter();
-            router.push('/');
+            // const router = useRouter();
+            // router.push('/');
         }
     };
 

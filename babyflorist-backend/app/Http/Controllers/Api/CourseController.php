@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\CourseCurriculum;
+use App\Models\CourseCurriculumItem;
+use App\Models\CourseFAQ;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 use OpenApi\Attributes as OA;
 
@@ -250,9 +256,213 @@ class CourseController extends Controller
             ], 404);
         }
 
+        $course->load([
+            'curriculums' => function($q) { $q->orderBy('sort_order'); },
+            'curriculums.items' => function($q) { $q->orderBy('sort_order'); },
+            'faqs' => function($q) { $q->orderBy('sort_order'); },
+            'reviews' => function($q) { $q->where('is_active', true)->orderByDesc('created_at')->with('customer'); },
+            'highlights' => function($q) { $q->orderBy('sort_order'); }
+        ]);
+
         return response()->json([
             'success' => true,
             'data' => $course
         ]);
+    }
+
+    /**
+     * Store a new course with nested data (curriculums, items, FAQs)
+     * Uses database transaction to ensure data integrity
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'course' => 'required|array',
+            'course.name' => 'required|string|max:255',
+            'course.slug' => 'required|string|max:255|unique:courses,slug',
+            'targets' => 'nullable|array',
+            'targets.*' => 'string',
+            'curriculums' => 'nullable|array',
+            'curriculums.*.title' => 'required|string|max:255',
+            'curriculums.*.items' => 'nullable|array',
+            'faqs' => 'nullable|array',
+            'faqs.*.question' => 'required|string',
+            'faqs.*.answer' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // 1. Create the course first
+            $courseData = $request->input('course');
+            $courseData['targets'] = $request->input('targets', []);
+            $course = Course::create($courseData);
+
+            // 2. Save curriculums with nested items
+            $curriculums = $request->input('curriculums', []);
+            foreach ($curriculums as $index => $curriculumData) {
+                $curriculum = CourseCurriculum::create([
+                    'course_id' => $course->id,
+                    'title' => $curriculumData['title'],
+                    'description' => $curriculumData['description'] ?? null,
+                    'sort_order' => $index, // Sort order based on FE array order
+                ]);
+
+                // Save curriculum items
+                $items = $curriculumData['items'] ?? [];
+                foreach ($items as $itemIndex => $itemData) {
+                    CourseCurriculumItem::create([
+                        'curriculum_id' => $curriculum->id,
+                        'icon' => $itemData['icon'] ?? null,
+                        'content' => $itemData['content'],
+                        'sort_order' => $itemIndex,
+                    ]);
+                }
+            }
+
+            // 3. Save FAQs
+            $faqs = $request->input('faqs', []);
+            foreach ($faqs as $faqIndex => $faqData) {
+                CourseFAQ::create([
+                    'course_id' => $course->id,
+                    'question' => $faqData['question'],
+                    'answer' => $faqData['answer'],
+                    'sort_order' => $faqIndex,
+                ]);
+            }
+
+            DB::commit();
+
+            // Load relationships for response
+            $course->load(['curriculums.items', 'faqs']);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Course created successfully',
+                'data' => $course
+            ], 201);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create course',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Update an existing course with nested data
+     * Deletes all child records and re-inserts based on new payload
+     */
+    public function update(Request $request, $id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Course not found'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'course' => 'required|array',
+            'course.name' => 'required|string|max:255',
+            'course.slug' => 'required|string|max:255|unique:courses,slug,' . $id,
+            'targets' => 'nullable|array',
+            'targets.*' => 'string',
+            'curriculums' => 'nullable|array',
+            'curriculums.*.title' => 'required|string|max:255',
+            'curriculums.*.items' => 'nullable|array',
+            'faqs' => 'nullable|array',
+            'faqs.*.question' => 'required|string',
+            'faqs.*.answer' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // 1. Update course data
+            $courseData = $request->input('course');
+            $courseData['targets'] = $request->input('targets', []);
+            $course->update($courseData);
+
+            // 2. Delete existing child records (cascade will handle curriculum_items via FK)
+            // We need to manually delete curriculum_items first because of the FK constraint
+            $curriculumIds = $course->curriculums()->pluck('id');
+            CourseCurriculumItem::whereIn('curriculum_id', $curriculumIds)->delete();
+            $course->curriculums()->delete();
+            $course->faqs()->delete();
+
+            // 3. Re-insert curriculums with nested items
+            $curriculums = $request->input('curriculums', []);
+            foreach ($curriculums as $index => $curriculumData) {
+                $curriculum = CourseCurriculum::create([
+                    'course_id' => $course->id,
+                    'title' => $curriculumData['title'],
+                    'description' => $curriculumData['description'] ?? null,
+                    'sort_order' => $index,
+                ]);
+
+                // Save curriculum items
+                $items = $curriculumData['items'] ?? [];
+                foreach ($items as $itemIndex => $itemData) {
+                    CourseCurriculumItem::create([
+                        'curriculum_id' => $curriculum->id,
+                        'icon' => $itemData['icon'] ?? null,
+                        'content' => $itemData['content'],
+                        'sort_order' => $itemIndex,
+                    ]);
+                }
+            }
+
+            // 4. Re-insert FAQs
+            $faqs = $request->input('faqs', []);
+            foreach ($faqs as $faqIndex => $faqData) {
+                CourseFAQ::create([
+                    'course_id' => $course->id,
+                    'question' => $faqData['question'],
+                    'answer' => $faqData['answer'],
+                    'sort_order' => $faqIndex,
+                ]);
+            }
+
+            DB::commit();
+
+            // Load relationships for response
+            $course->load(['curriculums.items', 'faqs']);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Course updated successfully',
+                'data' => $course
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update course',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

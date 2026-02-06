@@ -59,6 +59,7 @@ class VoucherController extends Controller
                 'id' => $voucher->id,
                 'code' => $voucher->code,
                 'discount_percentage' => $voucher->discount_percentage,
+                'apply_to' => $voucher->apply_to,
                 // Add fixed amount logic if schema supports it later, currently model only has percentage
             ]
         ]);

@@ -29,4 +29,13 @@ class CourseCurriculum extends Model
     {
         return $this->hasMany(CourseCurriculumItem::class, 'curriculum_id')->orderBy('sort_order');
     }
+
+    protected static function booted(): void
+    {
+        static::saved(function (self $model) {
+            if (blank($model->title)) {
+                $model->delete();
+            }
+        });
+    }
 }

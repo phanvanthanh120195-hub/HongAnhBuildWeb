@@ -51,7 +51,7 @@ class OrderForm
                                     ->dehydrateStateUsing(fn($state) => (float) str_replace('.', '', $state)),
 
                                 TextInput::make('discount_amount')
-                                    ->label('Giảm giá')
+                                    ->label('Số tiền giảm')
                                     ->required()
                                     ->default(0)
                                     ->suffix('đ')
@@ -145,7 +145,6 @@ class OrderForm
                                         'cancelled' => 'Đã hủy',
                                     ])
                                     ->default('pending')
-                                    ->hidden(fn($get) => $get('order_type') === 'course')
                                     ->required(),
                                 
                             ]),

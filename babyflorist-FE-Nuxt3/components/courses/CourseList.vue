@@ -10,6 +10,8 @@ interface Course {
     thumbnail: string | null
     slug: string
     label: string | null
+    sale_start: string | null
+    sale_end: string | null
     [key: string]: any
 }
 
@@ -72,6 +74,16 @@ const getLabelClass = (label: string | null) => {
     return 'bg-red-100 text-primary'
 }
 
+// Check if course is open for registration
+const isCourseOpen = (course: any): boolean => {
+    // Require both dates to be set
+    if (!course.sale_start || !course.sale_end) return false
+    const now = new Date()
+    const start = new Date(course.sale_start)
+    const end = new Date(course.sale_end)
+    return now >= start && now <= end
+}
+
 const filteredAndSortedCourses = computed(() => {
     if (!response.value?.success) return []
     let items = [...response.value.data]
@@ -106,7 +118,8 @@ const filteredAndSortedCourses = computed(() => {
         image: course.thumbnail ? (course.thumbnail.startsWith('http') ? course.thumbnail : `${config.public.apiBase}/storage/${course.thumbnail}`) : 'https://placehold.co/600x400',
         label: course.label,
         tagClass: getLabelClass(course.label),
-        slug: course.slug
+        slug: course.slug,
+        isOpen: isCourseOpen(course)
     }))
 })
 
@@ -176,7 +189,7 @@ const displayedPages = computed(() => {
         </div>
 
         <div v-else-if="paginatedCourses.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div v-for="course in paginatedCourses" :key="course.id"
+            <NuxtLink v-for="course in paginatedCourses" :key="course.id" :to="`/courses/${course.slug}`"
                 class="group flex flex-col bg-white dark:bg-[#1a0f0f] rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-[#3a2828] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div class="relative aspect-[4/3] overflow-hidden">
                     <div class="w-full h-full bg-cover bg-center transition-transform duration-700"
@@ -199,13 +212,15 @@ const displayedPages = computed(() => {
                                 course.originalPrice }}</span>
                             <span class="text-lg font-bold text-primary">{{ course.price }}</span>
                         </div>
-                        <NuxtLink :to="`/courses/${course.slug}`"
-                            class="text-xs font-bold bg-[#181111] dark:bg-white text-white dark:text-[#181111] px-4 py-2.5 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all shadow-md hover:shadow-lg">
-                            Đăng
-                            ký ngay</NuxtLink>
+                        <span v-if="course.isOpen" @click.prevent="navigateTo(`/carts/checkout?course=${course.slug}`)"
+                            class="text-xs font-bold bg-[#181111] dark:bg-white text-white dark:text-[#181111] px-4 py-2.5 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all shadow-md hover:shadow-lg cursor-pointer">
+                            Đăng ký ngay</span>
+                        <span v-else
+                            class="text-xs font-bold bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 px-4 py-2.5 rounded-lg cursor-not-allowed">
+                            Chưa mở đăng ký</span>
                     </div>
                 </div>
-            </div>
+            </NuxtLink>
         </div>
         <div v-else class="text-center py-12 text-gray-500">
             Hiện chưa có khóa học nào.
