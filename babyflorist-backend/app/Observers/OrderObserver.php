@@ -41,11 +41,8 @@ class OrderObserver
         }
 
         // Determine Target Enrollment Status (Is Active)
-        $isActive = false;
-
-        if ($order->payment_status === 'paid' || $order->order_status === 'completed' || $order->order_status === 'shipping') {
-            $isActive = true;
-        }
+        // Only create/activate enrollment when BOTH payment is confirmed AND order is completed
+        $isActive = $order->payment_status === 'paid' && $order->order_status === 'completed';
 
         // Get Course Items
         $items = OrderItem::where('order_id', $order->id)

@@ -120,8 +120,9 @@
                                             class="w-8 h-8 rounded border border-[#e7cfd1] dark:border-[#3d2a2c] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-[#3d2a2c] transition-colors">
                                             <span class="material-symbols-outlined text-sm">remove</span>
                                         </button>
-                                        <span class="w-8 text-center font-bold text-[#1b0d0f] dark:text-white">{{
-                                            quantity }}</span>
+                                        <input v-model.number="quantity" type="number" min="1" @change="saveToStorage"
+                                            @input="validateQuantity"
+                                            class="w-[70px] text-center font-bold text-[#1b0d0f] dark:text-white bg-transparent border border-[#e7cfd1] dark:border-[#3d2a2c] focus:ring-0 p-0 [&::-webkit-inner-spin-button]:appearance-none" />
                                         <button @click="increaseQty"
                                             class="w-8 h-8 rounded border border-[#e7cfd1] dark:border-[#3d2a2c] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-[#3d2a2c] transition-colors">
                                             <span class="material-symbols-outlined text-sm">add</span>
@@ -261,6 +262,12 @@ const decreaseQty = () => {
     if (quantity.value > 1) {
         quantity.value--
         saveToStorage()
+    }
+}
+
+const validateQuantity = () => {
+    if (quantity.value < 1) {
+        quantity.value = 1
     }
 }
 

@@ -78,7 +78,7 @@ useHead({
                 </div>
 
                 <!-- Next Steps -->
-                <div class="bg-primary text-white p-8 rounded-2xl shadow-xl">
+                <div class="bg-primary-red text-white p-8 rounded-2xl shadow-xl">
                     <h2 class="text-xl font-bold mb-6 border-b border-white/20 pb-4">Bước tiếp theo</h2>
                     <div class="space-y-6">
                         <div class="flex gap-4">

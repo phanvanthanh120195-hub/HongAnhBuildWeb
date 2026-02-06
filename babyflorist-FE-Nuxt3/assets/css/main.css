@@ -84,4 +84,8 @@
     .dark .drawer-content::-webkit-scrollbar-thumb {
         background-color: #374151;
     }
+
+    .gold-gradient {
+        background: linear-gradient(135deg, #C5A059 0%, #E2C68E 50%, #C5A059 100%);
+    }
 }

@@ -23,6 +23,9 @@ export default {
         "background-dark": "#221010",
         "off-white": "#FAF9F6",
         "light-beige": "#F2EBE3",
+        "primary-red": "#8B1D1D",
+        "luxury-gold": "#C5A059",
+        "cream-bg": "#FCF9F5",
       },
       fontFamily: {
         "display": ["Be Vietnam Pro", "sans-serif"],
