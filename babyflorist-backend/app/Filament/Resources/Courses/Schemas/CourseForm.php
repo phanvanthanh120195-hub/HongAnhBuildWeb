@@ -170,16 +170,18 @@ class CourseForm
                                                 ->formatStateUsing(fn($state) => $state ? number_format($state, 0) : null)
                                                 ->dehydrateStateUsing(fn($state) => $state ? (float) str_replace(',', '', $state) : null),
 
-                                            TextInput::make('lesson_count')
-                                                ->label('Số bài học')
-                                                ->numeric()
-                                                ->default(0),
+                                            Grid::make(2)->schema([
+                                                TextInput::make('lesson_count')
+                                                    ->label('Số bài học')
+                                                    ->numeric()
+                                                    ->default(0),
 
-                                            TextInput::make('student_count')
-                                                ->label('Số học viên')
-                                                ->required()
-                                                ->numeric()
-                                                ->default(0),
+                                                TextInput::make('student_count')
+                                                    ->label('Số học viên')
+                                                    ->required()
+                                                    ->numeric()
+                                                    ->default(0),
+                                            ]),
 
                                             \Filament\Forms\Components\DateTimePicker::make('sale_start')
                                                 ->label('Hiệu lực từ'),

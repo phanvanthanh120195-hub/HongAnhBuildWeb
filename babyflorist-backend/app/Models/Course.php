@@ -47,6 +47,16 @@ class Course extends Model
         return $this->hasMany(CourseEnrollment::class);
     }
 
+    public function faqs()
+    {
+        return $this->hasMany(CourseFAQ::class)->orderBy('sort_order');
+    }
+
+    public function curriculums()
+    {
+        return $this->hasMany(CourseCurriculum::class)->orderBy('sort_order');
+    }
+
     public function getRemainingSlotsAttribute()
     {
         $enrolled = $this->enrollments()->where('is_active', true)->count();

@@ -20,7 +20,7 @@ class StatsOverview extends StatsOverviewWidget
                 ->description('Tất cả đơn hàng')
                 ->descriptionIcon('heroicon-m-shopping-cart')
                 ->color('primary'),
-            Stat::make('Tổng học viên', \App\Models\Customer::count()) // Assuming Customers are Students
+            Stat::make('Tổng học viên', \App\Models\CourseEnrollment::count()) // Assuming Customers are Students
                 ->description('Số lượng học viên hệ thống')
                 ->descriptionIcon('heroicon-m-academic-cap')
                 ->color('info'),
