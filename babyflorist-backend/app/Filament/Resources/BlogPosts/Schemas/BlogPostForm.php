@@ -29,106 +29,106 @@ class BlogPostForm
                 'lg' => 12,
             ])->schema([
 
-                /* ================= LEFT COLUMN (8/12) ================= */
-                Group::make()
-                    ->schema([
-
-                        Section::make('Nội dung chính')
+                        /* ================= LEFT COLUMN (8/12) ================= */
+                        Group::make()
                             ->schema([
 
-                                Grid::make([
-                                    'default' => 1,
-                                    'lg' => 12,
-                                ])->schema([
+                                Section::make('Nội dung chính')
+                                    ->schema([
 
-                                    TextInput::make('title')
-                                        ->label('Tiêu đề')
-                                        ->required()
-                                        ->live(onBlur: true)
-                                        ->afterStateUpdated(
-                                            fn (string $operation, $state, \Filament\Schemas\Components\Utilities\Set $set) =>
-                                                $operation === 'create'
-                                                    ? $set('slug', Str::slug($state))
-                                                    : null
-                                        )
-                                        ->columnSpan([
-                                            'default' => 12,
+                                        Grid::make([
+                                            'default' => 1,
                                             'lg' => 12,
-                                        ]),
+                                        ])->schema([
 
-                                    TextInput::make('slug')
-                                        ->label('Đường dẫn (Slug)')
-                                        ->disabled()
-                                        ->dehydrated()
-                                        ->required()
-                                        ->unique(ignoreRecord: true)
-                                        ->columnSpan([
-                                            'default' => 12,
-                                            'lg' => 12,
-                                        ]),
-                                ]),
+                                                    TextInput::make('title')
+                                                        ->label('Tiêu đề')
+                                                        ->required()
+                                                        ->live(onBlur: true)
+                                                        ->afterStateUpdated(
+                                                            fn(string $operation, $state, \Filament\Schemas\Components\Utilities\Set $set) =>
+                                                            $operation === 'create'
+                                                            ? $set('slug', Str::slug($state))
+                                                            : null
+                                                        )
+                                                        ->columnSpan([
+                                                            'default' => 12,
+                                                            'lg' => 12,
+                                                        ]),
 
-                                RichEditor::make('content')
-                                    ->label('Nội dung')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->extraInputAttributes([
-                                        'style' => 'min-height: 300px;',
+                                                    TextInput::make('slug')
+                                                        ->label('Đường dẫn (Slug)')
+                                                        ->disabled()
+                                                        ->dehydrated()
+                                                        ->required()
+                                                        ->unique(ignoreRecord: true)
+                                                        ->columnSpan([
+                                                            'default' => 12,
+                                                            'lg' => 12,
+                                                        ]),
+                                                ]),
+
+                                        RichEditor::make('content')
+                                            ->label('Nội dung')
+                                            ->required()
+                                            ->columnSpanFull()
+                                            ->extraInputAttributes([
+                                                'style' => 'min-height: 300px;',
+                                            ]),
                                     ]),
+
+                                Section::make('Hình ảnh')
+                                    ->schema([
+                                        FileUpload::make('thumbnail')
+                                            ->label('Ảnh đại diện')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->directory('blog-thumbnails')
+                                            ->columnSpanFull(),
+                                    ]),
+                            ])
+                            ->columnSpan([
+                                'default' => 12,
+                                'lg' => 8,
                             ]),
 
-                        Section::make('Hình ảnh')
+                        /* ================= RIGHT SIDEBAR (4/12) ================= */
+                        Group::make()
                             ->schema([
-                                FileUpload::make('thumbnail')
-                                    ->label('Ảnh đại diện')
-                                    ->image()
-                                    ->imageEditor()
-                                    ->directory('blog-thumbnails')
-                                    ->columnSpanFull(),
+
+                                Section::make('Xuất bản')
+                                    ->schema([
+                                        Toggle::make('is_active')
+                                            ->label('Hiển thị')
+                                            ->default(true),
+
+                                        DatePicker::make('published_at')
+                                            ->label('Ngày xuất bản')
+                                            ->default(now()),
+                                    ]),
+
+                                Section::make('Phân loại')
+                                    ->schema([
+                                        Select::make('blog_category_id')
+                                            ->label('Danh mục')
+                                            ->relationship('category', 'name')
+                                            ->searchable()
+                                            ->preload()
+                                            ->required(),
+
+                                        Select::make('tags')
+                                            ->label('Thẻ (Tags)')
+                                            ->relationship('tags', 'name')
+                                            ->multiple()
+                                            ->preload()
+                                            ->searchable(),
+                                    ]),
+                            ])
+                            ->columnSpan([
+                                'default' => 12,
+                                'lg' => 4,
                             ]),
-                    ])
-                    ->columnSpan([
-                        'default' => 12,
-                        'lg' => 8,
                     ]),
-
-                /* ================= RIGHT SIDEBAR (4/12) ================= */
-                Group::make()
-                    ->schema([
-
-                        Section::make('Xuất bản')
-                            ->schema([
-                                Toggle::make('is_active')
-                                    ->label('Hiển thị')
-                                    ->default(true),
-
-                                DatePicker::make('published_at')
-                                    ->label('Ngày xuất bản')
-                                    ->default(now()),
-                            ]),
-
-                        Section::make('Phân loại')
-                            ->schema([
-                                Select::make('blog_category_id')
-                                    ->label('Danh mục')
-                                    ->relationship('category', 'name')
-                                    ->searchable()
-                                    ->preload()
-                                    ->required(),
-
-                                Select::make('tags')
-                                    ->label('Thẻ (Tags)')
-                                    ->relationship('tags', 'name')
-                                    ->multiple()
-                                    ->preload()
-                                    ->searchable(),
-                            ]),
-                    ])
-                    ->columnSpan([
-                        'default' => 12,
-                        'lg' => 4,
-                    ]),
-            ]),
         ]);
     }
 }

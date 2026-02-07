@@ -32,15 +32,6 @@ class CourseForm
                                     Section::make('Thông tin khóa học')
                                         ->schema([
                                             Grid::make(2)->schema([
-                                                Select::make('type')
-                                                    ->label('Hình thức học')
-                                                    ->options([
-                                                        'offline' => 'Học offline',
-                                                        'online' => 'Học online',
-                                                    ])
-                                                    ->default('offline')
-                                                    ->native(false),
-
                                                 Select::make('format')
                                                     ->label('Loại nội dung')
                                                     ->options([
@@ -49,7 +40,15 @@ class CourseForm
                                                     ])
                                                     ->default('course')
                                                     ->native(false)
-                                                    ->live()
+                                                    ->live(),
+                                                Select::make('type')
+                                                    ->label('Hình thức học')
+                                                    ->options([
+                                                        'offline' => 'Học offline',
+                                                        'online' => 'Học online',
+                                                    ])
+                                                    ->default('offline')
+                                                    ->native(false),
                                             ]),
 
                                             Grid::make(2)->schema([
@@ -59,7 +58,8 @@ class CourseForm
                                                     ->searchable()
                                                     ->preload()
                                                     ->required()
-                                                    ->default(null),
+                                                    ->default(null)
+                                                    ->visible(fn(Get $get) => $get('format') !== 'workshop'),
                                                 Select::make('label')
                                                     ->label('Cấp độ')
                                                     ->options([
@@ -68,11 +68,12 @@ class CourseForm
                                                     ])
                                                     ->default('basic')
                                                     ->native(false)
-                                                    ->searchable(),
+                                                    ->searchable()
+                                                    ->visible(fn(Get $get) => $get('format') !== 'workshop'),
                                             ]),
 
                                             FileUpload::make('thumbnail')
-                                                ->label('Hình ảnh')
+                                                ->label(fn(Get $get) => $get('format') !== 'workshop' ? 'Hình ảnh' : 'Ảnh bìa')
                                                 ->image()
                                                 ->disk('public')
                                                 ->directory('course-thumbnails')
@@ -90,14 +91,25 @@ class CourseForm
                                                 ->disabled()
                                                 ->dehydrated(),
 
-                                            TextInput::make('instructor')
-                                                ->label('Giảng viên')
-                                                ->default('Phan Hồng Anh'),
+                                            TextInput::make('subtitle')
+                                                ->label('Tiêu đề phụ')
+                                                ->placeholder('VD: Khóa học cắm hoa nghệ thuật')
+                                                ->visible(fn(Get $get) => $get('format') === 'workshop'),
+
+                                            TextInput::make('location')
+                                                ->label('Địa điểm tổ chức')
+                                                ->placeholder('VD: 123 Đường ABC, Quận 1, TP.HCM')
+                                                ->visible(fn(Get $get) => $get('format') === 'workshop'),
 
                                             Textarea::make('description')
-                                                ->label('Mô tả')
-                                                ->rows(2)
+                                                ->label('Mô tả ngắn')
+                                                ->rows(3)
                                                 ->columnSpanFull(),
+
+                                            \Filament\Forms\Components\RichEditor::make('content')
+                                                ->label('Nội dung chi tiết')
+                                                ->columnSpanFull()
+                                                ->visible(fn(Get $get) => $get('format') === 'workshop'),
 
                                             Repeater::make('highlights')
                                                 ->label('Điểm nổi bật (Lợi ích khóa học)')
@@ -113,7 +125,8 @@ class CourseForm
                                                 ->itemLabel(fn(array $state): ?string => $state['content'] ?? 'Điểm nổi bật mới')
                                                 ->reorderable()
                                                 ->collapsible()
-                                                ->collapsed(),
+                                                ->collapsed()
+                                                ->visible(fn(Get $get) => $get('format') !== 'workshop'),
                                         ]),
 
                                     // Lộ trình đào tạo (Curriculum)
@@ -142,8 +155,11 @@ class CourseForm
                                                             Select::make('icon')
                                                                 ->label('Loại')
                                                                 ->options([
+                                                                    'eco' => 'Lá',
+                                                                    'spa' => 'Spa',
+                                                                    'alette' => 'Cọ vẽ',
                                                                     'local_florist' => 'Hoa',
-                                                                    'construction' => 'Dụng cụ',
+                                                                    'build_circl' => 'Dụng cụ',
                                                                     'category' => 'Quy tắc',
                                                                     'assignment' => 'Bài tập',
                                                                     'water_drop' => 'Nước',
@@ -163,7 +179,7 @@ class CourseForm
                                                                 ->columnSpan(2),
                                                         ])
                                                         ->columns(3)
-                                                        ->addActionLabel('+ Thêm')
+                                                        ->addActionLabel('+ Thêm nội dung')
                                                         ->reorderable()
                                                         ->collapsible()
                                                         ->itemLabel(fn(array $state): ?string => $state['content'] ?? 'Nội dung mới')
@@ -178,7 +194,8 @@ class CourseForm
                                                 ->itemLabel(fn(array $state): ?string => $state['title'] ?? 'Chương mới')
                                                 ->defaultItems(0)
                                         ])
-                                        ->collapsible(),
+                                        ->collapsible()
+                                        ->visible(fn(Get $get) => $get('format') !== 'workshop'),
 
                                     // FAQ - Câu hỏi thường gặp
                                     Section::make('FAQ - Câu hỏi thường gặp')
@@ -207,7 +224,88 @@ class CourseForm
                                                 ->itemLabel(fn(array $state): ?string => $state['question'] ?? 'Câu hỏi mới')
                                                 ->defaultItems(0),
                                         ])
-                                        ->collapsible(),
+                                        ->collapsible()
+                                        ->visible(fn(Get $get) => $get('format') !== 'workshop'),
+
+                                    // Bạn Sẽ Nhận Được Gì? (Benefits)
+                                    Section::make('Bạn Sẽ Nhận Được Gì?')
+                                        ->schema([
+                                            Repeater::make('benefits')
+                                                ->label('')
+                                                ->relationship()
+                                                ->schema([
+                                                    Select::make('icon')
+                                                        ->label('Loại')
+                                                        ->options([
+                                                            'eco' => 'Lá',
+                                                            'spa' => 'Spa',
+                                                            'alette' => 'Cọ vẽ',
+                                                            'local_florist' => 'Hoa',
+                                                            'build_circl' => 'Dụng cụ',
+                                                            'category' => 'Quy tắc',
+                                                            'assignment' => 'Bài tập',
+                                                            'water_drop' => 'Nước',
+                                                            'quiz' => 'Quiz',
+                                                            'video' => 'Video',
+                                                            'article' => 'Đề thi',
+                                                            'brush' => 'Bút ký',
+                                                            'to_camera' => 'Camera',
+                                                            'book' => 'Tài liệu',
+                                                        ])
+                                                        ->default('local_florist')
+                                                        ->native(false),
+
+                                                    TextInput::make('title')
+                                                        ->label('Tiêu đề')
+                                                        ->placeholder('VD: Sắp mâm chuẩn phong thủy'),
+
+                                                    Textarea::make('description')
+                                                        ->label('Mô tả')
+                                                        ->rows(2)
+                                                        ->columnSpanFull(),
+                                                ])
+                                                ->columns(2)
+                                                ->addActionLabel('+ Thêm lợi ích')
+                                                ->reorderable()
+                                                ->collapsible()
+                                                ->collapsed()
+                                                ->itemLabel(fn(array $state): ?string => $state['title'] ?? 'Lợi ích mới')
+                                                ->defaultItems(0),
+                                        ])
+                                        ->collapsible()
+                                        ->visible(fn(Get $get) => $get('format') === 'workshop'),
+
+                                    // Trải Nghiệm Tại Workshop (Experiences)
+                                    Section::make('Trải Nghiệm Tại Workshop')
+                                        ->schema([
+                                            Repeater::make('experiences')
+                                                ->label('')
+                                                ->relationship()
+                                                ->schema([
+                                                    FileUpload::make('image')
+                                                        ->label('Hình ảnh')
+                                                        ->image()
+                                                        ->directory('workshop-experiences')
+                                                        ->columnSpanFull(),
+
+                                                    TextInput::make('title')
+                                                        ->label('Tiêu đề')
+                                                        ->required(),
+
+                                                    Textarea::make('description')
+                                                        ->label('Mô tả')
+                                                        ->rows(2)
+                                                        ->columnSpanFull(),
+                                                ])
+                                                ->addActionLabel('+ Thêm trải nghiệm')
+                                                ->reorderable()
+                                                ->collapsible()
+                                                ->collapsed()
+                                                ->itemLabel(fn(array $state): ?string => $state['title'] ?? 'Trải nghiệm mới')
+                                                ->defaultItems(0),
+                                        ])
+                                        ->collapsible()
+                                        ->visible(fn(Get $get) => $get('format') === 'workshop'),
                                 ])
                                 ->columnSpan([
                                     'default' => 12,
@@ -237,7 +335,7 @@ class CourseForm
 
                                             Toggle::make('is_active')
                                                 ->label('Hiển thị')
-                                                ->helperText('Bật để hiển thị Khóa học')
+                                                ->helperText('Bật để hiển thị Khóa học - Workshop')
                                                 ->default(true)
                                                 ->inline(false),
                                         ]),
@@ -276,14 +374,16 @@ class CourseForm
                                                         $discount = (float) $state;
                                                         $set('sale_price', number_format($price * (1 - ($discount / 100))));
                                                     }
-                                                }),
+                                                })
+                                                ->visible(fn(Get $get) => $get('format') !== 'workshop'),
 
                                             TextInput::make('sale_price')
                                                 ->label('Giá khuyến mãi')
                                                 ->suffix('₫')
                                                 ->default(null)
                                                 ->formatStateUsing(fn($state) => $state ? number_format($state, 0) : null)
-                                                ->dehydrateStateUsing(fn($state) => $state ? (float) str_replace(',', '', $state) : null),
+                                                ->dehydrateStateUsing(fn($state) => $state ? (float) str_replace(',', '', $state) : null)
+                                                ->visible(fn(Get $get) => $get('format') !== 'workshop'),
 
                                             Grid::make(2)->schema([
                                                 TextInput::make('lesson_count')
@@ -293,7 +393,8 @@ class CourseForm
                                                     ->live()
                                                     ->dehydrated()
                                                     ->afterStateHydrated(fn(TextInput $component, $state) => $component->state($state ?? 0))
-                                                    ->dehydrateStateUsing(fn($state) => (int) $state),
+                                                    ->dehydrateStateUsing(fn($state) => (int) $state)
+                                                    ->visible(fn(Get $get) => $get('format') !== 'workshop'),
 
                                                 TextInput::make('student_count')
                                                     ->label('Số học viên')
@@ -302,13 +403,31 @@ class CourseForm
                                                     ->default(0),
                                             ]),
 
+                                            TextInput::make('instructor')
+                                                ->label('Giảng viên')
+                                                ->default('Phan Hồng Anh')
+                                                ->visible(fn(Get $get) => $get('format') === 'workshop'),
+
+                                            \Filament\Forms\Components\DateTimePicker::make('start_time')
+                                                ->label('Thời gian bắt đầu')
+                                                ->seconds(false)
+                                                ->visible(fn(Get $get) => $get('format') === 'workshop'),
+
+                                            \Filament\Forms\Components\DateTimePicker::make('end_time')
+                                                ->label('Thời gian kết thúc')
+                                                ->seconds(false)
+                                                ->visible(fn(Get $get) => $get('format') === 'workshop'),
+                                        ]),
+
+                                    Section::make('Hiệu lực')
+                                        ->schema([
                                             \Filament\Forms\Components\DateTimePicker::make('sale_start')
                                                 ->label(fn(Get $get) => $get('format') === 'workshop' ? 'Hiệu lực từ' : 'Hiệu lực từ'),
 
                                             \Filament\Forms\Components\DateTimePicker::make('sale_end')
                                                 ->label(fn(Get $get) => $get('format') === 'workshop' ? 'Hiệu lực đến' : 'Hiệu lực đến')
                                                 ->afterOrEqual('sale_start'),
-                                        ]),
+                                        ])
                                 ])
                                 ->columnSpan([
                                     'default' => 12,

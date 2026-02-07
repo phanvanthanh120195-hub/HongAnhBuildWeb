@@ -2,8 +2,7 @@
 </script>
 
 <template>
-    <div
-        class="font-display bg-[url('image/BG_home.png')] h-auto bg-no-repeat text-[#181113] dark:text-white transition-colors duration-200">
+    <div class="font-display h-auto bg-no-repeat text-[#181113] dark:text-white transition-colors duration-200">
         <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
             <!-- Hero Section -->
             <div class="px-4 sm:px-10 lg:px-40 flex flex-1 justify-center py-10">
@@ -155,8 +154,7 @@
                         <h2 class="text-[#181113] dark:text-white text-3xl font-bold leading-tight">Trải Nghiệm Tại
                             Workshop
                         </h2>
-                        <p class="text-[#89616b] dark:text-[#a68a91]">Không chỉ là học, mà còn là tận hưởng không khí
-                            Tết.
+                        <p class="text-[#89616b] dark:text-[#a68a91]">Không chỉ là học, mà còn là tận hưởng.
                         </p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -225,7 +223,7 @@
                         </div>
                         <div class="grid grid-cols-1 lg:grid-cols-2">
                             <!-- Left Info -->
-                            <div class="p-8 md:p-12 flex flex-col gap-6 relative z-10">
+                            <div class="p-8 md:p-12 flex flex-col gap-5 relative z-10">
                                 <h2 class="text-3xl font-bold text-[#181113] dark:text-white">Thông Tin Workshop</h2>
                                 <div class="space-y-4">
                                     <div class="flex items-start gap-4">
@@ -246,6 +244,17 @@
                                         <div>
                                             <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Thời gian kết thúc</p>
                                             <p class="text-lg font-bold dark:text-white">18:00 - Thứ Bảy, 18/01/2026</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="size-10 rounded-lg bg-[#fdf2f4] dark:bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                                            <span class="material-symbols-outlined">location_on</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Địa điểm</p>
+                                            <p class="text-lg font-bold dark:text-white">123 Nguyễn Trãi, Thanh Xuân, Hà
+                                                Nội</p>
                                         </div>
                                     </div>
                                     <div class="flex items-start gap-4">

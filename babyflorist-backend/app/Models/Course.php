@@ -13,10 +13,12 @@ class Course extends Model
         'format',
         'label',
         'name',
+        'subtitle',
         'slug',
         'type',
         'description',
         'content',
+        'location',
         'targets',
         'price',
         'sale_price',
@@ -28,8 +30,9 @@ class Course extends Model
         'is_featured',
         'is_active',
         'sale_start',
-        'sale_start',
         'sale_end',
+        'start_time',
+        'end_time',
         'course_category_id',
     ];
 
@@ -39,6 +42,8 @@ class Course extends Model
         'targets' => 'array',
         'sale_start' => 'datetime',
         'sale_end' => 'datetime',
+        'start_time' => 'datetime:H:i',
+        'end_time' => 'datetime:H:i',
     ];
 
     protected $appends = ['remaining_slots'];
@@ -71,6 +76,16 @@ class Course extends Model
     public function highlights()
     {
         return $this->hasMany(CourseHighlight::class)->orderBy('sort_order');
+    }
+
+    public function experiences()
+    {
+        return $this->hasMany(WorkshopExperience::class)->orderBy('sort_order');
+    }
+
+    public function benefits()
+    {
+        return $this->hasMany(CourseBenefit::class)->orderBy('sort_order');
     }
 
     public function getRemainingSlotsAttribute()

@@ -51,7 +51,7 @@ class FeaturedReviewForm
                                                     $productName = $review->product->name;
                                                     $customerName = $review->customer?->name ?? 'Khách lẻ';
                                                     $content = str($review->content)->limit(30);
-                                                    
+
                                                     $label = "⭐{$rating}/5 {$productName} - {$customerName}: {$content}";
                                                     return [$review->id => $label];
                                                 });
@@ -78,7 +78,7 @@ class FeaturedReviewForm
                                     })
                                     ->disableOptionWhen(function ($value, callable $get, ?\Illuminate\Database\Eloquent\Model $record) {
                                         static $disabledIds = null;
-                                        
+
                                         if ($disabledIds === null) {
                                             $type = $get('source_type');
                                             if (!$type) {
@@ -87,12 +87,12 @@ class FeaturedReviewForm
                                                 $disabledIds = \App\Models\FeaturedReview::where('source_type', $type)
                                                     ->when($record, fn($q) => $q->where('id', '!=', $record->id))
                                                     ->pluck('source_id')
-                                                    ->map(fn($id) => (string)$id)
+                                                    ->map(fn($id) => (string) $id)
                                                     ->all();
                                             }
                                         }
-                                        
-                                        return in_array((string)$value, $disabledIds);
+
+                                        return in_array((string) $value, $disabledIds);
                                     })
                                     ->required()
                                     ->searchable()
@@ -103,16 +103,20 @@ class FeaturedReviewForm
                                     ->content(function (callable $get) {
                                         $type = $get('source_type');
                                         $id = $get('source_id');
-                                        if (!$type || !$id) return 'Chưa chọn review...';
+                                        if (!$type || !$id)
+                                            return 'Chưa chọn review...';
 
                                         $review = null;
-                                        if ($type === 'product') $review = \App\Models\ProductReview::find($id);
-                                        if ($type === 'course') $review = \App\Models\CourseReview::find($id);
+                                        if ($type === 'product')
+                                            $review = \App\Models\ProductReview::find($id);
+                                        if ($type === 'course')
+                                            $review = \App\Models\CourseReview::find($id);
 
-                                        if (!$review) return 'Không tìm thấy review';
+                                        if (!$review)
+                                            return 'Không tìm thấy review';
 
                                         $customerName = $review->customer?->name ?? 'Khách lẻ/Ẩn danh';
-                                        
+
                                         return new \Illuminate\Support\HtmlString("
                                             <div class='p-4 bg-gray-50 rounded-lg border text-sm'>
                                                 <div class='font-bold text-primary'>“{$review->content}”</div>
@@ -153,7 +157,8 @@ class FeaturedReviewForm
                                 TextInput::make('display_order')
                                     ->label('Thứ tự hiển thị')
                                     ->numeric()
-                                    ->default(0),
+                                    ->default(0)
+                                    ->dehydrateStateUsing(fn($state) => $state ?? 0),
 
                                 Toggle::make('is_active')
                                     ->label('Hiển thị trên web')
