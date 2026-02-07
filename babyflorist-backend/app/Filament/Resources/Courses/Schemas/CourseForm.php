@@ -71,6 +71,13 @@ class CourseForm
                                                     ->searchable(),
                                             ]),
 
+                                            FileUpload::make('thumbnail')
+                                                ->label('Hình ảnh')
+                                                ->image()
+                                                ->disk('public')
+                                                ->directory('course-thumbnails')
+                                                ->columnSpanFull(),
+
                                             TextInput::make('name')
                                                 ->label('Tên khóa học')
                                                 ->required()
@@ -87,18 +94,11 @@ class CourseForm
                                                 ->label('Giảng viên')
                                                 ->default('Phan Hồng Anh'),
 
-                                            FileUpload::make('thumbnail')
-                                                ->label('Hình ảnh')
-                                                ->image()
-                                                ->disk('public')
-                                                ->directory('course-thumbnails')
-                                                ->columnSpanFull(),
-
                                             Textarea::make('description')
                                                 ->label('Mô tả')
                                                 ->rows(2)
                                                 ->columnSpanFull(),
-                                            
+
                                             Repeater::make('highlights')
                                                 ->label('Điểm nổi bật (Lợi ích khóa học)')
                                                 ->relationship()
@@ -221,10 +221,10 @@ class CourseForm
                                         ->schema([
                                             \Filament\Forms\Components\Placeholder::make('workshop_instruction')
                                                 ->hiddenLabel()
-                                                ->content('Lưu ý: Nếu loại nội dung là workshop, hãy chọn nổi bật và thêm thông tin thời gian workshop ở bên dưới!')
+                                                ->content('Lưu ý: Nếu loại nội dung là workshop, hãy chọn nổi bật và thêm hiệu lực từ - đến workshop ở bên dưới để hiện thị!')
                                                 ->extraAttributes(['class' => 'text-primary-600 font-bold']),
                                         ])
-                                    ->visible(fn (Get $get) => $get('format') === 'workshop'),
+                                        ->visible(fn(Get $get) => $get('format') === 'workshop'),
                                     Section::make('Trạng thái')
                                         ->schema([
                                             Toggle::make('is_featured')
@@ -289,7 +289,11 @@ class CourseForm
                                                 TextInput::make('lesson_count')
                                                     ->label('Số bài học')
                                                     ->numeric()
-                                                    ->default(0),
+                                                    ->default(0)
+                                                    ->live()
+                                                    ->dehydrated()
+                                                    ->afterStateHydrated(fn(TextInput $component, $state) => $component->state($state ?? 0))
+                                                    ->dehydrateStateUsing(fn($state) => (int) $state),
 
                                                 TextInput::make('student_count')
                                                     ->label('Số học viên')
@@ -299,10 +303,10 @@ class CourseForm
                                             ]),
 
                                             \Filament\Forms\Components\DateTimePicker::make('sale_start')
-                                                ->label(fn (Get $get) => $get('format') === 'workshop' ? 'Thời gian bắt đầu' : 'Hiệu lực từ'),
+                                                ->label(fn(Get $get) => $get('format') === 'workshop' ? 'Hiệu lực từ' : 'Hiệu lực từ'),
 
                                             \Filament\Forms\Components\DateTimePicker::make('sale_end')
-                                                ->label(fn (Get $get) => $get('format') === 'workshop' ? 'Thời gian kết thúc' : 'Hiệu lực đến')
+                                                ->label(fn(Get $get) => $get('format') === 'workshop' ? 'Hiệu lực đến' : 'Hiệu lực đến')
                                                 ->afterOrEqual('sale_start'),
                                         ]),
                                 ])

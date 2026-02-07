@@ -121,7 +121,7 @@ onMounted(() => {
                         <span class="text-sm text-stone-700">{{ order.shipping_phone }}</span>
                     </div>
                     <div class="flex border-b border-stone-50 pb-2">
-                        <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Địa chỉ nhận:</span>
+                        <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Địa chỉ:</span>
                         <span class="text-sm text-stone-700">{{ order.shipping_address || 'N/A' }}</span>
                     </div>
                 </div>

@@ -83,6 +83,10 @@ class ProductCategoryForm
                                             ->label('Thứ tự sắp xếp')
                                             ->numeric()
                                             ->default(0)
+                                            ->live()
+                                            ->dehydrated()
+                                            ->afterStateHydrated(fn($component, $state) => $component->state($state ?? 0))
+                                            ->dehydrateStateUsing(fn($state) => (int) $state)
                                             ->helperText('Số nhỏ hơn sẽ hiển thị trước'),
                                     ]),
                             ])

@@ -34,16 +34,20 @@
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-bold text-[#1b0d0f] dark:text-white mb-2">Họ và tên
                                     <span class="text-red-500">*</span></label>
-                                <input v-model="form.name"
-                                    class="w-full rounded-lg border-[#e7cfd1] dark:border-[#3d2a2c] bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary"
+                                <input v-model="form.name" @input="clearError('name')"
+                                    :class="['w-full rounded-lg bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary', errors.name ? 'border-red-500' : 'border-[#e7cfd1] dark:border-[#3d2a2c]']"
                                     placeholder="Nhập họ và tên của bạn" type="text" />
+                                <span v-if="errors.name" class="text-red-500 text-xs mt-1 block">{{ errors.name
+                                    }}</span>
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-[#1b0d0f] dark:text-white mb-2">Số điện
                                     thoại <span class="text-red-500">*</span></label>
-                                <input v-model="form.phone"
-                                    class="w-full rounded-lg border-[#e7cfd1] dark:border-[#3d2a2c] bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary"
+                                <input v-model="form.phone" @input="clearError('phone')"
+                                    :class="['w-full rounded-lg bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary', errors.phone ? 'border-red-500' : 'border-[#e7cfd1] dark:border-[#3d2a2c]']"
                                     placeholder="09xxxxxxxx" type="tel" />
+                                <span v-if="errors.phone" class="text-red-500 text-xs mt-1 block">{{ errors.phone
+                                    }}</span>
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-[#1b0d0f] dark:text-white mb-2">Email (Để
@@ -53,8 +57,7 @@
                                     placeholder="email@example.com" type="email" />
                             </div>
                             <div class="md:col-span-2 space-y-4">
-                                <h3 class="font-bold text-[#1b0d0f] dark:text-white">Địa chỉ nhận hàng đầy đủ <span
-                                        class="text-red-500">*</span></h3>
+                                <h3 class="font-bold text-[#1b0d0f] dark:text-white">Địa chỉ nhận hàng</h3>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <label class="block text-xs font-bold text-stone-500 mb-1">Tỉnh/Thành
@@ -262,6 +265,16 @@ const form = ref<any>({
     address: ''
 })
 
+const errors = ref({
+    name: '',
+    phone: ''
+})
+
+const clearError = (field: string) => {
+    if (field === 'name') errors.value.name = ''
+    if (field === 'phone') errors.value.phone = ''
+}
+
 // Computed
 const thumbnailUrl = computed(() => {
     if (!course.value?.thumbnail) return 'https://placehold.co/200x200'
@@ -391,8 +404,9 @@ const applyVoucher = async () => {
         })
 
         if (res.success && res.data) {
-            // Check if voucher applies to courses
-            if (res.data.apply_to && res.data.apply_to !== 'course') {
+            // Check if voucher applies to courses or all orders
+            const validApplies = ['course', 'all_orders']
+            if (res.data.apply_to && !validApplies.includes(res.data.apply_to)) {
                 voucherError.value = 'Mã giảm giá này không áp dụng cho khóa học'
                 return
             }
@@ -449,17 +463,50 @@ const handlePayment = async () => {
         return
     }
 
-    // Validate form
-    if (!form.value.name || !form.value.phone || !form.value.province || !form.value.district || !form.value.ward || !form.value.address) {
-        alert('Vui lòng nhập đầy đủ thông tin giao hàng')
-        return
+    // Reset errors
+    errors.value = { name: '', phone: '' }
+    let hasError = false
+
+    if (!form.value.name) {
+        errors.value.name = 'Vui lòng nhập họ và tên'
+        hasError = true
     }
 
+    if (!form.value.phone) {
+        errors.value.phone = 'Vui lòng nhập số điện thoại'
+        hasError = true
+    } else {
+        const phoneRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/
+        if (!phoneRegex.test(form.value.phone)) {
+            errors.value.phone = 'Số điện thoại không hợp lệ'
+            hasError = true
+        }
+    }
+
+    if (hasError) return
+
     // Resolve names for full address
-    const provinceName = provinces.value.find(p => p.id == form.value.province)?.name || ''
-    const districtName = districts.value.find(d => d.id == form.value.district)?.name || ''
-    const wardName = wards.value.find(w => w.id == form.value.ward)?.name || ''
-    const fullAddress = `${form.value.address}, ${wardName}, ${districtName}, ${provinceName}`
+    const provinceName = (form.value.province && Array.isArray(provinces.value))
+        ? (provinces.value.find(p => p.id == form.value.province)?.name || '')
+        : ''
+
+    const districtName = (form.value.district && Array.isArray(districts.value))
+        ? (districts.value.find(d => d.id == form.value.district)?.name || '')
+        : ''
+
+    const wardName = (form.value.ward && Array.isArray(wards.value))
+        ? (wards.value.find(w => w.id == form.value.ward)?.name || '')
+        : ''
+
+    // Construct address from available parts
+    const addressParts = [
+        form.value.address,
+        wardName,
+        districtName,
+        provinceName
+    ].filter(part => part && part.trim() !== '')
+
+    const fullAddress = addressParts.length > 0 ? addressParts.join(', ') : 'N/A'
 
     loading.value = true
     try {

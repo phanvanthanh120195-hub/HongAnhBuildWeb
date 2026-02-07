@@ -18,12 +18,12 @@
                                 </div>
                                 <div class="relative z-10 flex flex-col items-center gap-4 max-w-[800px]">
                                     <span
-                                        class="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                                        Workshop Tết 2026
+                                        class="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 mb-2 rounded-full text-xs font-bold uppercase tracking-widest">
+                                        Workshop Năm 2026
                                     </span>
                                     <h1
-                                        class="text-white text-5xl md:text-6xl font-black leading-[1.1] tracking-tight drop-shadow-lg">
-                                        WORKSHOP MÂM NGŨ QUẢ TẾT
+                                        class="text-white text-5xl md:text-6xl font-black leading-[1.1] tracking-tight drop-shadow-lg uppercase">
+                                        Mâm Ngũ Quả Ngày Tết
                                     </h1>
                                     <p class="text-white/90 text-lg md:text-xl font-medium italic">
                                         "Đẹp – Đúng – Trọn ý nghĩa"
@@ -234,8 +234,18 @@
                                             <span class="material-symbols-outlined">calendar_month</span>
                                         </div>
                                         <div>
-                                            <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Thời gian</p>
+                                            <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Thời gian bắt đầu</p>
                                             <p class="text-lg font-bold dark:text-white">15:00 - Thứ Bảy, 18/01/2026</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="size-10 rounded-lg bg-[#fdf2f4] dark:bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                                            <span class="material-symbols-outlined">calendar_month</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Thời gian kết thúc</p>
+                                            <p class="text-lg font-bold dark:text-white">18:00 - Thứ Bảy, 18/01/2026</p>
                                         </div>
                                     </div>
                                     <div class="flex items-start gap-4">
@@ -256,7 +266,18 @@
                                         </div>
                                         <div>
                                             <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Số lượng giới hạn</p>
-                                            <p class="text-lg font-bold dark:text-white">Chỉ 10 học viên / lớp</p>
+                                            <p class="text-lg font-bold dark:text-white">10 học viên / lớp</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="size-10 rounded-lg bg-[#fdf2f4] dark:bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                                            <span class="material-symbols-outlined">person</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-[#89616b] dark:text-[#a68a91]">Giảng viên</p>
+                                            <p class="text-lg font-bold text-primary">Phan Hồng Anh</p>
                                         </div>
                                     </div>
                                 </div>
@@ -293,6 +314,13 @@
                                                 class="w-14 h-14 bg-white rounded-lg flex items-center justify-center text-primary text-2xl font-bold shadow-lg">
                                                 45</div>
                                             <span class="text-white/80 text-xs mt-1">Phút</span>
+                                        </div>
+                                        <div class="text-white text-2xl font-bold py-2">:</div>
+                                        <div class="flex flex-col items-center">
+                                            <div
+                                                class="w-14 h-14 bg-white rounded-lg flex items-center justify-center text-black text-2xl font-bold shadow-lg">
+                                                45</div>
+                                            <span class="text-white/80 text-xs mt-1">Giây</span>
                                         </div>
                                     </div>
                                     <button

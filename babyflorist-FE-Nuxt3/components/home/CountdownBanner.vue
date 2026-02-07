@@ -10,7 +10,7 @@
                             hạn</span>
                     </div>
                     <h2 class="text-3xl md:text-5xl font-black text-white !leading-[1.2]">
-                        Workshop Đặc Biệt:<br />
+                        Workshop Đặc Biệt :<br />
                         <span class="text-[#FFD700] font-black">{{ workshop.name }}</span>
                     </h2>
                     <p class="text-white/80 text-lg max-w-xl">
@@ -55,7 +55,7 @@
                 </div>
                 <div
                     class="relative z-10 flex flex-col items-center gap-4 shrink-0 bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm">
-                    <NuxtLink :to="'/workshop'"
+                    <NuxtLink :to="'/courses/workshop'"
                         class="group relative overflow-hidden bg-gradient-to-b from-[#FFD700] to-[#E6C200] hover:to-[#D4AF37] text-[#5e1313] font-bold text-lg py-4 px-10 rounded-full shadow-[0_4px_20px_rgba(255,215,0,0.3)] hover:shadow-[0_8px_30px_rgba(255,215,0,0.4)] transform hover:-translate-y-0.5 transition-all duration-300">
                         <span class="relative z-10 flex items-center gap-2 font-black uppercase tracking-wide">
                             Đăng ký ngay
