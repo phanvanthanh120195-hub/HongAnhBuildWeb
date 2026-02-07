@@ -16,4 +16,14 @@ class OrderItem extends Model
         'size',
         'subtotal'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'item_id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'item_id');
+    }
 }

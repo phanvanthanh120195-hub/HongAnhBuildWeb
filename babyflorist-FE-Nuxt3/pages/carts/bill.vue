@@ -1,7 +1,13 @@
 <script setup>
 definePageMeta({
-    layout: false
+    layout: false,
+    middleware: 'auth'
 })
+
+const route = useRoute();
+const config = useRuntimeConfig();
+const order = ref(null);
+const loading = ref(true);
 
 useHead({
     title: 'Hóa Đơn Thanh Toán | Workshop Hoa Tết',
@@ -11,6 +17,44 @@ useHead({
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap' }
     ]
+})
+
+const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price || 0).replace('₫', 'đ');
+}
+
+const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('vi-VN', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+const fetchOrder = async () => {
+    const orderId = route.query.orderId;
+    if (!orderId) {
+        loading.value = false;
+        return;
+    }
+
+    try {
+        const response = await $fetch(`${config.public.apiBase}/api/orders/${orderId}`, {
+            headers: {
+                Authorization: `Bearer ${useCookie('auth_token').value}`
+            }
+        });
+
+        if (response && response.success) {
+            order.value = response.data;
+        }
+    } catch (e) {
+        console.error('Failed to fetch order', e);
+    } finally {
+        loading.value = false;
+    }
+}
+
+onMounted(() => {
+    fetchOrder();
 })
 </script>
 
@@ -56,29 +100,29 @@ useHead({
                     Hóa Đơn Bán Hàng
                 </h2>
             </div>
-            <div class="grid grid-cols-2 gap-12 mb-12">
+            <div v-if="order" class="grid grid-cols-2 gap-12 mb-12">
                 <div class="space-y-3">
                     <div class="flex border-b border-stone-50 pb-2">
                         <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Mã hóa đơn:</span>
-                        <span class="text-sm font-bold text-stone-800">#HT-202401</span>
+                        <span class="text-sm font-bold text-stone-800">#{{ order.order_number }}</span>
                     </div>
                     <div class="flex border-b border-stone-50 pb-2">
                         <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Ngày lập:</span>
-                        <span class="text-sm text-stone-700">15 tháng 01, 2024</span>
+                        <span class="text-sm text-stone-700">{{ formatDate(order.created_at) }}</span>
                     </div>
                 </div>
                 <div class="space-y-3">
                     <div class="flex border-b border-stone-50 pb-2">
                         <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Khách hàng:</span>
-                        <span class="text-sm font-bold text-stone-800">Nguyễn Văn A</span>
+                        <span class="text-sm font-bold text-stone-800">{{ order.shipping_name }}</span>
                     </div>
                     <div class="flex border-b border-stone-50 pb-2">
                         <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Số điện thoại:</span>
-                        <span class="text-sm text-stone-700">0987 654 321</span>
+                        <span class="text-sm text-stone-700">{{ order.shipping_phone }}</span>
                     </div>
                     <div class="flex border-b border-stone-50 pb-2">
                         <span class="w-32 text-xs font-semibold text-stone-400 uppercase">Địa chỉ nhận:</span>
-                        <span class="text-sm text-stone-700">456 Lê Lợi, P. Bến Thành, Quận 1, TP. HCM</span>
+                        <span class="text-sm text-stone-700">{{ order.shipping_address || 'N/A' }}</span>
                     </div>
                 </div>
             </div>
@@ -94,56 +138,40 @@ useHead({
                             <th class="text-right">Thành tiền</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">01</td>
+                    <tbody v-if="order">
+                        <tr v-for="(item, index) in order.items" :key="item.id">
+                            <td class="text-center">{{ String(index + 1).padStart(2, '0') }}</td>
                             <td>
-                                <p class="font-semibold text-stone-800">Workshop: Cắm Hoa Đào Nghệ Thuật</p>
-                                <p class="text-[11px] text-stone-400">Giảng viên: Nghệ nhân Trần Thu</p>
+                                <p class="font-semibold text-stone-800">{{ item.item_name }}</p>
+                                <p class="text-[11px] text-stone-400">{{ item.item_type === 'course' ? 'Khóa học' :
+                                    'Sản phẩm' }}</p>
                             </td>
-                            <td class="text-center">Buổi</td>
-                            <td class="text-center">01</td>
-                            <td class="text-right">850.000đ</td>
-                            <td class="text-right font-medium">850.000đ</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">02</td>
-                            <td>
-                                <p class="font-semibold text-stone-800">Set Phụ Kiện Giỏ Quà Tết Sang Trọng</p>
-                                <p class="text-[11px] text-stone-400">Size L - Màu Vàng Kim</p>
-                            </td>
-                            <td class="text-center">Bộ</td>
-                            <td class="text-center">01</td>
-                            <td class="text-right">400.000đ</td>
-                            <td class="text-right font-medium">400.000đ</td>
+                            <td class="text-center">{{ item.item_type === 'course' ? 'Buổi' : 'Cái' }}</td>
+                            <td class="text-center">{{ String(item.quantity).padStart(2, '0') }}</td>
+                            <td class="text-right">{{ formatPrice(item.item_price) }}</td>
+                            <td class="text-right font-medium">{{ formatPrice(item.subtotal) }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="flex justify-end mb-20">
+            <div v-if="order" class="flex justify-end mb-20">
                 <div class="w-72 space-y-3">
                     <div class="flex justify-between text-sm">
                         <span class="text-stone-500">Tạm tính:</span>
-                        <span class="font-medium">1.250.000đ</span>
+                        <span class="font-medium">{{ formatPrice(order.total_amount) }}</span>
                     </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-stone-500">Giảm giá (Voucher TẾT):</span>
-                        <span class="text-green-600">-50.000đ</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-stone-500">Phí vận chuyển:</span>
-                        <span class="font-medium">50.000đ</span>
+                    <div v-if="order.discount_amount > 0" class="flex justify-between text-sm">
+                        <span class="text-stone-500">Giảm giá {{ order.voucher_code ? `(${order.voucher_code})` : ''
+                            }}:</span>
+                        <span class="text-green-600">-{{ formatPrice(order.discount_amount) }}</span>
                     </div>
                     <div class="pt-4 border-t-2 border-primary/20 flex justify-between items-center">
                         <span class="font-bold text-stone-900">TỔNG CỘNG:</span>
-                        <span class="text-2xl font-bold text-primary">1.250.000đ</span>
+                        <span class="text-2xl font-bold text-primary">{{ formatPrice(order.final_amount) }}</span>
                     </div>
                 </div>
             </div>
             <footer class="mt-auto">
-                <div class="text-center italic text-stone-500 mb-16">
-                    "Chúc quý khách một năm mới an khang thịnh vượng!"
-                </div>
                 <div class="grid grid-cols-2 gap-8 text-center">
                     <div class="space-y-24">
                         <div>
@@ -157,11 +185,8 @@ useHead({
                             <p class="font-bold uppercase text-xs tracking-widest mb-1 text-primary">Người Bán Hàng</p>
                             <p class="text-[10px] text-stone-400 italic">(Ký và ghi rõ họ tên)</p>
                         </div>
-                        <div class="text-stone-800 font-display italic text-lg opacity-80">Workshop Hoa Tết</div>
+                        <div class="text-stone-800 font-display italic text-lg opacity-80">Babyflorist</div>
                     </div>
-                </div>
-                <div class="mt-20 flex justify-center opacity-10">
-                    <span class="material-symbols-outlined text-6xl text-primary">filter_vintage</span>
                 </div>
             </footer>
         </div>
@@ -172,19 +197,28 @@ useHead({
 <style scoped>
 @media print {
     .no-print {
-        display: none;
+        display: none !important;
     }
 
     body {
         background-color: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     .invoice-container {
         box-shadow: none !important;
         border: none !important;
         margin: 0 !important;
-        padding: 0 !important;
+        padding: 20px !important;
         width: 100% !important;
+        min-height: auto !important;
+        page-break-inside: avoid;
+    }
+
+    /* Remove page break after container */
+    .invoice-container::after {
+        display: none;
     }
 }
 

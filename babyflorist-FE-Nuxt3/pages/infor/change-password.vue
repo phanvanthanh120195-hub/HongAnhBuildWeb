@@ -1,59 +1,58 @@
+<script setup lang="ts">
+import asideLeft from './aside-left.vue';
+
+definePageMeta({
+    middleware: 'auth'
+})
+
+const { addToast } = useToast()
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase
+
+const form = reactive({
+    password: '',
+    password_confirmation: ''
+})
+
+const loading = ref(false)
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
+
+const handleChangePassword = async () => {
+    if (form.password !== form.password_confirmation) {
+        addToast('Mật khẩu xác nhận không khớp', 'error')
+        return
+    }
+
+    loading.value = true
+    try {
+        const res: any = await $fetch(`${apiBase}/api/auth/change-password`, {
+            method: 'POST',
+            body: form,
+            headers: {
+                'Authorization': `Bearer ${useCookie('auth_token').value}`
+            }
+        })
+
+        if (res.success) {
+            addToast('Đổi mật khẩu thành công!', 'success')
+            form.password = ''
+            form.password_confirmation = ''
+        } else {
+            addToast(res.message || 'Đổi mật khẩu thất bại', 'error')
+        }
+    } catch (e: any) {
+        addToast(e.response?._data?.message || 'Có lỗi xảy ra', 'error')
+    } finally {
+        loading.value = false
+    }
+}
+</script>
+
 <template>
     <main class="max-w-[1400px] mx-auto px-6 py-12 min-h-[60vh]">
         <div class="flex flex-col lg:flex-row gap-8">
-            <aside class="w-full lg:w-1/4 space-y-6">
-                <div
-                    class="bg-white dark:bg-stone-900 rounded-2xl p-8 shadow-sm border border-stone-100 dark:border-stone-800 text-center">
-                    <div class="relative inline-block group">
-                        <div
-                            class="w-32 h-32 rounded-full bg-stone-100 dark:bg-stone-800 border-4 border-stone-50 dark:border-stone-700 mx-auto flex items-center justify-center overflow-hidden mb-4">
-                            <span class="display-font text-5xl text-stone-400 font-bold">A</span>
-                        </div>
-                        <button
-                            class="absolute bottom-1 right-1 bg-white dark:bg-stone-700 p-2 rounded-full shadow-lg border border-stone-200 dark:border-stone-600 hover:text-primary transition-colors">
-                            <span class="material-icons-outlined text-sm">photo_camera</span>
-                        </button>
-                    </div>
-                    <h2 class="display-font text-xl font-bold mt-2"></h2>
-                    <p class="text-sm text-stone-500 dark:text-stone-400"></p>
-                </div>
-                <nav
-                    class="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden shadow-sm border border-stone-100 dark:border-stone-800">
-                    <ul class="divide-y divide-stone-100 dark:divide-stone-800">
-                        <li>
-                            <NuxtLink
-                                class="flex items-center gap-4 px-6 py-4 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-400 transition-all border-l-4 border-transparent hover:border-stone-300"
-                                to="/profile">
-                                <span class="material-icons-outlined">person</span>
-                                Thông tin cá nhân
-                            </NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink
-                                class="flex items-center gap-4 px-6 py-4 bg-red-50 dark:bg-red-900/20 text-primary font-semibold border-l-4 border-primary transition-all"
-                                to="/infor/change-password">
-                                <span class="material-icons-outlined">lock</span>
-                                Đổi mật khẩu
-                            </NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink
-                                class="flex items-center gap-4 px-6 py-4 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-400 transition-all border-l-4 border-transparent hover:border-stone-300"
-                                to="/order-history">
-                                <span class="material-icons-outlined">history</span>
-                                Lịch sử đơn hàng
-                            </NuxtLink>
-                        </li>
-                        <li>
-                            <a class="flex items-center gap-4 px-6 py-4 hover:bg-red-50 dark:hover:bg-red-900/10 text-red-600 transition-all border-l-4 border-transparent hover:border-red-200"
-                                href="#">
-                                <span class="material-icons-outlined">logout</span>
-                                Đăng xuất
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </aside>
+            <asideLeft />
             <section class="w-full lg:w-3/4">
                 <div
                     class="bg-white dark:bg-stone-900 rounded-2xl p-8 lg:p-10 shadow-sm border border-stone-100 dark:border-stone-800 min-w-[1000px]">
@@ -64,20 +63,21 @@
                                 Đổi mật khẩu
                             </h2>
                         </div>
-                        <form class="space-y-8">
+                        <form @submit.prevent="handleChangePassword" class="space-y-8">
                             <div class="space-y-2">
                                 <label class="text-base font-semibold text-stone-600 dark:text-stone-400 ml-1">Mật khẩu
                                     mới</label>
                                 <div class="relative group">
                                     <span
                                         class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-primary transition-colors">lock_reset</span>
-                                    <input
+                                    <input v-model="form.password"
                                         class="w-full pl-12 pr-12 py-3.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                                        placeholder="••••••••" type="password" />
-                                    <button
+                                        placeholder="••••••••" :type="showPassword ? 'text' : 'password'" />
+                                    <button @click="showPassword = !showPassword"
                                         class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
                                         type="button">
-                                        <span class="material-symbols-outlined">visibility</span>
+                                        <span class="material-symbols-outlined">{{ showPassword ? 'visibility' :
+                                            'visibility_off' }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -87,22 +87,24 @@
                                 <div class="relative group">
                                     <span
                                         class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-primary transition-colors">verified_user</span>
-                                    <input
+                                    <input v-model="form.password_confirmation"
                                         class="w-full pl-12 pr-12 py-3.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                                        placeholder="••••••••" type="password" />
-                                    <button
+                                        placeholder="••••••••" :type="showConfirmPassword ? 'text' : 'password'" />
+                                    <button @click="showConfirmPassword = !showConfirmPassword"
                                         class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
                                         type="button">
-                                        <span class="material-symbols-outlined">visibility</span>
+                                        <span class="material-symbols-outlined">{{ showConfirmPassword ? 'visibility' :
+                                            'visibility_off' }}</span>
                                     </button>
                                 </div>
                             </div>
                             <div class="flex justify-start pt-4">
-                                <button
-                                    class="bg-primary hover:bg-red-800 text-white font-bold py-4 px-10 rounded-lg shadow-lg shadow-red-900/20 hover:shadow-red-900/40 transition-all active:scale-95 flex items-center gap-3"
+                                <button :disabled="loading"
+                                    class="bg-primary hover:bg-red-800 text-white font-bold py-4 px-10 rounded-lg shadow-lg shadow-red-900/20 hover:shadow-red-900/40 transition-all active:scale-95 flex items-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
                                     type="submit">
-                                    <span class="material-symbols-outlined">update</span>
-                                    CẬP NHẬT MẬT KHẨU
+                                    <span v-if="loading" class="material-symbols-outlined animate-spin">refresh</span>
+                                    <span v-else class="material-symbols-outlined">update</span>
+                                    {{ loading ? 'ĐANG CẬP NHẬT...' : 'CẬP NHẬT MẬT KHẨU' }}
                                 </button>
                             </div>
                         </form>

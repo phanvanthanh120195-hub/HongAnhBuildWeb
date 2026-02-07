@@ -55,9 +55,19 @@ Route::get('/banks', [App\Http\Controllers\Api\BankController::class, 'index']);
 // Voucher Check
 Route::post('/vouchers/check', [App\Http\Controllers\Api\VoucherController::class, 'check']);
 
+// Address API
+Route::prefix('addresses')->group(function () {
+    Route::get('/provinces', [App\Http\Controllers\Api\AddressController::class, 'getProvinces']);
+    Route::get('/districts/{provinceId}', [App\Http\Controllers\Api\AddressController::class, 'getDistricts']);
+    Route::get('/wards/{districtId}', [App\Http\Controllers\Api\AddressController::class, 'getWards']);
+});
+
 // Order Methods
+Route::get('/orders', [App\Http\Controllers\Api\OrderController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/orders/{id}', [App\Http\Controllers\Api\OrderController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/orders', [App\Http\Controllers\Api\OrderController::class, 'store']);
 Route::post('/orders/{id}/confirm', [App\Http\Controllers\Api\OrderController::class, 'confirm']);
+Route::post('/orders/{id}/cancel', [App\Http\Controllers\Api\OrderController::class, 'cancel']);
 
 // Support Requests
 Route::post('/support-requests', [App\Http\Controllers\Api\SupportRequestController::class, 'store']);

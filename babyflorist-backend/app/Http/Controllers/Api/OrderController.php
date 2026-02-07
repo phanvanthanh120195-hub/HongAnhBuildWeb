@@ -15,6 +15,47 @@ use Carbon\Carbon;
 class OrderController extends Controller
 {
     /**
+     * List user orders
+     */
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        $orders = Order::where('customer_id', $user->id)
+            ->with(['items.product', 'items.course']) // Eager load items and their details
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $orders
+        ]);
+    }
+
+    /**
+     * Get a single order by ID
+     */
+    public function show(Request $request, $id)
+    {
+        $user = $request->user();
+        $order = Order::where('id', $id)
+            ->where('customer_id', $user->id)
+            ->with(['items.product', 'items.course'])
+            ->first();
+
+        if (!$order) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đơn hàng không tồn tại'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $order
+        ]);
+    }
+
+    /**
      * Create a new order
      */
     public function store(Request $request)
@@ -220,6 +261,33 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Đã gửi xác nhận thanh toán. Vui lòng chờ Admin duyệt.'
+        ]);
+    }
+
+    /**
+     * Cancel an order (e.g. timeout or closed popup)
+     */
+    public function cancel($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['success' => false, 'message' => 'Đơn hàng không tồn tại'], 404);
+        }
+
+        // Only allow cancelling pending orders
+        if ($order->order_status !== 'pending' && $order->order_status !== 'processing') {
+             return response()->json(['success' => false, 'message' => 'Không thể hủy đơn hàng này']);
+        }
+
+        $order->order_status = 'cancelled';
+        // User requested payment_status to be 'pending' even if cancelled
+        $order->payment_status = 'pending'; 
+        $order->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Đơn hàng đã được hủy'
         ]);
     }
 

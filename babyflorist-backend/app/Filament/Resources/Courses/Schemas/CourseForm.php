@@ -48,7 +48,8 @@ class CourseForm
                                                         'workshop' => 'Workshop',
                                                     ])
                                                     ->default('course')
-                                                    ->native(false),
+                                                    ->native(false)
+                                                    ->live()
                                             ]),
 
                                             Grid::make(2)->schema([
@@ -216,11 +217,19 @@ class CourseForm
                             // RIGHT COLUMN
                             Group::make()
                                 ->schema([
+                                    Section::make('Hướng dẫn')
+                                        ->schema([
+                                            \Filament\Forms\Components\Placeholder::make('workshop_instruction')
+                                                ->hiddenLabel()
+                                                ->content('Lưu ý: Nếu loại nội dung là workshop, hãy chọn nổi bật và thêm thông tin thời gian workshop ở bên dưới!')
+                                                ->extraAttributes(['class' => 'text-primary-600 font-bold']),
+                                        ])
+                                    ->visible(fn (Get $get) => $get('format') === 'workshop'),
                                     Section::make('Trạng thái')
                                         ->schema([
                                             Toggle::make('is_featured')
-                                                ->label('Khóa học nổi bật')
-                                                ->helperText('Khóa học sẽ được hiển thị ở mục nổi bật trang chủ')
+                                                ->label('Nổi bật')
+                                                ->helperText('Nội dung sẽ được hiển thị ở mục nổi bật trang chủ')
                                                 ->default(false)
                                                 ->onColor('success')
                                                 ->inline(false)
@@ -290,10 +299,10 @@ class CourseForm
                                             ]),
 
                                             \Filament\Forms\Components\DateTimePicker::make('sale_start')
-                                                ->label('Hiệu lực từ'),
+                                                ->label(fn (Get $get) => $get('format') === 'workshop' ? 'Thời gian bắt đầu' : 'Hiệu lực từ'),
 
                                             \Filament\Forms\Components\DateTimePicker::make('sale_end')
-                                                ->label('Hiệu lực đến')
+                                                ->label(fn (Get $get) => $get('format') === 'workshop' ? 'Thời gian kết thúc' : 'Hiệu lực đến')
                                                 ->afterOrEqual('sale_start'),
                                         ]),
                                 ])

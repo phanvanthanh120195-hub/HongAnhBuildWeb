@@ -137,26 +137,33 @@ class OrderForm
                             ->schema([
                                 Select::make('order_status')
                                     ->label('Trạng thái đơn hàng')
-                                    ->options([
-                                        'pending' => 'Chờ xử lý',
-                                        'preparing' => 'Đang chuẩn bị',
-                                        'shipping' => 'Đang giao hàng',
-                                        'completed' => 'Hoàn thành',
-                                        'cancelled' => 'Đã hủy',
-                                    ])
+                                    ->options(fn (Get $get): array => match ($get('order_type')) {
+                                        'course' => [
+                                            'pending' => 'Chờ xử lý',
+                                            'completed' => 'Hoàn thành',
+                                            'cancelled' => 'Đã hủy',
+                                        ],
+                                        default => [
+                                            'pending' => 'Chờ xử lý',
+                                            'preparing' => 'Đang chuẩn bị',
+                                            'shipping' => 'Đang giao hàng',
+                                            'completed' => 'Hoàn thành',
+                                            'cancelled' => 'Đã hủy',
+                                        ],
+                                    })
                                     ->default('pending')
                                     ->required(),
                                 
                             ]),
 
-                        Section::make('Thanh toán thanh toán')
+                        Section::make('Thanh thái thanh toán')
                             ->schema([
                                 Select::make('payment_status')
                                     ->label('Trạng thái thanh toán')
                                     ->options([
-                                        'pending' => 'Chờ thanh toán',
+                                        'pending' => 'Chờ xử lý',
                                         'paid' => 'Đã thanh toán',
-                                        'failed' => 'Thất bại',
+                                        'failed' => 'Đã hủy',
                                         'refunded' => 'Hoàn tiền',
                                     ])
                                     ->default('pending')

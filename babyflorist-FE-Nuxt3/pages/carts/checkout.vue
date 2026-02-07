@@ -52,12 +52,33 @@
                                     class="w-full rounded-lg border-[#e7cfd1] dark:border-[#3d2a2c] bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary"
                                     placeholder="email@example.com" type="email" />
                             </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-bold text-[#1b0d0f] dark:text-white mb-2">Địa chỉ
-                                    chi tiết</label>
-                                <textarea v-model="form.address"
-                                    class="w-full rounded-lg border-[#e7cfd1] dark:border-[#3d2a2c] bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary"
-                                    placeholder="Số nhà, tên đường, phường/xã, quận/huyện..." rows="3"></textarea>
+                            <div class="md:col-span-2 space-y-4">
+                                <h3 class="font-bold text-[#1b0d0f] dark:text-white">Địa chỉ nhận hàng đầy đủ <span
+                                        class="text-red-500">*</span></h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-500 mb-1">Tỉnh/Thành
+                                            phố</label>
+                                        <SearchableSelect v-model="form.province" :options="provinces"
+                                            placeholder="Chọn Tỉnh/Thành" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-500 mb-1">Quận/Huyện</label>
+                                        <SearchableSelect v-model="form.district" :options="districts"
+                                            placeholder="Chọn Quận/Huyện" :disabled="!form.province" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-stone-500 mb-1">Phường/Xã</label>
+                                        <SearchableSelect v-model="form.ward" :options="wards"
+                                            placeholder="Chọn Phường/Xã" :disabled="!form.district" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-stone-500 mb-1">Địa chỉ cụ thể</label>
+                                    <textarea v-model="form.address"
+                                        class="w-full rounded-lg border-[#e7cfd1] dark:border-[#3d2a2c] bg-background-light dark:bg-background-dark px-4 py-3 focus:ring-primary focus:border-primary"
+                                        placeholder="Số nhà, tên đường..." rows="2"></textarea>
+                                </div>
                             </div>
                         </div>
 
@@ -135,7 +156,7 @@
                             <div class="flex justify-between text-sm">
                                 <span class="text-[#9a4c52] dark:text-[#c08287]">Tạm tính:</span>
                                 <span class="text-[#1b0d0f] dark:text-white font-semibold">{{ formatPrice(subtotal)
-                                }}</span>
+                                    }}</span>
                             </div>
 
                             <!-- Discount Code -->
@@ -178,7 +199,7 @@
                                 ]">
                                     {{ isCourseOpen ? 'THANH TOÁN NGAY' : 'CHƯA MỞ ĐĂNG KÝ' }}
                                     <span class="material-symbols-outlined">{{ isCourseOpen ? 'payments' : 'block'
-                                    }}</span>
+                                        }}</span>
                                 </button>
                             </div>
                         </div>
@@ -191,7 +212,7 @@
             </div>
         </div>
         <PaymentPopup v-if="showPayment" :bank="selectedBankData" :amount="totalAmount" :content="transferContent"
-            @close="showPayment = false" @confirm="onPaymentConfirm" />
+            @close="onPaymentClose" @confirm="onPaymentConfirm" />
         <AuthPopup v-if="showAuthPopup" @close="onAuthClose" />
     </div>
 </template>
@@ -199,6 +220,7 @@
 <script setup lang="ts">
 import PaymentPopup from '~/components/checkout/PaymentPopup.vue'
 import AuthPopup from '~/components/auth/AuthPopup.vue'
+import SearchableSelect from '~/components/common/SearchableSelect.vue'
 
 useHead({
     title: 'Thanh toán - Hoa Tết Art'
@@ -218,6 +240,11 @@ const banks = ref<any[]>([])
 const selectedBank = ref<number | null>(null)
 const quantity = ref(1)
 
+// Address Data
+const provinces = ref<any[]>([])
+const districts = ref<any[]>([])
+const wards = ref<any[]>([])
+
 // Voucher state
 const voucherCode = ref('')
 const appliedVoucher = ref<any>(null)
@@ -225,10 +252,13 @@ const voucherError = ref('')
 const applyingVoucher = ref(false)
 
 // Form data
-const form = ref({
+const form = ref<any>({
     name: '',
     phone: '',
     email: '',
+    province: null,
+    district: null,
+    ward: null,
     address: ''
 })
 
@@ -304,6 +334,46 @@ watch(selectedBank, () => {
     saveToStorage()
 })
 
+// Address API calls
+const fetchProvinces = async () => {
+    try {
+        const res: any = await $fetch(`${config.public.apiBase}/api/addresses/provinces`)
+        if (res.success) provinces.value = res.data
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+const fetchDistricts = async (provinceId: any) => {
+    try {
+        const res: any = await $fetch(`${config.public.apiBase}/api/addresses/districts/${provinceId}`)
+        if (res.success) districts.value = res.data
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+const fetchWards = async (districtId: any) => {
+    try {
+        const res: any = await $fetch(`${config.public.apiBase}/api/addresses/wards/${districtId}`)
+        if (res.success) wards.value = res.data
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+// Watchers for cascading dropdowns
+watch(() => form.value.province, (newVal) => {
+    districts.value = []
+    wards.value = []
+    if (newVal) fetchDistricts(newVal)
+})
+
+watch(() => form.value.district, (newVal) => {
+    wards.value = []
+    if (newVal) fetchWards(newVal)
+})
+
 // Voucher functions
 const applyVoucher = async () => {
     if (!voucherCode.value.trim()) {
@@ -371,27 +441,29 @@ const transferContent = computed(() => {
     return `KH ${phone} ${orderCode.value}`
 })
 
-const handlePayment = () => {
+const tempOrderId = ref<number | null>(null)
+
+const handlePayment = async () => {
     if (!user.value) {
         showAuthPopup.value = true
         return
     }
-    // Generate new order code for each payment attempt
-    orderCode.value = 'DH' + Math.floor(Math.random() * 900000 + 100000)
-    showPayment.value = true
-}
 
-const onAuthClose = () => {
-    showAuthPopup.value = false
-    if (user.value) {
-        showPayment.value = true
+    // Validate form
+    if (!form.value.name || !form.value.phone || !form.value.province || !form.value.district || !form.value.ward || !form.value.address) {
+        alert('Vui lòng nhập đầy đủ thông tin giao hàng')
+        return
     }
-}
 
-// Handle payment confirmation - create order and redirect
-const onPaymentConfirm = async () => {
+    // Resolve names for full address
+    const provinceName = provinces.value.find(p => p.id == form.value.province)?.name || ''
+    const districtName = districts.value.find(d => d.id == form.value.district)?.name || ''
+    const wardName = wards.value.find(w => w.id == form.value.ward)?.name || ''
+    const fullAddress = `${form.value.address}, ${wardName}, ${districtName}, ${provinceName}`
+
+    loading.value = true
     try {
-        // Create order via API
+        // Create order IMMEDIATELY
         const response = await $fetch<{ success: boolean; data?: { order_id: number; order_number: string; final_amount: number }; message?: string }>(`${config.public.apiBase}/api/orders`, {
             method: 'POST',
             headers: {
@@ -402,7 +474,7 @@ const onPaymentConfirm = async () => {
                 name: form.value.name,
                 phone: form.value.phone,
                 email: form.value.email,
-                address: form.value.address || 'N/A',
+                address: fullAddress,
                 course_id: course.value?.id,
                 bank_id: selectedBank.value,
                 voucher_code: appliedVoucher.value?.code || null,
@@ -411,36 +483,72 @@ const onPaymentConfirm = async () => {
         })
 
         if (response.success && response.data) {
-            // Confirm transfer
-            await $fetch(`${config.public.apiBase}/api/orders/${response.data.order_id}/confirm`, {
+            tempOrderId.value = response.data.order_id
+            orderCode.value = response.data.order_number // Use real order number
+            showPayment.value = true
+        } else {
+            alert(response.message || 'Có lỗi xảy ra khi tạo đơn hàng')
+        }
+    } catch (error: any) {
+        console.error('Order creation error:', error)
+        alert(error.data?.message || 'Có lỗi xảy ra. Vui lòng thử lại.')
+    } finally {
+        loading.value = false
+    }
+}
+
+const onAuthClose = () => {
+    showAuthPopup.value = false
+    // Do not auto-show payment, user needs to click pay again to ensure flow
+}
+
+// Handle payment confirmation - confirm order and redirect
+const onPaymentConfirm = async () => {
+    if (!tempOrderId.value) return
+
+    try {
+        // Confirm transfer
+        await $fetch(`${config.public.apiBase}/api/orders/${tempOrderId.value}/confirm`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${useCookie('auth_token').value}`
+            }
+        })
+
+        // Clear localStorage
+        localStorage.removeItem('checkout_quantity')
+        localStorage.removeItem('checkout_bank')
+
+        // Redirect to success page
+        navigateTo({
+            path: '/carts/payment-success',
+            query: {
+                order: orderCode.value,
+                total: totalAmount.value,
+                course: course.value?.name || 'Khóa học'
+            }
+        })
+    } catch (error: any) {
+        console.error('Order confirm error:', error)
+        alert(error.data?.message || 'Có lỗi xảy ra khi xác nhận.')
+    }
+}
+
+const onPaymentClose = async () => {
+    if (tempOrderId.value) {
+        try {
+            await $fetch(`${config.public.apiBase}/api/orders/${tempOrderId.value}/cancel`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${useCookie('auth_token').value}`
                 }
             })
-
-            // Clear localStorage
-            localStorage.removeItem('checkout_quantity')
-            localStorage.removeItem('checkout_bank')
-
-            // Redirect to success page
-            navigateTo({
-                path: '/carts/payment-success',
-                query: {
-                    order: response.data.order_number,
-                    total: response.data.final_amount,
-                    course: course.value?.name || 'Khóa học'
-                }
-            })
-        } else {
-            alert(response.message || 'Có lỗi xảy ra khi tạo đơn hàng')
-            showPayment.value = false
+        } catch (error) {
+            console.error('Failed to cancel order:', error)
         }
-    } catch (error: any) {
-        console.error('Order creation error:', error)
-        alert(error.data?.message || 'Có lỗi xảy ra. Vui lòng thử lại.')
-        showPayment.value = false
     }
+    showPayment.value = false
+    tempOrderId.value = null
 }
 
 // Check if course is open for registration
@@ -460,6 +568,20 @@ onMounted(async () => {
 
     // Load form from session first
     loadFromStorage()
+
+    // Fetch Initial Address Data
+    await fetchProvinces()
+
+    // Populate from user if logged in
+    if (user.value) {
+        if (user.value.province) form.value.province = user.value.province
+        if (user.value.district) form.value.district = user.value.district
+        if (user.value.ward) form.value.ward = user.value.ward
+
+        // Trigger cascading fetches
+        if (form.value.province) await fetchDistricts(form.value.province)
+        if (form.value.district) await fetchWards(form.value.district)
+    }
 
 
 

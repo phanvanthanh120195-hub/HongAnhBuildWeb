@@ -55,6 +55,31 @@ class OrdersTable
                 TextColumn::make('voucher_code')
                     ->label('Mã Voucher')
                     ->searchable(),
+                TextColumn::make('order_status')
+                    ->label('Trạng thái đơn')
+                    ->badge()
+                    ->formatStateUsing(function ($state, $record) {
+                        return match ($state) {
+                            'pending' => 'Chờ xử lý',
+                            'paid' => 'Đã thanh toán',
+                            'preparing' => 'Đang chuẩn bị',
+                            'shipping' => 'Đang giao hàng',
+                            'completed' => 'Hoàn thành',
+                            'cancelled' => 'Đã hủy',
+                            default => $state,
+                        };
+                    })
+                    ->color(function ($state, $record) {
+                        return match ($state) {
+                            'pending' => 'danger',
+                            'paid' => 'info',
+                            'preparing' => 'warning',
+                            'shipping' => 'primary',
+                            'completed' => 'success',
+                            'cancelled' => 'gray',
+                            default => 'gray',
+                        };
+                    }),
                 TextColumn::make('payment_status')
                     ->label('Trạng thái thanh toán')
                     ->badge()
@@ -82,37 +107,6 @@ class OrdersTable
                         default => $state,
                     })
                     ->color('gray'),
-                TextColumn::make('order_status')
-                    ->label('Trạng thái đơn')
-                    ->badge()
-                    ->formatStateUsing(function ($state, $record) {
-                        if ($record->order_type === 'course') {
-                            return '';
-                        }
-                        return match ($state) {
-                            'pending' => 'Chờ xử lý',
-                            'paid' => 'Đã thanh toán',
-                            'preparing' => 'Đang chuẩn bị',
-                            'shipping' => 'Đang giao hàng',
-                            'completed' => 'Hoàn thành',
-                            'cancelled' => 'Đã hủy',
-                            default => $state,
-                        };
-                    })
-                    ->color(function ($state, $record) {
-                        if ($record->order_type === 'course') {
-                            return null;
-                        }
-                        return match ($state) {
-                            'pending' => 'gray',
-                            'paid' => 'info',
-                            'preparing' => 'warning',
-                            'shipping' => 'primary',
-                            'completed' => 'success',
-                            'cancelled' => 'danger',
-                            default => 'gray',
-                        };
-                    }),
                 TextColumn::make('created_at')
                     ->label('Ngày tạo')
                     ->dateTime()
